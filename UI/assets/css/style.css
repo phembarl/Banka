@@ -20,6 +20,17 @@ body{
 	position: relative;
 }
 
+#admin-login{
+	background: url(../img/bank3.jpeg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+	position: relative;
+}
+
 #welcome h1{
 	font-size: 70px;
     color: #00ffff;
