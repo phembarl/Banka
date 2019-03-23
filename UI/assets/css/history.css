@@ -1,0 +1,78 @@
+#history{
+	background: url(../img/bank2.jpeg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+	position: relative;
+}
+
+.navbar{
+    background: #f2f2f2;
+}
+
+.nav{
+    color: #000;
+}
+
+.user, .link{
+    color: #000;
+    margin-top: 5px;
+}
+
+#hist{
+    padding-top: 15px;
+    margin: auto;
+    margin-top: 40px;
+    display: inline-block;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+}
+
+#records{
+    text-align: justify;
+    margin: auto;
+}
+
+#historyDiv{
+    padding-bottom: 30px;
+}
+
+table{
+    border-spacing: 0;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+thead{
+    background-color:rgba(191, 191, 191, .5);
+    background-color:rgba(115, 115, 115, .9);
+    color: #fff;
+}
+
+th, td{
+    padding: 20px;
+}
+
+tbody tr:nth-child(even){
+	background-color: rgba(0, 255, 255, .5);
+}
+
+@media (max-width: 1024px){
+    .toggle-btn span{
+        background: #000;
+    }
+
+    #hist{
+        max-width: 90%;
+        overflow-x: scroll;
+    }
+
+    table{
+        /* max-width: 80%; */
+        /* margin: auto; */
+        /* overflow-x: scroll; */
+    }
+}

@@ -4,13 +4,12 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	/* background-attachment: fixed; */
+	background-attachment: fixed;
     min-height: 100vh;
 	position: relative;
 }
 
 #info{
-    /* text-align: center; */
     padding: 3%;
     margin: auto;
     margin-top: 100px;
@@ -35,7 +34,6 @@
 }
 
 #records{
-    /* display: inline-block; */
     float: right;
     text-align: justify;
     margin: auto;
