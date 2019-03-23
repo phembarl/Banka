@@ -3,7 +3,7 @@ html{
 }
 
 body{
-    font-family: sans-serif;
+    font-family: 'Raleway', sans-serif;;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -28,7 +28,7 @@ body{
     margin-bottom: 0;
 }
 
-#firsthr{
+.firsthr{
 	width: 60px;
 	margin-top:35px;
 	margin-bottom:35px;
@@ -144,8 +144,6 @@ h3 a{
 }
 
 .heading{
-	/* color:#00ffff;
-	margin-top: 50px; */
 	text-align: center;
 }
 
