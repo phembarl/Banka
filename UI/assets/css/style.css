@@ -74,8 +74,9 @@ h3 a{
 	margin-top: 0;
 }
 
-.user{
+.user, .link{
 	color: #ffff;
+	opacity: .7;
 	margin: 0;
 	text-decoration: none;
 	font-size: 20px;
@@ -83,6 +84,18 @@ h3 a{
 	z-index: 10;
 	text-align: right;
 }
+
+.active{
+    opacity: 1;
+}
+
+.user:hover, .link:hover{
+	opacity: 1;
+}
+
+/* link:hover{
+	opacity: 1;
+} */
 
 .image-overlay{
 	position: absolute;
@@ -113,7 +126,7 @@ h3 a{
 }
 
 .nav-link{
-	padding-right: 50px;
+	margin-right: 50px;
 }
 
 .nav-right{
