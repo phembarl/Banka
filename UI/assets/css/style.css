@@ -93,10 +93,6 @@ h3 a{
 	opacity: 1;
 }
 
-/* link:hover{
-	opacity: 1;
-} */
-
 .image-overlay{
 	position: absolute;
 	display:block;
@@ -148,12 +144,10 @@ h3 a{
 }
 
 #form-text{
-	color: #000;
 	font-size: 25px;
 }
 
 #signup-form{
-	color: #fff;
     text-align: center;
     padding: 3%;
     margin: auto;
@@ -175,7 +169,6 @@ form input{
 }
 
 #login-form{
-	color: #fff;
     text-align: center;
     padding: 3%;
     margin: auto;
@@ -253,5 +246,14 @@ form input{
 
 	.toggle-show{
 		display: flex;
-    }
+	}
+	
+	#login-form, #signup-form{
+		margin-top: 50px;
+		width: 80%;
+	}
+
+	form input, #submit{
+		width: 90%;
+	}
 }
