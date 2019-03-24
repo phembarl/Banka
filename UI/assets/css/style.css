@@ -193,6 +193,16 @@ form input{
     border-radius: 10px;
 }
 
+#cred-form{
+    text-align: center;
+    padding: 3%;
+    margin: auto;
+    margin-top: 50px;
+    width: 350px;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+}
+
 .forgot{
     display: block;
     color: #000;
