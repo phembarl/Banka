@@ -20,6 +20,10 @@ body{
 	position: relative;
 }
 
+.mob{
+	display: none;
+}
+
 #admin{
 	background: url(../img/bank3.jpeg);
 	text-align: center;
@@ -241,6 +245,15 @@ form input{
 		padding-top:20%;
 	}
 
+	.desk{
+		display: none;
+	}
+
+	.mob{
+		display: block;
+		text-align: center;
+	}
+
 	.navbar, .nav-items{
 		flex-direction: column;
 	}
@@ -261,12 +274,12 @@ form input{
 	}
 
 	.nav{
-		text-align: justify;
+		float: left;
 	}
 
 	.nav-link{
-		padding-right: 10px;
-		padding-top: 10px;
+		margin-right: 10px;
+		margin-top: 10px;
 	}
 
 	.toggle-show{
@@ -275,6 +288,11 @@ form input{
 	
 	#login-form, #signup-form{
 		margin-top: 50px;
+		width: 80%;
+	}
+
+	#cred-form{
+		margin-top: 70px;
 		width: 80%;
 	}
 
