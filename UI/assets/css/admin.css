@@ -1,5 +1,6 @@
 .info{
     margin-top: 15px;
+    padding-top:4%;
     padding-bottom: 70px;
 }
 
@@ -28,6 +29,7 @@
     border: 2px solid #000;
     color: #fff;
     background:#000;
+    margin-left: 40px;
 }
 
 .activate:hover{
@@ -56,6 +58,14 @@
     background: #000;
 }
 
+.delete{
+    position: absolute;
+    top: 0;
+    right: 30px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media (max-width: 1024px){
     .del{
         margin-left: 10px;
@@ -63,5 +73,9 @@
 
     .button{
         width: 100px;
+    }
+
+    .activate{
+        margin-left: 10px;
     }
 }

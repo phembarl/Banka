@@ -6,7 +6,8 @@
 	background-size: cover;
 	background-attachment: fixed;
     min-height: 100vh;
-	position: relative;
+    position: relative;
+    padding-top: 50px;
 }
 
 .navbar{
@@ -43,6 +44,6 @@
 
 @media (max-width: 1024px){
     #account-form{
-        width: 80%;
+        max-width: 80%;
     }
 }
