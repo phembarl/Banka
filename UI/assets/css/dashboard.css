@@ -9,7 +9,7 @@
 	position: relative;
 }
 
-#info{
+.info{
     padding: 3%;
     margin: auto;
     margin-top: 100px;
@@ -28,12 +28,12 @@
     border-radius: 10px;
 }
 
-#me{
+#me, .avatar{
     height: auto;
     width: 100%;
 }
 
-#records{
+.records{
     float: right;
     text-align: justify;
     margin: auto;
@@ -53,7 +53,7 @@
     margin-top: 5px;
 }
 
-#infoDiv{
+.infoDiv{
     padding-bottom: 20px;
 }
 
@@ -62,7 +62,7 @@
 }
 
 @media (max-width: 1024px){
-    #info{
+    .info{
         width: 85%;
         margin-top: 50px;
     }
@@ -76,7 +76,7 @@
         margin-bottom:20px;
     }
 
-    #records{
+    .records{
         float: none;
         margin-left: 30px;
     }

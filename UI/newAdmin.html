@@ -3,38 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>New Admin/Staff</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
 <body>
-    <div id="welcome">
-        <nav class="navbar">
+    <div id="admin">
+        <nav class="visible navbar">
             <a href="index.html" class="visible nav nav-link">Banka</a>
 
+            <div class="nav-items">
+                <a class="link nav-link" href="admin.html">Home</a>
+                <a class="link nav-link active" href="newAdmin.html">New Admin/Staff</a>
+            </div>
+    
             <div class="toggle-btn visible nav-link">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-
+    
             <div class="nav-items nav-right">	
-                    <a href="staffLogin.html" class="user visible nav-link">Staff Login</a>
-                    <a href="adminLogin.html" class="user visible nav-link">Admin</a>
-                </div>
+                <a href="adminLogin.html" class="user visible nav-link">Log Out</a>
+            </div>
         </nav>
         
         <div>
-            <form class="visible" id="signup-form">
-                <h3 id="form-text">Create Your Account</h3>
-                <input type="text" name="" placeholder="First name">
-                <input type="text" name="" placeholder="Last name">
-                <input type="email" name="" placeholder="Email address">
+            <form class="visible" id="login-form" action="admin.html">
+                <h3 id="form-text">New Admin/Staff</h3>
+                <input type="text" name="" placeholder="User Name">
+                <input type="text" name="" placeholder="Role (Admin/Staff)">
                 <input type="password" name="" placeholder="Create password">
                 <input type="password" name="" placeholder="Confirm password">
                 <input type="Submit" name="" id="submit">
 
-                <a href="login.html" class="other"> Already have an account? Sign in</a>
             </form>
         </div>
         
