@@ -238,7 +238,7 @@ form input{
 
 @media (max-width: 1024px){
 	#welcome h1{
-		padding-top:35%;
+		padding-top:20%;
 	}
 
 	.navbar, .nav-items{
@@ -280,5 +280,8 @@ form input{
 
 	form input, #submit{
 		width: 90%;
+	}
+	#signup-form{
+		margin-top: 20px;
 	}
 }

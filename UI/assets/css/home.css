@@ -43,6 +43,10 @@
     border-radius: 10px;
 }
 
+#aboutDiv{
+    padding-bottom: 50px;
+}
+
 .sub-topic{
     text-align: center;
 }
@@ -60,5 +64,7 @@
 }
 
 @media (max-width: 1024px){
-
+    #about{
+        width: 80%;
+    }
 }
