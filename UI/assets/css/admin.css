@@ -1,0 +1,46 @@
+.info{
+    margin-top: 15px;
+    padding-bottom: 70px;
+}
+
+#top{
+    margin-top: 50px;
+}
+
+.btns{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.button{
+    float: left;
+    margin-left: 20px;
+    background: none;
+    height: 40px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #000;
+    outline: none;
+}
+
+.activate{
+    border: 2px solid #000;
+    color: #fff;
+    background:#000;
+}
+
+.activate:hover{
+    color: #000;
+    background: #fff;
+}
+
+.deactivate{
+    color: #000;
+    margin-left: 50px;
+}
+
+.deactivate:hover{
+    color: #fff;
+    background: #000;
+}
