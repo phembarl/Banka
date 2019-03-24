@@ -44,3 +44,20 @@
     color: #fff;
     background: #000;
 }
+
+.del{
+    color: #000;
+    background: none;
+    margin-left: 40px;
+}
+
+.del:hover{
+    color: #fff;
+    background: #000;
+}
+
+@media (max-width: 1024px){
+    .del{
+        margin-left: 10px;
+    }
+}
