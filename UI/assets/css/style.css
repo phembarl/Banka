@@ -1,10 +1,10 @@
 html{
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 body{
     font-family: 'Raleway', sans-serif;;
-    height: 100%;
+    min-height: 100vh;
     padding: 0;
     margin: 0;
 }
@@ -18,6 +18,23 @@ body{
 	background-attachment: fixed;
     min-height: 100vh;
 	position: relative;
+	padding-top: 50px;
+}
+
+#indexWelcome{
+	background: url(../img/bank.jpg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+	position: relative;
+	padding-bottom: 20px;
+}
+
+.mob{
+	display: none;
 }
 
 #admin{
@@ -29,9 +46,18 @@ body{
 	background-attachment: fixed;
     min-height: 100vh;
 	position: relative;
+	padding-top: 50px;
 }
 
 #welcome h1{
+	font-size: 70px;
+    color: #00ffff;
+	padding-top: 13%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#indexWelcome h1{
 	font-size: 70px;
     color: #00ffff;
 	padding-top: 13%;
@@ -118,7 +144,16 @@ h3 a{
 
 .navbar{
 	display: flex;
-    padding: 16px;
+	padding: 16px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 2;
+}
+
+.indexNavbar{
+	display: flex;
+	padding: 16px;
 }
 
 .nav{
@@ -142,10 +177,24 @@ h3 a{
 
 .toggle-btn{
     transition: all 500ms linear;
-    display: none;
+	display: none;
+}
+
+.tog-btn{
+    transition: all 500ms linear;
+	display: none;
 }
 
 .toggle-btn span{
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.tog-btn span{
     display: block;
     width: 30px;
     height: 4px;
@@ -236,12 +285,33 @@ form input{
 }
 
 
-@media (max-width: 1024px){
+@media only screen and (max-width: 1024px){
+	#welcome{
+		padding-top:60px;
+	}
+
 	#welcome h1{
-		padding-top:20%;
+		padding-top:15%;
+	}
+
+	#indexWelcome h1{
+		padding-top:15%;
+	}
+
+	.desk{
+		display: none;
+	}
+
+	.mob{
+		display: block;
+		text-align: center;
 	}
 
 	.navbar, .nav-items{
+		flex-direction: column;
+	}
+
+	.indexNavbar{
 		flex-direction: column;
 	}
 
@@ -250,7 +320,10 @@ form input{
 	}
 
 	.nav-items{
-		display: none;
+		max-height: 0px;
+		overflow: hidden;
+		border-top: none;
+		transition: all .3s;
 	}
 
 	.toggle-btn{
@@ -258,24 +331,41 @@ form input{
 		display: initial;
 		position: absolute;
 		cursor: pointer;
+		right: 0;
+	}
+
+	.tog-btn{
+		align-self: flex-end;
+		display: initial;
+		position: absolute;
+		cursor: pointer;
 	}
 
 	.nav{
-		text-align: justify;
+		float: left;
 	}
 
 	.nav-link{
-		padding-right: 10px;
+		text-align: left;
+	}
+
+	.link, .user{
 		padding-top: 10px;
 	}
 
 	.toggle-show{
-		display: flex;
+		max-height: 200px;
+		transition: all .5s;
 	}
 	
 	#login-form, #signup-form{
 		margin-top: 50px;
-		width: 80%;
+		max-width: 70%;
+	}
+
+	#cred-form{
+		margin-top: 70px;
+		max-width: 80%;
 	}
 
 	form input, #submit{

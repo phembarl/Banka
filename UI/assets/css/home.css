@@ -1,6 +1,5 @@
 #home{
 	background: url(../img/bank.jpg);
-	/* text-align: center; */
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -10,21 +9,13 @@
     position: relative;
 }
 
-.navbar{
-    background: #f2f2f2;
-}
-
 .nav{
-    color: #000;
+    color: #00ffff;
 }
 
-.user, .link{
-    color: #000;
-    margin-top: 5px;
-}
-
-.toggle-btn span{
-    background: #000;
+.homeNavbar{
+	display: flex;
+	padding: 16px;
 }
 
 #hello{
@@ -66,5 +57,9 @@
 @media (max-width: 1024px){
     #about{
         width: 80%;
+    }
+
+    .homeNavbar{
+        flex-direction: column;
     }
 }
