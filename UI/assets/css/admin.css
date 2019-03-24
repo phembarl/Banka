@@ -1,5 +1,6 @@
 .info{
     margin-top: 15px;
+    padding-top:4%;
     padding-bottom: 70px;
 }
 
@@ -28,11 +29,12 @@
     border: 2px solid #000;
     color: #fff;
     background:#000;
+    margin-left: 40px;
 }
 
 .activate:hover{
     color: #000;
-    background: #fff;
+    background: #f2f2f2;
 }
 
 .deactivate{
@@ -45,15 +47,12 @@
     background: #000;
 }
 
-.del{
-    color: #000;
-    background: none;
-    margin-left: 40px;
-}
-
-.del:hover{
-    color: #fff;
-    background: #000;
+.delete{
+    position: absolute;
+    top: 0;
+    right: 30px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 @media (max-width: 1024px){
@@ -63,5 +62,9 @@
 
     .button{
         width: 100px;
+    }
+
+    .activate{
+        margin-left: 10px;
     }
 }
