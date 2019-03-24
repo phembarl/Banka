@@ -47,7 +47,6 @@ table{
 }
 
 thead{
-    background-color:rgba(191, 191, 191, .5);
     background-color:rgba(115, 115, 115, .9);
     color: #fff;
 }
@@ -66,13 +65,68 @@ tbody tr:nth-child(even){
     }
 
     #hist{
-        max-width: 90%;
-        overflow-x: scroll;
+        width: 90%;
     }
 
-    table{
-        /* max-width: 80%; */
-        /* margin: auto; */
-        /* overflow-x: scroll; */
+    table, thead, tbody, th, tr, td{
+        display: block;
+    }
+
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    td{
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, .9);
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before{
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    td:nth-of-type(1):before{
+        content: "Date";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(2):before{
+        content: "Transaction Type";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(3):before{
+        content: "Narration";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(4):before{
+        content: "Amount";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(5):before{
+        content: "Currency";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(6):before{
+        content: "Balance";
+        padding-top: 15px;
+        font-weight: bold;
     }
 }
