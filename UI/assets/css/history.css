@@ -6,7 +6,8 @@
 	background-size: cover;
 	background-attachment: fixed;
     min-height: 100vh;
-	position: relative;
+    position: relative;
+    padding-top: 50px;
 }
 
 .navbar{
@@ -59,7 +60,7 @@ tbody tr:nth-child(even){
 	background-color: rgba(0, 255, 255, .5);
 }
 
-@media (max-width: 1024px){
+@media only screen and (max-width: 1024px){
     .toggle-btn span{
         background: #000;
     }

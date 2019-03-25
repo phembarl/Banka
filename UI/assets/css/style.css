@@ -18,6 +18,7 @@ body{
 	background-attachment: fixed;
     min-height: 100vh;
 	position: relative;
+	padding-top: 50px;
 }
 
 .mob{
@@ -33,6 +34,7 @@ body{
 	background-attachment: fixed;
     min-height: 100vh;
 	position: relative;
+	padding-top: 50px;
 }
 
 #welcome h1{
@@ -122,7 +124,11 @@ h3 a{
 
 .navbar{
 	display: flex;
-    padding: 16px;
+	padding: 16px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 2;
 }
 
 .nav{
@@ -146,7 +152,8 @@ h3 a{
 
 .toggle-btn{
     transition: all 500ms linear;
-    display: none;
+	display: none;
+	padding-right: 35px;
 }
 
 .toggle-btn span{
@@ -240,9 +247,13 @@ form input{
 }
 
 
-@media (max-width: 1024px){
+@media only screen and (max-width: 1024px){
+	#welcome{
+		padding-top:60px;
+	}
+
 	#welcome h1{
-		padding-top:20%;
+		padding-top:15%;
 	}
 
 	.desk{
@@ -263,7 +274,10 @@ form input{
 	}
 
 	.nav-items{
-		display: none;
+		max-height: 0px;
+		overflow: hidden;
+		border-top: none;
+		transition: all .3s;
 	}
 
 	.toggle-btn{
@@ -278,22 +292,26 @@ form input{
 	}
 
 	.nav-link{
-		margin-right: 10px;
-		margin-top: 10px;
+		text-align: left;
+	}
+
+	.link, .user{
+		padding-top: 10px;
 	}
 
 	.toggle-show{
-		display: flex;
+		max-height: 200px;
+		transition: all .5s;
 	}
 	
 	#login-form, #signup-form{
 		margin-top: 50px;
-		width: 80%;
+		max-width: 70%;
 	}
 
 	#cred-form{
 		margin-top: 70px;
-		width: 80%;
+		max-width: 80%;
 	}
 
 	form input, #submit{
