@@ -1,0 +1,84 @@
+#dashboard{
+	background: url(../img/bank2.jpeg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    padding-top: 50px;
+}
+
+.info{
+    padding: 3%;
+    margin: auto;
+    margin-top: 100px;
+    width: 700px;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+}
+
+.image-cropper{
+    display: inline-block;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#me, .avatar{
+    height: auto;
+    width: 100%;
+}
+
+.records{
+    float: right;
+    text-align: justify;
+    margin: auto;
+	margin-left: 70px;
+}
+
+.navbar{
+    background: #f2f2f2;
+}
+
+.nav{
+    color: #000;
+}
+
+.user, .link{
+    color: #000;
+    margin-top: 5px;
+}
+
+.infoDiv{
+    padding-bottom: 20px;
+}
+
+.toggle-btn span{
+    background: #000;
+}
+
+@media (max-width: 1024px){
+    .info{
+        max-width: 80%;
+        margin-top: 50px;
+    }
+
+    .image-cropper{
+        display: block;
+        width: 150px;
+        height: 150px;
+        margin-top:20px;
+        margin-left: 30px;
+        margin-bottom:20px;
+    }
+
+    .records{
+        float: none;
+        margin-left: 30px;
+    }
+}

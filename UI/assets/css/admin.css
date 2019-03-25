@@ -1,0 +1,81 @@
+.info{
+    margin-top: 15px;
+    padding-top:4%;
+    padding-bottom: 70px;
+}
+
+#top{
+    margin-top: 50px;
+}
+
+.btns{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.button{
+    float: left;
+    margin-left: 20px;
+    background: none;
+    height: 40px;
+    width: 120px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #000;
+    outline: none;
+}
+
+.activate{
+    border: 2px solid #000;
+    color: #fff;
+    background:#000;
+    margin-left: 40px;
+}
+
+.activate:hover{
+    color: #000;
+    background: #fff;
+}
+
+.deactivate{
+    color: #000;
+    margin-left: 50px;
+}
+
+.deactivate:hover{
+    color: #fff;
+    background: #000;
+}
+
+.del{
+    color: #000;
+    background: none;
+    margin-left: 40px;
+}
+
+.del:hover{
+    color: #fff;
+    background: #000;
+}
+
+.delete{
+    position: absolute;
+    top: 0;
+    right: 30px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media (max-width: 1024px){
+    .del{
+        margin-left: 10px;
+    }
+
+    .button{
+        width: 100px;
+    }
+
+    .activate{
+        margin-left: 10px;
+    }
+}

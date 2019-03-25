@@ -1,0 +1,133 @@
+#history{
+	background: url(../img/bank2.jpeg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    padding-top: 50px;
+}
+
+.navbar{
+    background: #f2f2f2;
+}
+
+.nav{
+    color: #000;
+}
+
+.user, .link{
+    color: #000;
+    margin-top: 5px;
+}
+
+#hist{
+    padding-top: 15px;
+    margin: auto;
+    margin-top: 40px;
+    display: inline-block;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+}
+
+#records{
+    text-align: justify;
+    margin: auto;
+}
+
+#historyDiv{
+    padding-bottom: 30px;
+}
+
+table{
+    border-spacing: 0;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+thead{
+    background-color:rgba(115, 115, 115, .9);
+    color: #fff;
+}
+
+th, td{
+    padding: 20px;
+}
+
+tbody tr:nth-child(even){
+	background-color: rgba(0, 255, 255, .5);
+}
+
+@media only screen and (max-width: 1024px){
+    .toggle-btn span{
+        background: #000;
+    }
+
+    #hist{
+        width: 90%;
+    }
+
+    table, thead, tbody, th, tr, td{
+        display: block;
+    }
+
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    td{
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, .9);
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before{
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    td:nth-of-type(1):before{
+        content: "Date";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(2):before{
+        content: "Transaction Type";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(3):before{
+        content: "Narration";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(4):before{
+        content: "Amount";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(5):before{
+        content: "Currency";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+
+    td:nth-of-type(6):before{
+        content: "Balance";
+        padding-top: 15px;
+        font-weight: bold;
+    }
+}

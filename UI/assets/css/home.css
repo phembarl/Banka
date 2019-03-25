@@ -1,0 +1,70 @@
+#home{
+	background: url(../img/bank.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    position: relative;
+    padding-top: 50px;
+}
+
+.navbar{
+    background: #f2f2f2;
+}
+
+.nav{
+    color: #000;
+}
+
+.user, .link{
+    color: #000;
+    margin-top: 5px;
+}
+
+.toggle-btn span{
+    background: #000;
+}
+
+#hello{
+    padding-top: 30px;
+    padding-left: 70px;
+    font-size: 1.2rem;
+    color: #00ffff;
+}
+
+#about{
+    padding: 5%;
+    margin: auto;
+    margin-top: 50px;
+    width: 700px;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+}
+
+#aboutDiv{
+    padding-bottom: 50px;
+}
+
+.sub-topic{
+    text-align: center;
+}
+
+.abouthr{
+	width: 60px;
+	margin-bottom:15px;
+	border: 0;
+    height: 1px;
+    background: #000;
+}
+
+.lorem{
+    font-size: 18px;
+}
+
+@media (max-width: 1024px){
+    #about{
+        width: 80%;
+    }
+}

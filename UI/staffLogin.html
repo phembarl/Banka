@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <title>Staff Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
 <body>
-    <div id="welcome">
+    <div id="admin">
         <nav class="navbar">
             <div>
                 <a href="index.html" class="visible nav nav-link brand">Banka</a>
@@ -21,20 +21,18 @@
             </div>
 
             <div class="nav-items nav-right">	
-                <a href="staffLogin.html" class="user visible nav-link">Staff Login</a>
                 <a href="adminLogin.html" class="user visible nav-link">Admin</a>
             </div>
         </nav>
         
         <div>
-            <form class="visible" id="login-form" action="home.html">
-                <h3 id="form-text">Sign In</h3>
-                <input type="email" name="" placeholder="Email address" required>
+            <form class="visible" id="login-form" action="creditDebit.html">
+                <h3 id="form-text">Staff Login</h3>
+                <input type="text" name="" placeholder="User Name" required>
                 <input type="password" name="" placeholder="Input password" required>
                 <input type="Submit" name="" id="submit">
 
-                <a href="signup.html" class="other">Don't have an account? Sign up</a>
-                <a href="forgot.html" class="forgot">Forgot password?</a>
+                <a href="login.html" class="other">Login as user</a>
             </form>
         </div>
         
