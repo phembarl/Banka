@@ -1,10 +1,10 @@
 html{
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 body{
     font-family: 'Raleway', sans-serif;;
-    height: 100%;
+    min-height: 100vh;
     padding: 0;
     margin: 0;
 }
@@ -19,6 +19,18 @@ body{
     min-height: 100vh;
 	position: relative;
 	padding-top: 50px;
+}
+
+#indexWelcome{
+	background: url(../img/bank.jpg);
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+    min-height: 100vh;
+	position: relative;
+	padding-bottom: 20px;
 }
 
 .mob{
@@ -38,6 +50,14 @@ body{
 }
 
 #welcome h1{
+	font-size: 70px;
+    color: #00ffff;
+	padding-top: 13%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#indexWelcome h1{
 	font-size: 70px;
     color: #00ffff;
 	padding-top: 13%;
@@ -131,6 +151,11 @@ h3 a{
 	z-index: 2;
 }
 
+.indexNavbar{
+	display: flex;
+	padding: 16px;
+}
+
 .nav{
 	color: #00ffff;
 	text-decoration: none;
@@ -153,10 +178,23 @@ h3 a{
 .toggle-btn{
     transition: all 500ms linear;
 	display: none;
-	padding-right: 35px;
+}
+
+.tog-btn{
+    transition: all 500ms linear;
+	display: none;
 }
 
 .toggle-btn span{
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.tog-btn span{
     display: block;
     width: 30px;
     height: 4px;
@@ -256,6 +294,10 @@ form input{
 		padding-top:15%;
 	}
 
+	#indexWelcome h1{
+		padding-top:15%;
+	}
+
 	.desk{
 		display: none;
 	}
@@ -266,6 +308,10 @@ form input{
 	}
 
 	.navbar, .nav-items{
+		flex-direction: column;
+	}
+
+	.indexNavbar{
 		flex-direction: column;
 	}
 
@@ -281,6 +327,14 @@ form input{
 	}
 
 	.toggle-btn{
+		align-self: flex-end;
+		display: initial;
+		position: absolute;
+		cursor: pointer;
+		right: 0;
+	}
+
+	.tog-btn{
 		align-self: flex-end;
 		display: initial;
 		position: absolute;

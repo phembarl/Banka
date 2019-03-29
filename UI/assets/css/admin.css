@@ -55,14 +55,6 @@
     cursor: pointer;
 }
 
-.delete{
-    position: absolute;
-    top: 0;
-    right: 30px;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 @media (max-width: 1024px){
     .del{
         margin-left: 10px;
