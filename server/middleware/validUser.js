@@ -9,6 +9,10 @@ const ValidUser = {
     return hash;
   },
 
+  comparePassword(password, hash) {
+    return bcrypt.compareSync(password, hash);
+  },
+
   generateToken(id) {
     const token = jwt.sign({ userId: id },
       process.env.SECRET || secret, { expiresIn: '30d' });
