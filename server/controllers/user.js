@@ -25,33 +25,26 @@ const User = {
       isAdmin: false,
     };
 
-    try {
-      for (let i = 0; i < users.length; i += 1) {
-        if (newUser.email === users[i].email) {
-          return res.status(409).json({
-            status: 409,
-            message: 'user with that email already exists',
-          });
-        }
+    for (let i = 0; i < users.length; i += 1) {
+      if (newUser.email === users[i].email) {
+        return res.status(409).json({
+          status: 409,
+          message: 'user with that email already exists',
+        });
       }
-
-      users.push(newUser);
-      return res.status(201).json({
-        status: 201,
-        data: {
-          token,
-          id: newUser.id,
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          email: newUser.email,
-        },
-      });
-    } catch (error) {
-      return res.status(400).json({
-        status: 400,
-        error,
-      });
     }
+
+    users.push(newUser);
+    return res.status(201).json({
+      status: 201,
+      data: {
+        token,
+        id: newUser.id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      },
+    });
   },
 
   signIn(req, res) {

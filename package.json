@@ -38,6 +38,7 @@
     "core-js": "^2.6.5",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.0.2",
     "supertest": "^4.0.2"
