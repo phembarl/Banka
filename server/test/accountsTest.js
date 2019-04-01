@@ -37,4 +37,28 @@ describe('Accounts', () => {
       expect(response.body.error).to.equal('type can only be savings or current');
     });
   });
+
+  describe('update account status', () => {
+    it('should update account status', async () => {
+      const response = await server.patch('/api/v1/accounts/5467827301')
+        .send({
+          status: 'active',
+        });
+      expect(response.status).to.equal(200);
+      expect(response.body.data.status).to.equal('active');
+    });
+  });
+
+  describe('update account status', () => {
+    it('should give the right error message', async () => {
+      const response = await server.patch('/api/v1/accounts/5467827301')
+        .send({
+          status: 'javascript',
+        });
+      expect(response.status).to.equal(422);
+      expect(response.body.error).to.equal('status can only be active, dormant or draft');
+    });
+  });
+
+
 });

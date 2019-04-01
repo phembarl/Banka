@@ -40,6 +40,35 @@ const Accounts = {
       error: 'type can only be savings or current',
     });
   },
+
+  updateAccount(req, res) {
+    let { accountNumber } = req.params;
+    accountNumber = Number(accountNumber);
+    const { status } = req.body;
+    const account = accounts.find(acc => acc.accountNumber === accountNumber);
+
+    if (!account) {
+      return res.status(404).json({
+        status: 404,
+        error: 'no account with provided account number',
+      });
+    } if (status === 'active' || status === 'dormant' || status === 'draft') {
+      account.status = status;
+
+      return res.status(200).json({
+        status: 200,
+        data: {
+          accountNumber: account.accountNumber,
+          status: account.status,
+        },
+      });
+    }
+    return res.status(422).json({
+      status: 422,
+      error: 'status can only be active, dormant or draft',
+    });
+  },
+
 };
 
 export default Accounts;
