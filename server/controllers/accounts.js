@@ -69,6 +69,26 @@ const Accounts = {
     });
   },
 
+  deleteAccount(req, res) {
+    let { accountNumber } = req.params;
+    accountNumber = Number(accountNumber);
+    const account = accounts.find(acc => acc.accountNumber === accountNumber);
+
+    if (!account) {
+      res.status(404).json({
+        status: 404,
+        error: 'account not found',
+      });
+    }
+
+    accounts.splice(accounts.indexOf(account), 1);
+
+    return res.status(200).json({
+      status: 200,
+      message: 'account successfully deleted',
+    });
+  },
+
 };
 
 export default Accounts;

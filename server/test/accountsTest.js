@@ -51,7 +51,8 @@ describe('Accounts', () => {
 
   describe('update account status', () => {
     it('should give the right error message', async () => {
-      const response = await server.patch('/api/v1/accounts/5467827301')
+      const account = accounts[0];
+      const response = await server.patch(`/api/v1/accounts/${account.accountNumber}`)
         .send({
           status: 'javascript',
         });
@@ -60,5 +61,21 @@ describe('Accounts', () => {
     });
   });
 
+  describe('delete bank account', () => {
+    it('should delete account', async () => {
+      const account = accounts[0];
+      const response = await server.delete(`/api/v1/accounts/${account.accountNumber}`);
+      expect(response.status).to.equal(200);
+      expect(accounts.indexOf(account)).to.equal(-1);
+      expect(response.body.message).to.equal('account successfully deleted');
+    });
+  });
 
+  describe('delete bank account', () => {
+    it('should give the right error message', async () => {
+      const response = await server.delete('/api/v1/accounts/0001112223');
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('account not found');
+    });
+  });
 });
