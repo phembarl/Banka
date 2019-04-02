@@ -6,5 +6,6 @@ const accountsRouter = express.Router();
 
 accountsRouter.post('/accounts', newAccountValidator, accounts.createAccount);
 accountsRouter.patch('/accounts/:accountNumber', accounts.updateAccount);
+accountsRouter.delete('/accounts/:accountNumber', accounts.deleteAccount);
 
 export default accountsRouter;
