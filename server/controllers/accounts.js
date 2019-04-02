@@ -1,8 +1,14 @@
 import faker from 'faker';
 import accounts from '../models/accounts';
-// import validUser from '../middleware/validUser';
 
 const Accounts = {
+  getAccounts(req, res) {
+    return res.status(200).json({
+      status: 200,
+      data: accounts,
+    });
+  },
+
   createAccount(req, res) {
     const {
       firstName, lastName, email, type,
@@ -75,7 +81,7 @@ const Accounts = {
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
     if (!account) {
-      res.status(404).json({
+      return res.status(404).json({
         status: 404,
         error: 'account not found',
       });
