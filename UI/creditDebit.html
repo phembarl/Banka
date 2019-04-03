@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="admin">
-        <nav class="visible navbar">
+        <nav class="visible navbar nav-in">
             <div>
                 <a href="creditDebit.html" class="visible nav nav-link">Banka</a>
             </div>            
@@ -34,7 +34,11 @@
         <div>
             <form class="visible" id="cred-form">
                 <h3 id="form-text">Credit/Debit User</h3>
-                <input type="text" name="" placeholder="Transaction Type (Credit/Debit)">
+                <select class="sel">
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
+                </select>
+                
                 <input type="text" name="" placeholder="Account Name">
                 <input type="number" name="" placeholder="Account Number">
                 <input type="number" name="" placeholder="Amount">
