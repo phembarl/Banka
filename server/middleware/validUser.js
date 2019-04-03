@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import secret from '../../secret';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const ValidUser = {
   hashPassword(password) {
@@ -15,7 +17,7 @@ const ValidUser = {
 
   generateToken(id) {
     const token = jwt.sign({ userId: id },
-      process.env.SECRET || secret, { expiresIn: '30d' });
+      process.env.SECRET, { expiresIn: '30d' });
     return token;
   },
 };
