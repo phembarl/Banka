@@ -1,7 +1,7 @@
 import { check, validationResult } from 'express-validator/check';
 
 const userInput = [
-  check('email').isEmail().withMessage('input a valid email address'),
+  check('email').isEmail().trim().withMessage('input a valid email address'),
   check('email').not().isEmpty().withMessage('input email address'),
   check('password').not().isEmpty().withMessage('input password'),
   (req, res, next) => {

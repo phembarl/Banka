@@ -27,51 +27,36 @@ const Accounts = {
       balance: openingBalance,
     };
 
-    if (newAccount.type === 'savings' || newAccount.type === 'current') {
-      accounts.push(newAccount);
-      return res.status(201).json({
-        status: 201,
-        data: {
-          accountNumber,
-          firstName,
-          lastName,
-          email,
-          type,
-          openingBalance,
-        },
-      });
-    }
-    return res.status(422).json({
-      status: 422,
-      error: 'type can only be savings or current',
+
+    accounts.push(newAccount);
+    return res.status(201).json({
+      status: 201,
+      data: {
+        accountNumber,
+        firstName,
+        lastName,
+        email,
+        type,
+        openingBalance,
+      },
     });
   },
 
   updateAccount(req, res) {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
-    const { status } = req.body;
+    let { status } = req.body;
+    status = status.trim();
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
-    if (!account) {
-      return res.status(404).json({
-        status: 404,
-        error: 'no account with provided account number',
-      });
-    } if (status === 'active' || status === 'dormant' || status === 'draft') {
-      account.status = status;
+    account.status = status;
 
-      return res.status(200).json({
-        status: 200,
-        data: {
-          accountNumber: account.accountNumber,
-          status: account.status,
-        },
-      });
-    }
-    return res.status(422).json({
-      status: 422,
-      error: 'status can only be active, dormant or draft',
+    return res.status(200).json({
+      status: 200,
+      data: {
+        accountNumber: account.accountNumber,
+        status: account.status,
+      },
     });
   },
 
@@ -79,13 +64,6 @@ const Accounts = {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
-
-    if (!account) {
-      return res.status(404).json({
-        status: 404,
-        error: 'account not found',
-      });
-    }
 
     accounts.splice(accounts.indexOf(account), 1);
 
