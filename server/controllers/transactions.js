@@ -31,13 +31,6 @@ const Transaction = {
       newBalance,
     };
 
-    if (!account) {
-      return res.status(404).json({
-        status: 404,
-        error: 'account not found',
-      });
-    }
-
     transactions.push(newTransaction);
     account.balance = newBalance;
     return res.status(200).json({
@@ -74,13 +67,6 @@ const Transaction = {
       oldBalance,
       newBalance,
     };
-
-    if (!account) {
-      return res.status(404).json({
-        status: 404,
-        error: 'account not found',
-      });
-    }
 
     transactions.push(newTransaction);
     account.balance = newBalance;
