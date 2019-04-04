@@ -41,9 +41,9 @@ const Transaction = {
 
   debit(req, res) {
     let { accountNumber } = req.params;
-    accountNumber = Number(accountNumber);
     const { cashier } = req.body;
     let { amount } = req.body;
+    accountNumber = Number(accountNumber);
     amount = Number(amount);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
     const id = transactions.length + 1;
