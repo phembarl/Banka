@@ -3,4 +3,5 @@ node_js:
   - '7'
 
 env:
-  - SECRET = 'oiuhwuiljywhduilw397wehwjk'
+  global:
+    - SECRET = 'oiuhwuiljywhduilw397wehwjk'
