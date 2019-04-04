@@ -5,3 +5,9 @@ node_js:
 env:
   global:
     - SECRET=oiuhwuiljywhduilw397wehwjk
+
+after_success:
+  - npm run coverage
+
+notifications:
+  email: false
