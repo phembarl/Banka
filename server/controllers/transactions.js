@@ -21,14 +21,7 @@ const Transaction = {
     const newBalance = oldBalance + amount;
 
     const newTransaction = {
-      id,
-      createdOn: new Date().toString(),
-      type: 'credit',
-      accountNumber,
-      amount,
-      cashier,
-      oldBalance,
-      newBalance,
+      id, createdOn: new Date().toString(), type: 'credit', accountNumber, amount, cashier, oldBalance, newBalance,
     };
 
     transactions.push(newTransaction);
@@ -58,14 +51,7 @@ const Transaction = {
     const newBalance = oldBalance - amount;
 
     const newTransaction = {
-      id,
-      createdOn: new Date().toString(),
-      type: 'debit',
-      accountNumber,
-      amount,
-      cashier,
-      oldBalance,
-      newBalance,
+      id, createdOn: new Date().toString(), type: 'debit', accountNumber, amount, cashier, oldBalance, newBalance,
     };
 
     transactions.push(newTransaction);
