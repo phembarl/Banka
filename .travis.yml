@@ -4,4 +4,4 @@ node_js:
 
 env:
   global:
-    - SECRET = 'oiuhwuiljywhduilw397wehwjk'
+    - SECRET=oiuhwuiljywhduilw397wehwjk
