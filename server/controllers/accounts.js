@@ -14,7 +14,7 @@ const Accounts = {
       firstName, lastName, email, type,
     } = req.body;
     const id = accounts.length + 1;
-    const accountNumber = faker.finance.account();
+    const accountNumber = Number(faker.finance.account());
     const openingBalance = 0.00;
 
     const newAccount = {
