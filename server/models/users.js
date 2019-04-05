@@ -1,6 +1,5 @@
 export default [
   {
-    token: 'ddjljdjklqjdilqjdunfdhkql4h32i9dhd',
     id: 1,
     email: 'femibalogs@andela.com',
     firstName: 'Oluwafemi',
@@ -11,7 +10,6 @@ export default [
   },
 
   {
-    token: 'djklsnfhl37o587jsddnnajkda',
     id: 2,
     email: 'dipsfay@andela.com',
     firstName: 'Oladipo',
@@ -22,7 +20,6 @@ export default [
   },
 
   {
-    token: 'bcxmzmzbzgaykwhwt66482igqf',
     id: 3,
     email: 'sheggy@andela.com',
     firstName: 'Olusegun',
@@ -33,7 +30,6 @@ export default [
   },
 
   {
-    token: 'yriwjwd680902ydjjsg',
     id: 4,
     email: 'cynthia_fly@andela.com',
     firstName: 'Cynthia',
@@ -44,7 +40,6 @@ export default [
   },
 
   {
-    token: 'mzjdrygfbnxcmskaioqowhr',
     id: 5,
     email: 'noahpatricia@andela.com',
     firstName: 'Patricia',
