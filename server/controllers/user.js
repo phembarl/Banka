@@ -14,7 +14,8 @@ const User = {
       firstName, lastName, email, password,
     } = req.body;
 
-    const id = users.length + 1;
+    const lastUser = users[users.length - 1];
+    const id = lastUser.id + 1;
     const token = validUser.generateToken(id);
     const newUser = {
       id,
