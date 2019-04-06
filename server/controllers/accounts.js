@@ -13,7 +13,8 @@ const Accounts = {
     const {
       firstName, lastName, email, type,
     } = req.body;
-    const id = accounts.length + 1;
+    const lastAccount = accounts[accounts.length - 1];
+    const id = lastAccount.id + 1;
     const accountNumber = Number(faker.finance.account());
     const openingBalance = 0.00;
 
