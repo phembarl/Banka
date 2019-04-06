@@ -46,7 +46,8 @@ const Transaction = {
     accountNumber = Number(accountNumber);
     amount = Number(amount);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
-    const id = transactions.length + 1;
+    const lastTransaction = transactions[transactions.length - 1];
+    const id = lastTransaction.id + 1;
     const oldBalance = Number(account.balance);
     const newBalance = oldBalance - amount;
 
