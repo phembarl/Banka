@@ -47,6 +47,18 @@ const Account = {
     }
     return next();
   },
+
+  isTransaction(req, res, next) {
+    const { transactType } = req.params;
+
+    if (transactType === 'debit' || transactType === 'credit') {
+      return next();
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'transaction type can only be credit or debit',
+    });
+  },
 };
 
 export default Account;
