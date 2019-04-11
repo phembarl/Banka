@@ -9,19 +9,24 @@ const Transaction = {
     });
   },
 
-  credit(req, res) {
+  transact(req, res) {
     let { accountNumber } = req.params;
-    accountNumber = Number(accountNumber);
+    const { transactType } = req.params;
     const { cashier } = req.body;
     let { amount } = req.body;
+    accountNumber = Number(accountNumber);
     amount = Number(amount);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
     const id = transactions.length + 1;
     const oldBalance = Number(account.balance);
-    const newBalance = oldBalance + amount;
+    let newBalance;
+
+    if (transactType === 'debit') { newBalance = oldBalance - amount; }
+    if (transactType === 'credit') { newBalance = oldBalance + amount; }
 
     const newTransaction = {
-      id, createdOn: new Date().toString(), type: 'credit', accountNumber, amount, cashier, oldBalance, newBalance,
+      // eslint-disable-next-line max-len
+      id, createdOn: new Date().toString(), type: transactType, accountNumber, amount, cashier, oldBalance, newBalance,
     };
 
     transactions.push(newTransaction);
@@ -29,47 +34,11 @@ const Transaction = {
     return res.status(200).json({
       status: 200,
       data: {
-        transactionId: newTransaction.id,
-        accountNumber: accountNumber.toString(),
-        amount,
-        cashier,
-        transactionType: newTransaction.type,
-        accountBalance: newBalance.toString(),
+        // eslint-disable-next-line max-len
+        transactionId: newTransaction.id, accountNumber: accountNumber.toString(), amount, cashier, transactionType: newTransaction.type, accountBalance: newBalance.toString(),
       },
     });
   },
-
-  debit(req, res) {
-    let { accountNumber } = req.params;
-    const { cashier } = req.body;
-    let { amount } = req.body;
-    accountNumber = Number(accountNumber);
-    amount = Number(amount);
-    const account = accounts.find(acc => acc.accountNumber === accountNumber);
-    const lastTransaction = transactions[transactions.length - 1];
-    const id = lastTransaction.id + 1;
-    const oldBalance = Number(account.balance);
-    const newBalance = oldBalance - amount;
-
-    const newTransaction = {
-      id, createdOn: new Date().toString(), type: 'debit', accountNumber, amount, cashier, oldBalance, newBalance,
-    };
-
-    transactions.push(newTransaction);
-    account.balance = newBalance;
-    return res.status(200).json({
-      status: 200,
-      data: {
-        transactionId: newTransaction.id,
-        accountNumber: accountNumber.toString(),
-        amount,
-        cashier,
-        transactionType: newTransaction.type,
-        accountBalance: newBalance.toString(),
-      },
-    });
-  },
-
 };
 
 export default Transaction;
