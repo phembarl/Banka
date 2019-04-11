@@ -19,13 +19,7 @@ const Accounts = {
     const openingBalance = 0.00;
 
     const newAccount = {
-      id,
-      accountNumber,
-      createdOn: new Date().toString(),
-      owner: id,
-      type,
-      status: 'draft',
-      balance: openingBalance,
+      id, accountNumber, createdOn: new Date().toString(), owner: id, type, status: 'draft', balance: openingBalance,
     };
 
 
