@@ -49,9 +49,9 @@ const Account = {
   },
 
   isTransaction(req, res, next) {
-    const { transactType } = req.params;
+    const { transact } = req.params;
 
-    if (transactType === 'debit' || transactType === 'credit') {
+    if (transact === 'debit' || transact === 'credit') {
       return next();
     }
     return res.status(400).json({
