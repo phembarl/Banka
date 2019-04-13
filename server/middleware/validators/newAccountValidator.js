@@ -1,4 +1,5 @@
-import { check, validationResult } from 'express-validator/check';
+import { check } from 'express-validator/check';
+import errs from './errorMessages';
 
 const newAccountInput = [
   check('email').isEmail().withMessage('input a valid email address'),
@@ -8,21 +9,7 @@ const newAccountInput = [
   check('firstName').isAlpha().trim().withMessage('firstName can ony contain letters'),
   check('lastName').isAlpha().trim().withMessage('lastName can ony contain letters'),
   check('type').not().isEmpty().withMessage('input type'),
-  (req, res, next) => {
-    const messages = [];
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      errors.array().forEach((err) => {
-        messages.push(err.msg);
-      });
-
-      return res.status(422).json({
-        status: 422,
-        errors: messages,
-      });
-    }
-    return next();
-  },
+  errs.displayErrs,
 ];
 
 export default newAccountInput;

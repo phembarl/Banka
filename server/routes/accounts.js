@@ -1,6 +1,6 @@
 import express from 'express';
 import accounts from '../controllers/accounts';
-import newAccountValidator from '../middleware/newAccountValidator';
+import newAccountValidator from '../middleware/validators/newAccountValidator';
 import accountsMidware from '../middleware/accountsMidware';
 
 const accountsRouter = express.Router();

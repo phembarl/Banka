@@ -1,7 +1,7 @@
 import express from 'express';
 import user from '../controllers/user';
-import signUpValidator from '../middleware/signUpValidator';
-import signInValidator from '../middleware/signInValidator';
+import signUpValidator from '../middleware/validators/signUpValidator';
+import signInValidator from '../middleware/validators/signInValidator';
 import userMidware from '../middleware/userMidware';
 
 const userRouter = express.Router();
