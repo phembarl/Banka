@@ -11,7 +11,7 @@ const Transaction = {
 
   transact(req, res) {
     let { accountNumber } = req.params;
-    const { transactType } = req.params;
+    const { transact } = req.params;
     const { cashier } = req.body;
     let { amount } = req.body;
     accountNumber = Number(accountNumber);
@@ -21,12 +21,12 @@ const Transaction = {
     const oldBalance = Number(account.balance);
     let newBalance;
 
-    if (transactType === 'debit') { newBalance = oldBalance - amount; }
-    if (transactType === 'credit') { newBalance = oldBalance + amount; }
+    if (transact === 'debit') { newBalance = oldBalance - amount; }
+    if (transact === 'credit') { newBalance = oldBalance + amount; }
 
     const newTransaction = {
       // eslint-disable-next-line max-len
-      id, createdOn: new Date().toString(), type: transactType, accountNumber, amount, cashier, oldBalance, newBalance,
+      id, createdOn: new Date().toString(), type: transact, accountNumber, amount, cashier, oldBalance, newBalance,
     };
 
     transactions.push(newTransaction);
