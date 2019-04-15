@@ -1,0 +1,3 @@
+exclude_patterns:
+- "UI/"
+- "server/models/accounts.js"
