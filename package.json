@@ -10,6 +10,9 @@
     "test": "nyc mocha --require @babel/register server/test/**/**.js --exit --timeout 6000",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
+  "nyc": {
+    "exclude": "server/test/**"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phembarl/Banka.git"

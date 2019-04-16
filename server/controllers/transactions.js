@@ -1,41 +1,42 @@
-import accounts from '../models/accounts';
-import transactions from '../models/transactions';
+import accountsList from '../models/accounts';
+import transactionsList from '../models/transactions';
+
+const { accounts } = accountsList;
+let { transactions } = transactionsList;
+
 /**
- *Displays transactions
- *Performs a transaction
+ *This class handles transactions
  * @class Transaction
  */
 class Transaction {
   /**
-   *
-   *
    * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns res
+   * @description this function displays all transactions
+   * @param {object} request
+   * @param {object} response the response body
+   * @returns response
    * @memberof Transaction
    */
-  static getTransactions(req, res) {
-    return res.status(200).json({
+  static getTransactions(request, response) {
+    return response.status(200).json({
       status: 200,
       data: transactions,
     });
   }
 
   /**
- *
- *
  * @static
- * @param {object} req
- * @param {object} res
- * @returns res
+ * @description this function credits or debits a bank account
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
  * @memberof Transaction
  */
-  static transact(req, res) {
-    let { accountNumber } = req.params;
-    const { transactionType } = req.params;
-    const { cashier } = req.body;
-    let { amount } = req.body;
+  static transact(request, response) {
+    let { accountNumber } = request.params;
+    const { transactionType } = request.params;
+    const { cashier } = request.body;
+    let { amount } = request.body;
     accountNumber = Number(accountNumber);
     amount = Number(amount);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
@@ -57,9 +58,10 @@ class Transaction {
       newBalance,
     };
 
-    transactions.push(newTransaction);
+    transactions = [...transactions, newTransaction];
+
     account.balance = newBalance;
-    return res.status(200).json({
+    return response.status(200).json({
       status: 200,
       data: {
         transactionId: newTransaction.id,
