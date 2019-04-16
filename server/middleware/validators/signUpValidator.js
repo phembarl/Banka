@@ -1,5 +1,5 @@
 import { check } from 'express-validator/check';
-import errs from './errorMessages';
+import displayErrors from './errorMessages';
 
 const userInput = [
   check('email').isEmail().trim().withMessage('input a valid email address'),
@@ -10,7 +10,7 @@ const userInput = [
   check('lastName').not().isEmpty().withMessage('lastName cannot be empty'),
   check('firstName').isAlpha().trim().withMessage('firstName can ony contain letters'),
   check('lastName').isAlpha().trim().withMessage('lastName can ony contain letters'),
-  errs.displayErrs,
+  displayErrors,
 ];
 
 export default userInput;

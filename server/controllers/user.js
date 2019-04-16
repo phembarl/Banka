@@ -1,15 +1,38 @@
 import users from '../models/users';
 import validUser from '../middleware/validUser';
 
-const User = {
-  getUsers(req, res) {
+/**
+ * Displays users
+ * Creates New User
+ * Signs in User
+ * @class User
+ */
+class User {
+  /**
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns res
+   * @memberof User
+   */
+  static getUsers(req, res) {
     return res.status(200).json({
       status: 200,
       data: users,
     });
-  },
+  }
 
-  signUp(req, res) {
+  /**
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof User
+ */
+
+  static signUp(req, res) {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -37,9 +60,17 @@ const User = {
         email: newUser.email,
       },
     });
-  },
+  }
 
-  signIn(req, res) {
+  /**
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof User
+ */
+  static signIn(req, res) {
     const { email, password } = req.body;
     const user = users.find(owner => email === owner.email && (validUser.comparePassword(password,
       owner.password) || password === owner.password));
@@ -48,7 +79,7 @@ const User = {
       status: 200,
       data: user,
     });
-  },
-};
+  }
+}
 
 export default User;

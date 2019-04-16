@@ -1,17 +1,39 @@
 import accounts from '../models/accounts';
 import transactions from '../models/transactions';
-
-const Transaction = {
-  getTransactions(req, res) {
+/**
+ *Displays transactions
+ *Performs a transaction
+ * @class Transaction
+ */
+class Transaction {
+  /**
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns res
+   * @memberof Transaction
+   */
+  static getTransactions(req, res) {
     return res.status(200).json({
       status: 200,
       data: transactions,
     });
-  },
+  }
 
-  transact(req, res) {
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof Transaction
+ */
+  static transact(req, res) {
     let { accountNumber } = req.params;
-    const { transact } = req.params;
+    const { transactionType } = req.params;
     const { cashier } = req.body;
     let { amount } = req.body;
     accountNumber = Number(accountNumber);
@@ -21,12 +43,18 @@ const Transaction = {
     const oldBalance = Number(account.balance);
     let newBalance;
 
-    if (transact === 'debit') { newBalance = oldBalance - amount; }
-    if (transact === 'credit') { newBalance = oldBalance + amount; }
+    if (transactionType === 'debit') { newBalance = oldBalance - amount; }
+    if (transactionType === 'credit') { newBalance = oldBalance + amount; }
 
     const newTransaction = {
-      // eslint-disable-next-line max-len
-      id, createdOn: new Date().toString(), type: transact, accountNumber, amount, cashier, oldBalance, newBalance,
+      id,
+      createdOn: new Date().toString(),
+      type: transactionType,
+      accountNumber,
+      amount,
+      cashier,
+      oldBalance,
+      newBalance,
     };
 
     transactions.push(newTransaction);
@@ -34,11 +62,15 @@ const Transaction = {
     return res.status(200).json({
       status: 200,
       data: {
-        // eslint-disable-next-line max-len
-        transactionId: newTransaction.id, accountNumber: accountNumber.toString(), amount, cashier, transactionType: newTransaction.type, accountBalance: newBalance.toString(),
+        transactionId: newTransaction.id,
+        accountNumber: accountNumber.toString(),
+        amount,
+        cashier,
+        transactionType: newTransaction.type,
+        accountBalance: newBalance.toString(),
       },
     });
-  },
-};
+  }
+}
 
 export default Transaction;

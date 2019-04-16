@@ -1,9 +1,22 @@
 import users from '../models/users';
 import validUser from './validUser';
 
-
-const User = {
-  isNewEmail(req, res, next) {
+/**
+ * Validates user
+ * @class User
+ */
+class User {
+  /**
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns next
+   * @memberof User
+   */
+  static isNewEmail(req, res, next) {
     const { email } = req.body;
 
     for (let i = 0; i < users.length; i += 1) {
@@ -15,9 +28,18 @@ const User = {
       }
     }
     return next();
-  },
+  }
 
-  isValidSignIn(req, res, next) {
+  /**
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns next
+ * @memberof User
+ */
+  static isValidSignIn(req, res, next) {
     const { email, password } = req.body;
 
     for (let i = 0; i < users.length; i += 1) {
@@ -37,7 +59,7 @@ const User = {
       status: 404,
       error: 'user with that email does not exist',
     });
-  },
-};
+  }
+}
 
 export default User;

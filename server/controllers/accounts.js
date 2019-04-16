@@ -1,15 +1,29 @@
 import faker from 'faker';
 import accounts from '../models/accounts';
 
-const Accounts = {
-  getAccounts(req, res) {
+/**
+ *
+ * Displays, creates, updates or deletes an account
+ * @class Accounts
+ */
+class Accounts {
+  static getAccounts(req, res) {
     return res.status(200).json({
       status: 200,
       data: accounts,
     });
-  },
+  }
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof Accounts
+ */
 
-  createAccount(req, res) {
+  static createAccount(req, res) {
     const {
       firstName, lastName, email, type,
     } = req.body;
@@ -35,9 +49,18 @@ const Accounts = {
         openingBalance,
       },
     });
-  },
+  }
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof Accounts
+ */
 
-  updateAccount(req, res) {
+  static updateAccount(req, res) {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
     let { status } = req.body;
@@ -53,9 +76,18 @@ const Accounts = {
         status: account.status,
       },
     });
-  },
+  }
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @returns res
+ * @memberof Accounts
+ */
 
-  deleteAccount(req, res) {
+  static deleteAccount(req, res) {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
@@ -66,8 +98,7 @@ const Accounts = {
       status: 200,
       message: 'account successfully deleted',
     });
-  },
-
-};
+  }
+}
 
 export default Accounts;

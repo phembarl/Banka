@@ -1,7 +1,20 @@
 import accounts from '../models/accounts';
-
-const Account = {
-  isValidType(req, res, next) {
+/**
+ * Checks for errors before performing any action on an account
+ * @class Account
+ */
+class Account {
+  /**
+   *
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns
+   * @memberof Account
+   */
+  static isValidType(req, res, next) {
     const { type } = req.body;
 
     if (type === 'savings' || type === 'current') {
@@ -11,9 +24,19 @@ const Account = {
       status: 422,
       error: 'type can only be savings or current',
     });
-  },
+  }
 
-  canUpdate(req, res, next) {
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns next
+ * @memberof Account
+ */
+  static canUpdate(req, res, next) {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
     let { status } = req.body;
@@ -25,16 +48,25 @@ const Account = {
         status: 404,
         error: 'no account with provided account number',
       });
-    } if (status === 'active' || status === 'dormant' || status === 'draft') {
+    } if (status === 'active' || status === 'dormant') {
       return next();
     }
     return res.status(422).json({
       status: 422,
-      error: 'status can only be active, dormant or draft',
+      error: 'status can only be active or dormant',
     });
-  },
+  }
 
-  canFind(req, res, next) {
+  /**
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns next
+ * @memberof Account
+ */
+  static canFind(req, res, next) {
     let { accountNumber } = req.params;
     accountNumber = Number(accountNumber);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
@@ -46,19 +78,29 @@ const Account = {
       });
     }
     return next();
-  },
+  }
 
-  isTransaction(req, res, next) {
-    const { transact } = req.params;
+  /**
+ *
+ *
+ * @static
+ * @param {object} req
+ * @param {object} res
+ * @param {function} next
+ * @returns
+ * @memberof Account
+ */
+  static isTransaction(req, res, next) {
+    const { transactionType } = req.params;
 
-    if (transact === 'debit' || transact === 'credit') {
+    if (transactionType === 'debit' || transactionType === 'credit') {
       return next();
     }
     return res.status(400).json({
       status: 400,
       error: 'transaction type can only be credit or debit',
     });
-  },
-};
+  }
+}
 
 export default Account;

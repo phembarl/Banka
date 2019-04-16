@@ -1,12 +1,12 @@
 import { check } from 'express-validator/check';
-import errs from './errorMessages';
+import displayErrors from './errorMessages';
 
 const validCredit = [
   check('cashier').not().isEmpty().withMessage('input cashier id'),
   check('amount').not().isEmpty().withMessage('input amount'),
-  check('cashier').isNumeric().withMessage('cashier id should only comprise of numbers'),
+  check('cashier').isNumeric().withMessage('cashier id should contain only numbers'),
   check('amount').isNumeric().withMessage('amount can only be in figures'),
-  errs.displayErrs,
+  displayErrors,
 ];
 
 export default validCredit;
