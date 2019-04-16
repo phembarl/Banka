@@ -1,75 +1,87 @@
 import faker from 'faker';
-import accounts from '../models/accounts';
+import accountsList from '../models/accounts';
+import usersList from '../models/users';
+
+const { accounts } = accountsList;
+const { users } = usersList;
 
 /**
- *
  * Displays, creates, updates or deletes an account
  * @class Accounts
  */
 class Accounts {
-  static getAccounts(req, res) {
-    return res.status(200).json({
+  /**
+   * @static
+   * @description this function displays all bank accounts
+   * @param {object} request
+   * @param {object} response the response body
+   * @returns response
+   * @memberof Accounts
+   */
+  static getAccounts(request, response) {
+    return response.status(200).json({
       status: 200,
       data: accounts,
     });
   }
+
   /**
- *
- *
  * @static
- * @param {object} req
- * @param {object} res
- * @returns res
+ * @description this function creates a new bank account
+ * @param {object} request the request body
+ * @param {object} response the response body
+ * @returns response
  * @memberof Accounts
  */
-
-  static createAccount(req, res) {
-    const {
-      firstName, lastName, email, type,
-    } = req.body;
+  static createAccount(request, response) {
+    const { email, type } = request.body;
+    let { userId } = request.body;
+    userId = Number(userId);
+    const user = users.find(owner => owner.id === userId);
     const lastAccount = accounts[accounts.length - 1];
     const id = lastAccount.id + 1;
     const accountNumber = Number(faker.finance.account());
     const openingBalance = 0.00;
 
     const newAccount = {
-      id, accountNumber, createdOn: new Date().toString(), owner: id, type, status: 'draft', balance: openingBalance,
+      id, accountNumber, createdOn: new Date().toString(), owner: userId, type, status: 'draft', balance: openingBalance,
     };
 
+    const index = id - 1;
+    accounts[index] = newAccount;
 
-    accounts.push(newAccount);
-    return res.status(201).json({
+
+    return response.status(201).json({
       status: 201,
       data: {
         accountNumber,
-        firstName,
-        lastName,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email,
         type,
         openingBalance,
       },
     });
   }
+
   /**
- *
- *
  * @static
- * @param {object} req
- * @param {object} res
- * @returns res
+ * @description this function updates the status of a bank account
+ * @param {object} request the request object
+ * @param {object} response the response body
+ * @returns response
  * @memberof Accounts
  */
-
-  static updateAccount(req, res) {
-    let { accountNumber } = req.params;
+  static updateAccount(request, response) {
+    let { accountNumber } = request.params;
     accountNumber = Number(accountNumber);
-    let { status } = req.body;
+    let { status } = request.body;
     status = status.trim();
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
     account.status = status;
 
-    return res.status(200).json({
+    return response.status(200).json({
       status: 200,
       data: {
         accountNumber: account.accountNumber,
@@ -77,24 +89,25 @@ class Accounts {
       },
     });
   }
+
   /**
  *
  *
  * @static
- * @param {object} req
- * @param {object} res
- * @returns res
+ * @description this function deletes a bank account
+ * @param {object} request the request body
+ * @param {object} response the response body
+ * @returns response
  * @memberof Accounts
  */
-
-  static deleteAccount(req, res) {
-    let { accountNumber } = req.params;
+  static deleteAccount(request, response) {
+    let { accountNumber } = request.params;
     accountNumber = Number(accountNumber);
     const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
     accounts.splice(accounts.indexOf(account), 1);
 
-    return res.status(200).json({
+    return response.status(200).json({
       status: 200,
       message: 'account successfully deleted',
     });

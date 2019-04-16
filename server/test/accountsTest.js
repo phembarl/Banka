@@ -1,7 +1,9 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import accounts from '../models/accounts';
+import accountsList from '../models/accounts';
 import app from '../index';
+
+const { accounts } = accountsList;
 
 const { expect } = chai;
 const server = supertest(app);
@@ -13,9 +15,7 @@ describe('Accounts', () => {
       const accountCount = accounts.length;
       const response = await server.post('/api/v1/accounts')
         .send({
-          firstName: 'Bola',
-          lastName: 'Gold',
-          email: 'bola_gold@andela.com',
+          userId: '1',
           type: 'current',
         });
       expect(response.status).to.equal(201);
@@ -28,12 +28,10 @@ describe('Accounts', () => {
     it('should give the right error messages', async () => {
       const response = await server.post('/api/v1/accounts')
         .send({
-          firstName: 'Bola',
-          lastName: 'Gold',
-          email: 'bola_gold@andela.com',
+          userId: '1',
           type: 'javascript',
         });
-      expect(response.status).to.equal(422);
+      expect(response.status).to.equal(400);
       expect(response.body.error).to.equal('type can only be savings or current');
     });
   });
@@ -56,8 +54,8 @@ describe('Accounts', () => {
         .send({
           status: 'javascript',
         });
-      expect(response.status).to.equal(422);
-      expect(response.body.error).to.equal('status can only be active, dormant or draft');
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('status can only be active or dormant');
     });
   });
 
