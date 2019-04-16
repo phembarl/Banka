@@ -37,7 +37,7 @@ describe('Accounts', () => {
       for (let i; i < errs.length; i += 1) {
         expect(errs[i]).to.equal('input cashier id');
         expect(errs[i]).to.equal('input amount');
-        expect(errs[i]).to.equal('cashier id should only comprise of numbers');
+        expect(errs[i]).to.equal('cashier id should contain only numbers');
         expect(errs[i]).to.equal('amount can only be in figures');
       }
     });

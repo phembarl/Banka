@@ -57,7 +57,7 @@ describe('Accounts', () => {
           status: 'javascript',
         });
       expect(response.status).to.equal(422);
-      expect(response.body.error).to.equal('status can only be active, dormant or draft');
+      expect(response.body.error).to.equal('status can only be active or dormant');
     });
   });
 
