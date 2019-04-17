@@ -16,8 +16,8 @@
             </div>            
 
             <div class="nav-items">
-                <a class="link nav-link active" href="newAdmin.html">Create Admin/Staff</a>
                 <a class="link nav-link" href="accounts.html">Accounts</a>
+                <a class="link nav-link active" href="admin.html">Create Admin/Staff</a>
             </div>
     
             <div class="toggle-btn visible nav-link">
@@ -27,22 +27,22 @@
             </div>
     
             <div class="nav-items nav-right">	
-                <a href="adminLogin.html" class="user visible nav-link">Log Out</a>
+                <a href="adminLogin.html" class="user visible nav-link">Admin Log Out</a>
             </div>
         </nav>
         
         <div>
             <form class="visible" id="login-form" action="admin.html">
                 <h3 id="form-text">New Admin/Staff</h3>
-                <input type="text" name="" placeholder="User Name">
+                <input type="text" name="" placeholder="User Name" required pattern="[a-z]+">
 
                 <select class="sel">
-                    <option value="credit">Admin</option>
-                    <option value="debit">Staff</option>
+                    <option value="admin">Admin</option>
+                    <option value="staff">Staff</option>
                 </select>
                 
-                <input type="password" name="" placeholder="Create password">
-                <input type="password" name="" placeholder="Confirm password">
+                <input type="password" name="" placeholder="Create password" required>
+                <input type="password" name="" placeholder="Confirm password" required>
                 <input type="Submit" name="" id="submit">
 
             </form>

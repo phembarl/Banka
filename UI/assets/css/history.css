@@ -41,6 +41,14 @@
     padding-bottom: 30px;
 }
 
+.account-links{
+    color: #000;
+}
+
+.account-links:hover{
+    color: #0000ff;
+}
+
 table{
     border-spacing: 0;
     border-radius: 10px;
