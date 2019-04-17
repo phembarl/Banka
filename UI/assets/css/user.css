@@ -1,0 +1,11 @@
+#admin{
+    box-sizing: border-box;
+}
+
+.entry{
+    font-weight: bold;
+}
+
+#historyDiv{
+    margin-top: 100px;
+}

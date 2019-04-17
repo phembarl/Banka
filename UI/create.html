@@ -36,13 +36,17 @@
         <div id="createAccount">
             <form class="visible" id="account-form">
                 <h3 id="form-text">Create Bank Account</h3>
-                <input type="text" name="" placeholder="First name">
-                <input type="text" name="" placeholder="Last name">
-                <input type="email" name="" placeholder="Email address">
+                <input type="text" name="" placeholder="First name" required pattern="[A-Z][a-z'-]+">
+                <input type="text" name="" placeholder="Last name" required pattern="[A-Z][a-z'-]+">
+                <input type="email" name="" placeholder="Email address" required>
                 <input type="number" name="" placeholder="Phone Number">
-                <input type="text" name="" placeholder="Account Type (Savings/Current)">
-                <input type="Submit" name="" id="submit" value="Create Account">
 
+                <select class="sel">
+                    <option value="savings">Savings</option>
+                    <option value="current">Current</option>
+                </select>
+
+                <input type="Submit" name="" id="submit" value="Create Account">
             </form>
         </div>
 
