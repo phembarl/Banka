@@ -9,13 +9,12 @@
 }
 
 .btns{
-    margin-left: 20px;
+    /* margin-left: 20px; */
     margin-top: 20px;
 }
 
 .button{
     float: left;
-    margin-left: 20px;
     background: none;
     height: 40px;
     width: 120px;
@@ -29,7 +28,6 @@
     border: 2px solid #000;
     color: #fff;
     background:#000;
-    margin-left: 40px;
 }
 
 .activate:hover{
@@ -55,6 +53,22 @@
     cursor: pointer;
 }
 
+.debit{
+    position: absolute;
+    top: 0;
+    right: 100px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.credit{
+    position: absolute;
+    top: 0;
+    right: 170px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media (max-width: 1024px){
     .del{
         margin-left: 10px;
@@ -62,9 +76,5 @@
 
     .button{
         width: 100px;
-    }
-
-    .activate{
-        margin-left: 10px;
     }
 }

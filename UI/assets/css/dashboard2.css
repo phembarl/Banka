@@ -1,0 +1,56 @@
+.info{
+    padding: 3%;
+    margin: auto;
+    margin-top: 100px;
+    width: 400px;
+    background: rgba(242, 242, 242, 0.9);
+    border-radius: 10px;
+    text-align: left;
+    display: inline-block;
+}
+
+.rightDiv{
+    float: right;
+    width: 250px;
+    margin-right: 170px;
+    padding: 4%;
+}
+
+.image-cropper{
+    display: inline-block;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.records{
+    text-align: justify;
+    margin: auto;
+    float: right;
+}
+
+.entry{
+    font-weight: bold;
+}
+
+
+@media (max-width: 1024px){
+    .info{
+        max-width: 80%;
+        margin-top: 50px;
+    }
+
+    .leftDiv{
+        display: block;
+    }
+
+    .rightDiv{
+        float: none;
+        margin: auto;
+        margin-top: 50px;
+        width: 400px;
+    }
+}

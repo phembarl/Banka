@@ -29,20 +29,24 @@
             </div>
     
             <div class="nav-items nav-right">	
-                <a href="login.html" class="user visible nav-link">Log Out</a>
+                <a href="login.html" class="user visible nav-link">User Log Out</a>
             </div>
         </nav>
 
         <div id="createAccount">
             <form class="visible" id="account-form">
                 <h3 id="form-text">Create Bank Account</h3>
-                <input type="text" name="" placeholder="First name">
-                <input type="text" name="" placeholder="Last name">
-                <input type="email" name="" placeholder="Email address">
+                <input type="text" name="" placeholder="First name" required>
+                <input type="text" name="" placeholder="Last name" required>
+                <input type="email" name="" placeholder="Email address" required>
                 <input type="number" name="" placeholder="Phone Number">
-                <input type="text" name="" placeholder="Account Type (Savings/Current)">
-                <input type="Submit" name="" id="submit" value="Create Account">
 
+                <select class="sel">
+                    <option value="savings">Savings</option>
+                    <option value="current">Current</option>
+                </select>
+
+                <input type="Submit" name="" id="submit" value="Create Account">
             </form>
         </div>
 
