@@ -59,6 +59,7 @@ body{
     min-height: 100vh;
 	position: relative;
 	padding-bottom: 10px;
+	box-sizing: border-box;
 }
 
 #welcome h1{

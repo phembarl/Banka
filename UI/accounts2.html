@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/history.css">
+    <link rel="stylesheet" href="assets/css/user.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
 <body>
     <div id="admin">
         <nav class="visible navbar nav-in">
             <div>
-                <a href="creditDebit.html" class="visible nav nav-link">Banka</a>
+                <a href="accounts2.html" class="visible nav nav-link">Banka</a>
             </div>            
 
             <div class="nav-items">
-                <a class="link nav-link" href="creditDebit.html">Transact</a>
                 <a class="link nav-link active" href="accounts2.html">Accounts</a>
+                <a class="link nav-link" href="creditDebit.html">Transact</a>
             </div>
     
             <div class="toggle-btn visible nav-link">
@@ -33,155 +35,111 @@
             </div>
         </nav>
 
-        <div class="infoDiv" id="top">
-            <div class="visible info">
-
-                
-
-                <div>
-                    <p class="delete">Delete</p>
-
-                    <div class="image-cropper">
-                        <img src="assets/img/me.jpg" alt="" class="avatar">
-                    </div>
+        <div id="historyDiv">
+            <div class="visible usersDiv" id="hist">
         
-                    <div class="records">
-                        <h2>Femi Balogun</h2>
-                        <p>First Name: Femi</p>
-                        <p>Last Name: Balogun</p>
-                        <p>Other Names: Bolanle</p>
-                        <p>Email: phembarl@yahoo.com</p>
-                        <p>Mobile: +234 905 687 193</p>
-                        <p>DOB: 6th September</p>
-                        <p>Balance: ₦3,778,993.67</p>
+                <div class="">                        
+                    <table id="table">
+                        <h1 class="heading">Users</h1>
+                        <thead>
+                            <tr>
+                                <th>Account No.</th>
+                                <th>Owned By</th>
+                                <th>User ID</th>
+                                <th>Balance</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                            </tr>
+                        </thead>
 
-                    </div>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    2345678340
+                                </td>
+
+                                <td>
+                                    <a href="users/user1.html">
+                                        Femi Balogun
+                                    </a>                                    
+                                </td>
+
+                                <td>
+                                    001
+                                </td>
+
+                                <td>
+                                    ₦3,778,993.67
+                                </td>
+
+                                <td>
+                                    femi@andela.com
+                                </td>
+
+                                <td>
+                                    09056874913
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    4857283903
+                                </td>
+
+                                <td>
+                                    <a href="users/user2.html">
+                                        Bunmi Adigun
+                                    </a>                                    
+                                </td>
+
+                                <td>
+                                    002
+                                </td>
+
+                                <td>
+                                    ₦50,000.00
+                                </td>
+
+                                <td>
+                                    bunmiadigun@andela.com
+                                </td>
+
+                                <td>
+                                    08123547892
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    5647324901
+                                </td>                                
+
+                                <td>
+                                    <a href="users/user3.html">
+                                        Bayo Olajide
+                                    </a>
+                                </td>
+
+                                <td>
+                                    003
+                                </td>
+
+                                <td>
+                                    ₦80,000.00
+                                </td>
+
+                                <td>
+                                    jidebayo@andela.com
+                                </td>
+
+                                <td>
+                                    0702346591
+                                </td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                        
                 </div>
-
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
-            </div>
-        </div>
-
-        <div class="infoDiv">
-            <div class="visible info">
-
-                <p class="delete">Delete</p>
-
-                <div>
-                    <div class="image-cropper">
-                        <img src="assets/img/avatar.jpg" alt="" class="avatar">
-                    </div>
-        
-                    <div class="records">
-                        <h2>Bunmi Adigun</h2>
-                        <p>First Name: Bunmi</p>
-                        <p>Last Name: Adigun</p>
-                        <p>Other Names: Bukola</p>
-                        <p>Email: bunmi01@gmail.com</p>
-                        <p>Mobile: +234 804 072 132</p>
-                        <p>DOB: 3th March</p>
-                        <p>Balance: ₦1,778,993.67</p>
-
-                    </div>
-                </div>
-
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
-            </div>
-        </div>
-
-        <div class="infoDiv">
-            <div class="visible info">
-
-                <p class="delete">Delete</p>
-
-                <div>
-                    <div class="image-cropper">
-                        <img src="assets/img/avatar.jpg" alt="" class="avatar">
-                    </div>
-        
-                    <div class="records">
-                        <h2>Bayo Olajide</h2>
-                        <p>First Name: Bayo</p>
-                        <p>Last Name: Olajide</p>
-                        <p>Other Names: Bukunmi</p>
-                        <p>Email: jidebayo@gmail.com</p>
-                        <p>Mobile: +234 814 732 074</p>
-                        <p>DOB: 9th January</p>
-                        <p>Balance: ₦678,993.67</p>
-
-                    </div>
-                </div>
-
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
-            </div>
-        </div>
-
-        <div class="infoDiv">
-            <div class="visible info">
-
-                <p class="delete">Delete</p>
-
-                <div>
-                    <div class="image-cropper">
-                        <img src="assets/img/avatar.jpg" class="avatar">
-                    </div>
-        
-                    <div class="records">
-                        <h2>Prince Nwaka</h2>
-                        <p>First Name: Prince</p>
-                        <p>Last Name: Nwaka</p>
-                        <p>Other Names: Chukwudi</p>
-                        <p>Email: chuks_nwa@yahoo.com</p>
-                        <p>Mobile: +234 915 385 902</p>
-                        <p>DOB: 1th June</p>
-                        <p>Balance: ₦500,993.67</p>
-
-                    </div>
-                </div>
-
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
-            </div>
-        </div>
-
-        <div class="infoDiv">
-            <div class="visible info">
-
-                <p class="delete">Delete</p>
-
-                <div>
-                    <div class="image-cropper">
-                        <img src="assets/img/avatar.jpg" alt="" class="avatar">
-                    </div>
-        
-                    <div class="records">
-                        <h2>Ali Mustafa</h2>
-                        <p>First Name: Ali</p>
-                        <p>Last Name: Mustafa</p>
-                        <p>Other Names: Muhammad</p>
-                        <p>Email: mustali@gmail.com</p>
-                        <p>Mobile: +234 812 683 495</p>
-                        <p>DOB: 7th November</p>
-                        <p>Balance: ₦1,347,902.67</p>
-
-                    </div>
-                </div>
-
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
             </div>
         </div>
 
