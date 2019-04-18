@@ -29,11 +29,12 @@
         <div>
             <form class="visible" id="signup-form">
                 <h3 id="form-text">Create Your Account</h3>
-                <input type="text" name="" placeholder="First name" required pattern="[A-Z][a-z'-]+">
-                <input type="text" name="" placeholder="Last name" required pattern="[A-Z][a-z'-]+">
-                <input type="email" name="" placeholder="Email address" required>
-                <input type="password" name="" placeholder="Create password" required>
-                <input type="password" name="" placeholder="Confirm password" required>
+                <input id="firstname" type="text" name="" placeholder="First name">
+                <input id="lastname" type="text" name="" placeholder="Last name">
+                <input id="email" type="email" name="" placeholder="Email address">
+                <input id="type" type="text" name="" placeholder="Are you a client or staff member?">
+                <input id="password" type="password" name="" placeholder="Create password">
+                <input id="confirmPassword" type="password" name="" placeholder="Confirm password">
                 <input type="Submit" name="" id="submit">
 
                 <a href="login.html" class="other"> Already have an account? Sign in</a>
@@ -44,5 +45,6 @@
     </div>
     
     <script src="assets/js/nav.js"></script>
+    <script src="assets/js/users/signup.js"></script>
 </body>
 </html>

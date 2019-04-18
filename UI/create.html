@@ -29,18 +29,29 @@
             </div>
     
             <div class="nav-items nav-right">	
-                <a href="login.html" class="user visible nav-link">Log Out</a>
+                <p class="who">User</p>
+
+                <div class="options">
+                    <div class="avi">
+                        <img class="pishicon" src="assets/img/avi.jpg">
+                    </div>
+                    <p class="arrow"><i class="caret"></i></p>
+                </div>
+                
+                <a href="login.html" class="user visible nav-link logout">Log Out</a>
+
+                <div class="menu-container">
+                    <ul class="user-menu">
+                        <li><a class="user-menu-link" href="login.html">Log Out</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
         <div id="createAccount">
             <form class="visible" id="account-form">
                 <h3 id="form-text">Create Bank Account</h3>
-                <input type="text" name="" placeholder="First name" required pattern="[A-Z][a-z'-]+">
-                <input type="text" name="" placeholder="Last name" required pattern="[A-Z][a-z'-]+">
-                <input type="email" name="" placeholder="Email address" required>
-                <input type="number" name="" placeholder="Phone Number">
-
+                
                 <select class="sel">
                     <option value="savings">Savings</option>
                     <option value="current">Current</option>
@@ -55,5 +66,6 @@
     
 
     <script src="assets/js/nav.js"></script>
+    <script src="assets/js/dropdown.js"></script>
 </body>
 </html>

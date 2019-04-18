@@ -2,3 +2,4 @@ node_modules
 secret.js
 .env
 .nyc_output
+lib

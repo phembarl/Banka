@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/history.css">
     <link rel="stylesheet" href="../assets/css/user.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
@@ -15,7 +16,7 @@
     <div id="admin">
         <nav class="visible navbar nav-in">
             <div>
-                <a href="accounts2.html" class="visible nav nav-link">Banka</a>
+                <a href="../accounts2.html" class="visible nav nav-link">Banka</a>
             </div>            
 
             <div class="nav-items">
@@ -30,7 +31,22 @@
             </div>
     
             <div class="nav-items nav-right">	
-                <a href="staffLogin.html" class="user visible nav-link">Log Out</a>
+                <p class="who">Cashier</p>
+
+                <div class="options">
+                    <div class="avi">
+                        <img class="pishicon" src="../assets/img/avatar.jpg">
+                    </div>
+                    <p class="arrow"><i class="caret"></i></p>
+                </div>
+                
+                <a href="../staffLogin.html" class="user visible nav-link logout">Log Out</a>
+
+                <div class="menu-container">
+                    <ul class="user-menu">
+                        <li><a class="user-menu-link" href="../staffLogin.html">Log Out</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
@@ -38,6 +54,12 @@
             <div class="visible info" id="top">
 
                 <p class="delete">Delete</p>
+                <p class="debit">Debit</p>
+                <p class="credit">Credit</p>
+
+                <div>
+                    <h2 class="message">This Account Has Been Deleted</h2>
+                </div>
 
                 <div>
                     <div class="image-cropper">
@@ -45,30 +67,235 @@
                     </div>
         
                     <div class="records">
-                        <h2>Bayo Olajide</h2>
-                        <p><span class="entry">First Name:</span> Bayo</p>
-                        <p><span class="entry">Last Name:</span> Olajide</p>
-                        <p><span class="entry">Other Names:</span> Bukunmi</p>
-                        <p><span class="entry">Email:</span> jidebayo@gmail.com</p>
+                        <p><span class="entry">Account Number:</span> 5647324901</p>
+                        <p><span class="entry">Owned By:</span> Olajide</p>
+                        <p><span class="entry">ID:</span> 003</p>
+                        <p><span class="entry">Balance:</span> ₦678,993.67</p>
+                        <p><span class="entry">Email:</span> jidebayo@andela.com</p>
                         <p><span class="entry">Mobile:</span> +234 814 732 074</p>
                         <p><span class="entry">Status:</span> <span id="status">active</span></p>
-                        <p><span class="entry">Balance:</span> ₦678,993.67</p>
+
+                        <div class="btns">
+                            <button class="button activate">Activate</button>
+                            <button class="button deactivate">Deactivate</button>
+                        </div>
 
                     </div>
                 </div>
 
-                <div class="btns">
-                    <button class="button activate">Activate</button>
-                    <button class="button deactivate">Deactivate</button>
-                </div>                
             </div>
         </div>
+
+        <div id="historyDiv">
+            <div class="visible" id="hist">
+        
+                <div class="">                        
+                    <table id="table">
+                        <h1 class="heading">Transaction History</h1>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction Type</th>
+                                <th>Transaction Narration</th>
+                                <th>Amount</th>
+                                <th>Transaction Currency</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    01/03/2019
+                                </td>
+
+                                <td>
+                                    Credit
+                                </td>
+
+                                <td>
+                                    Mr Ajibare/Website
+                                </td>
+
+                                <td>
+                                    80,000.00
+                                </td>
+
+                                <td>
+                                    NGN
+                                </td>
+
+                                <td>
+                                    1,583,104.59
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    02/03/2019
+                                </td>
+
+                                <td>
+                                    Debit
+                                </td>
+
+                                <td>
+                                    Airtel/Sub
+                                </td>
+
+                                <td>
+                                    -5,000.00
+                                </td>
+
+                                <td>
+                                    NGN
+                                </td>
+
+                                <td>
+                                    1,578,104.59
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    03/03/2019
+                                </td>
+
+                                <td>
+                                    Debit
+                                </td>
+
+                                <td>
+                                    Mrs Balogun
+                                </td>
+
+                                <td>
+                                    -100,000.00
+                                </td>
+
+                                <td>
+                                    NGN
+                                </td>
+
+                                <td>
+                                    1,478,104.59
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    04/03/2019
+                                </td>
+
+                                <td>
+                                    Credit
+                                </td>
+
+                                <td>
+                                    GTB/Salary
+                                </td>
+
+                                <td>
+                                    500,000.00
+                                </td>
+
+                                <td>
+                                    NGN
+                                </td>
+
+                                <td>
+                                    1,978,104.59
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    05/03/2019
+                                </td>
+
+                                <td>
+                                    Debit
+                                </td>
+
+                                <td>
+                                    EcoBank/Card Maintenance
+                                </td>
+
+                                <td>
+                                    -58.47
+                                </td>
+
+                                <td>
+                                    NGN
+                                </td>
+
+                                <td>
+                                    1,978,046.12
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                        
+                </div>
+            </div>
+        </div>    
         
         <div class="image-overlay"></div>
     </div>
+
+    <div class="delete-modal">
+        <div class="modal-content">
+            <h3>Are you sure you want to delete this account?</h3>
+
+            <div class="btns">
+                <button class="ok button">OK</button>
+                <button class="cancel button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activate-modal">
+        <div class="modal-content2">
+            <p>You have activated this account</p>
+        </div>
+    </div>
+
+    <div class="deactivate-modal">
+        <div class="modal-content2">
+            <p>You have deactivated this account</p>
+        </div>
+    </div>
+
+    <div class="credit-modal">
+        <div class="modal-contentCredit">
+            <h3>Credit Account</h3>
+
+            <div class="credit-form">
+                <form action="">
+                    <input class="amount" type="number" placeholder="Enter amount" required>
+                    <input class="submit" type="submit" value="Confirm Transaction">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="debit-modal">
+        <div class="modal-contentCredit">
+            <h3>Debit Account</h3>
+
+            <div class="credit-form">
+                <form action="">
+                    <input class="amount" type="number" placeholder="Enter amount" required>
+                    <input class="submit" type="submit" value="Confirm Transaction">
+                </form>
+            </div>
+        </div>
+    </div>
     
 
-    <script src="assets/js/nav.js"></script>
+    <script src="../assets/js/nav.js"></script>
     <script src="../assets/js/user.js"></script>
+    <script src="../assets/js/dropdown.js"></script>
 </body>
 </html>
