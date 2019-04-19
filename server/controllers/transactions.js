@@ -2,7 +2,7 @@ import accountsList from '../models/accounts';
 import transactionsList from '../models/transactions';
 
 const { accounts } = accountsList;
-let { transactions } = transactionsList;
+const { transactions } = transactionsList;
 
 /**
  *This class handles transactions
@@ -58,7 +58,8 @@ class Transaction {
       newBalance,
     };
 
-    transactions = [...transactions, newTransaction];
+    const index = id - 1;
+    transactions[index] = newTransaction;
 
     account.balance = newBalance;
     return response.status(200).json({

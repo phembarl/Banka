@@ -1,9 +1,11 @@
 import chai from 'chai';
 import supertest from 'supertest';
 import accountsList from '../models/accounts';
+import transactionsList from '../models/transactions';
 import app from '../index';
 
 const { accounts } = accountsList;
+const { transactions } = transactionsList;
 
 const { expect } = chai;
 const server = supertest(app);
@@ -33,12 +35,12 @@ describe('Accounts', () => {
           amount: 'two million',
         });
       expect(response.status).to.equal(400);
-      const errs = response.body.errors;
-      for (let i; i < errs.length; i += 1) {
-        expect(errs[i]).to.equal('input cashier id');
-        expect(errs[i]).to.equal('input amount');
-        expect(errs[i]).to.equal('cashier id should contain only numbers');
-        expect(errs[i]).to.equal('amount can only be in figures');
+      const errorMessages = response.body.errors;
+      for (let i; i < errorMessages.length; i += 1) {
+        expect(errorMessages[i]).to.equal('input cashier id');
+        expect(errorMessages[i]).to.equal('input amount');
+        expect(errorMessages[i]).to.equal('cashier id should contain only numbers');
+        expect(errorMessages[i]).to.equal('amount can only be in figures');
       }
     });
   });
@@ -66,12 +68,12 @@ describe('Accounts', () => {
           amount: 'two million',
         });
       expect(response.status).to.equal(400);
-      const errs = response.body.errors;
-      for (let i; i < errs.length; i += 1) {
-        expect(errs[i]).to.equal('input cashier id');
-        expect(errs[i]).to.equal('input amount');
-        expect(errs[i]).to.equal('cashier id should only comprise of numbers');
-        expect(errs[i]).to.equal('amount can only be in figures');
+      const errorMessages = response.body.errors;
+      for (let i; i < errorMessages.length; i += 1) {
+        expect(errorMessages[i]).to.equal('input cashier id');
+        expect(errorMessages[i]).to.equal('input amount');
+        expect(errorMessages[i]).to.equal('cashier id should only comprise of numbers');
+        expect(errorMessages[i]).to.equal('amount can only be in figures');
       }
     });
   });

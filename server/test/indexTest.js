@@ -1,6 +1,10 @@
 import chai from 'chai';
 import supertest from 'supertest';
 import app from '../index';
+import usersList from '../models/users';
+
+const { users } = usersList;
+
 
 
 const { expect } = chai;

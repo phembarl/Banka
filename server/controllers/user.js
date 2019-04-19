@@ -1,7 +1,7 @@
 import usersList from '../models/users';
 import validUser from '../middleware/validUser';
 
-let { users } = usersList;
+const { users } = usersList;
 
 /**
  * @description This class handles user requests
@@ -48,7 +48,8 @@ class User {
       isAdmin: false,
     };
 
-    users = [...users, newUser];
+    const index = id - 1;
+    users[index] = newUser;
     return response.status(201).json({
       status: 201,
       data: {

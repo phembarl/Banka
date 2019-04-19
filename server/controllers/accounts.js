@@ -2,7 +2,7 @@ import faker from 'faker';
 import accountsList from '../models/accounts';
 import usersList from '../models/users';
 
-let { accounts } = accountsList;
+const { accounts } = accountsList;
 const { users } = usersList;
 
 /**
@@ -47,7 +47,8 @@ class Accounts {
       id, accountNumber, createdOn: new Date().toString(), owner: userId, type, status: 'draft', balance: openingBalance,
     };
 
-    accounts = [...accounts, newAccount];
+    const index = id - 1;
+    accounts[index] = newAccount;
 
 
     return response.status(201).json({
