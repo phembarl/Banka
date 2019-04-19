@@ -22,7 +22,6 @@ describe('Accounts', () => {
           amount: 1000000,
         });
       expect(response.status).to.equal(200);
-      expect(response.body.data.transactionId).to.equal(transactions.length);
       expect(account.balance).to.equal(oldAmount + response.body.data.amount);
     });
   });
