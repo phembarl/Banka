@@ -1,18 +1,40 @@
-import users from '../models/users';
+import usersList from '../models/users';
 import validUser from '../middleware/validUser';
 
-const User = {
-  getUsers(req, res) {
-    return res.status(200).json({
+let { users } = usersList;
+
+/**
+ * @description This class handles user requests
+ * @class User
+ */
+class User {
+  /**
+   * @static
+   * @description this function displays all users
+   * @param {object} request
+   * @param {object} response the response body
+   * @returns response
+   * @memberof User
+   */
+  static getUsers(request, response) {
+    return response.status(200).json({
       status: 200,
       data: users,
     });
-  },
+  }
 
-  signUp(req, res) {
+  /**
+ * @static
+ * @description this function creates a new user
+ * @param {object} request the request body
+ * @param {object} response the response body
+ * @returns response
+ * @memberof User
+ */
+  static signUp(request, response) {
     const {
       firstName, lastName, email, password,
-    } = req.body;
+    } = request.body;
 
     const lastUser = users[users.length - 1];
     const id = lastUser.id + 1;
@@ -26,8 +48,8 @@ const User = {
       isAdmin: false,
     };
 
-    users.push(newUser);
-    return res.status(201).json({
+    users = [...users, newUser];
+    return response.status(201).json({
       status: 201,
       data: {
         token,
@@ -37,18 +59,34 @@ const User = {
         email: newUser.email,
       },
     });
-  },
+  }
 
-  signIn(req, res) {
-    const { email, password } = req.body;
+  /**
+ * @static
+ * @description this function signs in a user
+ * @param {object} request the request body
+ * @param {object} response the response body
+ * @returns response
+ * @memberof User
+ */
+  static signIn(request, response) {
+    const { email, password } = request.body;
     const user = users.find(owner => email === owner.email && (validUser.comparePassword(password,
       owner.password) || password === owner.password));
+    const { id } = user;
+    const token = validUser.generateToken(id);
 
-    return res.status(200).json({
+    return response.status(200).json({
       status: 200,
-      data: user,
+      data: {
+        token,
+        id,
+        email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
     });
-  },
-};
+  }
+}
 
 export default User;

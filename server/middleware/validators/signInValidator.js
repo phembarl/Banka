@@ -1,11 +1,11 @@
 import { check } from 'express-validator/check';
-import errs from './errorMessages';
+import displayErrors from './errorMessages';
 
 const userInput = [
   check('email').isEmail().trim().withMessage('input a valid email address'),
-  check('email').not().isEmpty().withMessage('input email address'),
-  check('password').not().isEmpty().withMessage('input password'),
-  errs.displayErrs,
+  check('email').not().isEmpty().withMessage('email cannot be empty'),
+  check('password').not().isEmpty().withMessage('password cannot be empty'),
+  displayErrors,
 ];
 
 export default userInput;

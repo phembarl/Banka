@@ -10,6 +10,9 @@
     "test": "nyc mocha --require @babel/register server/test/**/**.js --exit --timeout 6000",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
+  "nyc": {
+    "exclude": "server/test/**"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phembarl/Banka.git"
@@ -40,7 +43,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "core-js": "^2.6.5",
     "dotenv": "^7.0.0",
