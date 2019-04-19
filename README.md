@@ -22,7 +22,7 @@ npm install
 npm start
 ```
 
-The code above gets your server runnung
+The code above gets your server running
 
 ### Initial Configuration
 

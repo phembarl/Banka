@@ -12,12 +12,15 @@ const server = supertest(app);
 describe('Accounts', () => {
   describe('create new account', () => {
     it('should create a new account', async () => {
+      const accountCount = accounts.length;
       const response = await server.post('/api/v1/accounts')
         .send({
           userId: '1',
           type: 'current',
         });
       expect(response.status).to.equal(201);
+      expect(response.body.id).to.equal(accounts[accounts.length]);
+      expect(accounts.length).to.equal(accountCount + 1);
     });
   });
 
@@ -61,6 +64,7 @@ describe('Accounts', () => {
       const account = accounts[0];
       const response = await server.delete(`/api/v1/accounts/${account.accountNumber}`);
       expect(response.status).to.equal(200);
+      expect(accounts.indexOf(account)).to.equal(-1);
       expect(response.body.message).to.equal('account successfully deleted');
     });
   });
