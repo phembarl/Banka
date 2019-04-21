@@ -8,10 +8,13 @@
     "start": "npm run build && node lib index",
     "serve": "nodemon --exec babel-node server index",
     "test": "nyc mocha --require @babel/register server/test/**/**.js --exit --timeout 6000",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migrate": "babel server -d lib && node lib/migrations/tables"
   },
   "nyc": {
-    "exclude": "server/test/**"
+    "exclude": [
+      "server/test/**"
+    ]
   },
   "repository": {
     "type": "git",
@@ -50,7 +53,8 @@
     "express-validator": "^5.3.1",
     "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.4",
+    "pg": "^7.10.0",
     "supertest": "^4.0.2"
   }
 }

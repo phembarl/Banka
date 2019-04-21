@@ -17,16 +17,14 @@ class UserValidator {
    * @returns next
    * @memberof UserValidator
    */
-  static isNewEmail(request, response, next) {
-    const { email } = request.body;
+  static isClientOrStaff(request, response, next) {
+    const { type } = request.body;
 
-    for (let i = 0; i < users.length; i += 1) {
-      if (email === users[i].email) {
-        return response.status(409).json({
-          status: 409,
-          message: 'user with that email already exists',
-        });
-      }
+    if (type !== 'client' && type !== 'staff') {
+      return response.status(400).json({
+        status: 400,
+        error: 'you can either be a client or staff',
+      });
     }
     return next();
   }
