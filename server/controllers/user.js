@@ -1,7 +1,5 @@
-import usersList from '../models/users';
+import db from '../models/db';
 import validUser from '../middleware/validUser';
-
-const { users } = usersList;
 
 /**
  * @description This class handles user requests
@@ -16,11 +14,20 @@ class User {
    * @returns response
    * @memberof User
    */
-  static getUsers(request, response) {
-    return response.status(200).json({
-      status: 200,
-      data: users,
-    });
+  static async getUsers(request, response) {
+    try {
+      const { rows } = await db.query('SELECT * FROM users');
+
+      return response.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error,
+      });
+    }
   }
 
   /**
@@ -31,35 +38,47 @@ class User {
  * @returns response
  * @memberof User
  */
-  static signUp(request, response) {
+  static async signUp(request, response) {
     const {
-      firstName, lastName, email, password,
+      firstName, lastName, email, password, type,
     } = request.body;
 
-    const lastUser = users[users.length - 1];
-    const id = lastUser.id + 1;
-    const token = validUser.generateToken(id);
-    const newUser = {
-      id,
-      email,
-      firstName,
-      lastName,
-      password: validUser.hashPassword(password),
-      isAdmin: false,
-    };
+    let isAdmin;
 
-    const index = id - 1;
-    users[index] = newUser;
-    return response.status(201).json({
-      status: 201,
-      data: {
-        token,
-        id: newUser.id,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        email: newUser.email,
-      },
-    });
+    if (type === 'client') { isAdmin = false; }
+    if (type === 'staff') { isAdmin = true; }
+
+    const hashedPassword = validUser.hashPassword(password);
+    const text = `INSERT INTO users(firstname, lastname, email, password, type, isAdmin)
+      VALUES($1, $2, $3, $4, $5, $6) returning *;`;
+    const values = [firstName, lastName, email, hashedPassword, type, isAdmin];
+
+    try {
+      const { rows } = await db.query(text, values);
+      const token = validUser.generateToken(rows[0].id);
+
+      return response.status(201).json({
+        status: 201,
+        data: [{
+          token,
+          id: rows[0].id,
+          firstName: rows[0].firstname,
+          lastName: rows[0].lastname,
+          email: rows[0].email,
+        }],
+      });
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return response.status(400).json({
+          status: 400,
+          error: 'user with that email already exists',
+        });
+      }
+      return response.status(400).json({
+        status: 400,
+        error: 'something went wrong',
+      });
+    }
   }
 
   /**

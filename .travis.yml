@@ -2,9 +2,12 @@ language: node_js
 node_js:
   - '7'
 
-env:
-  global:
-    - SECRET=oiuhwuiljywhduilw397wehwjk
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - babel server -d lib && node lib/migrations/tables
 
 after_success:
   - npm run coverage

@@ -8,6 +8,7 @@ const userInput = [
   check('lastName').isAlpha().trim().withMessage('lastName can ony contain letters'),
   check('email').not().isEmpty().withMessage('email cannot be empty'),
   check('email').isEmail().trim().withMessage('input a valid email address'),
+  check('type').not().isEmpty().withMessage('type is missing. are you a client or staff?'),
   check('password').not().isEmpty().withMessage('password cannot be empty'),
   check('password').isLength({ min: 4 }).withMessage('password cannot be less than 4 characters'),
   displayErrors,
