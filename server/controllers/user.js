@@ -76,7 +76,7 @@ class User {
       }
       return response.status(400).json({
         status: 400,
-        error: 'something went wrong',
+        error: 'something is wrong with your query',
       });
     }
   }
@@ -89,23 +89,31 @@ class User {
  * @returns response
  * @memberof User
  */
-  static signIn(request, response) {
+  static async signIn(request, response) {
     const { email, password } = request.body;
-    const user = users.find(owner => email === owner.email && (validUser.comparePassword(password,
-      owner.password) || password === owner.password));
-    const { id } = user;
-    const token = validUser.generateToken(id);
+    const text = 'SELECT * FROM users WHERE email = $1;';
 
-    return response.status(200).json({
-      status: 200,
-      data: {
+    try {
+      const { rows } = await db.query(text, [email]);
+      const token = validUser.generateToken(rows[0].id);
+
+      if (!validUser.comparePassword(password, rows[0].password)) {
+        return response.status(401).json({
+          status: 401,
+          error: 'incorrect password',
+        });
+      }
+      return response.status(200).json({
+        status: 200,
         token,
-        id,
-        email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      },
-    });
+        data: [rows[0]],
+      });
+    } catch (error) {
+      return response.status(404).json({
+        status: 404,
+        error: 'user with that email does not exist',
+      });
+    }
   }
 }
 
