@@ -7,6 +7,7 @@ import auth from '../helpers/auth';
 const transactionsRouter = express.Router();
 
 transactionsRouter.get('/transactions', auth, transaction.getTransactions);
+transactionsRouter.get('/accounts/:accountNumber/transactions', auth, transaction.transactionHistory);
 transactionsRouter.post('/transactions/:accountNumber/:transactionType', auth, validTransaction,
   accountsMidware.isTransaction, transaction.transact);
 export default transactionsRouter;
