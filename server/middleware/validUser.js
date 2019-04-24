@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-import usersList from '../models/users';
-
-const { users } = usersList;
 
 dotenv.config();
 /**
@@ -43,8 +40,8 @@ class ValidateUser {
  * @returns generated token
  * @memberof ValidateUser
  */
-  static generateToken(id) {
-    const token = jwt.sign({ userId: id },
+  static generateToken(user) {
+    const token = jwt.sign({ user },
       process.env.SECRET, { expiresIn: '30d' });
     return token;
   }
@@ -58,19 +55,6 @@ class ValidateUser {
  * @returns next
  * @memberof ValidateUser
  */
-  static canFindUser(request, response, next) {
-    let { userId } = request.body;
-    userId = Number(userId);
-    const user = users.find(accountOwner => accountOwner.id === userId);
-
-    if (!user) {
-      return response.status(404).json({
-        status: 404,
-        error: 'user not found',
-      });
-    }
-    return next();
-  }
 }
 
 export default ValidateUser;

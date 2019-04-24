@@ -16,7 +16,7 @@ class User {
    */
   static async getUsers(request, response) {
     try {
-      const { rows } = await db.query('SELECT * FROM users');
+      const { rows } = await db.query('SELECT * FROM users;');
 
       return response.status(200).json({
         status: 200,
@@ -95,7 +95,14 @@ class User {
 
     try {
       const { rows } = await db.query(text, [email]);
-      const token = validUser.generateToken(rows[0].id);
+      const token = validUser.generateToken(rows[0]);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'user with that email does not exist',
+        });
+      }
 
       if (!validUser.comparePassword(password, rows[0].password)) {
         return response.status(401).json({
@@ -105,13 +112,18 @@ class User {
       }
       return response.status(200).json({
         status: 200,
-        token,
-        data: [rows[0]],
+        data: [{
+          token,
+          id: rows[0].id,
+          firstName: rows[0].firstname,
+          lastName: rows[0].lastname,
+          email: rows[0].email,
+        }],
       });
     } catch (error) {
-      return response.status(404).json({
-        status: 404,
-        error: 'user with that email does not exist',
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
       });
     }
   }

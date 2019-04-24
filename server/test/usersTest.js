@@ -86,15 +86,15 @@ describe('User', () => {
     });
   });
 
-  // describe(' user sign in', () => {
-  //   it('should give the right error message', async () => {
-  //     const response = await server.post('/api/v1/auth/signin')
-  //       .send({
-  //         email: 'sheggy@andela.com',
-  //         password: 'ballerz',
-  //       });
-  //     expect(response.status).to.equal(401);
-  //     expect(response.body.error).to.equal('incorrect password');
-  //   });
-  // });
+  describe(' user sign in', () => {
+    it('should give the right error message', async () => {
+      const response = await server.post('/api/v1/auth/signin')
+        .send({
+          email: 'hello@postgresql.com',
+          password: 'ballerz',
+        });
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('incorrect password');
+    });
+  });
 });
