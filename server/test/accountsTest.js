@@ -13,7 +13,7 @@ const createAccounts = `CREATE TABLE IF NOT EXISTS accounts(
     owner INT NOT NULL,
     type VARCHAR NOT NULL,
     status VARCHAR NOT NULL DEFAULT 'draft',
-    balance NUMERIC NOT NULL
+    balance FLOAT NOT NULL
 );`;
 
 const dropAccounts = 'DROP TABLE IF EXISTS accounts;';
