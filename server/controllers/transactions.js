@@ -110,6 +110,33 @@ class Transaction {
       });
     }
   }
+
+  static async transactionHistory(request, response) {
+    const { accountNumber } = request.params;
+    const text = 'SELECT * FROM transactions WHERE accountnumber = $1;';
+    const value = [accountNumber];
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'account not found',
+        });
+      }
+
+      return response.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
 }
 
 export default Transaction;

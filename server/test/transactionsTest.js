@@ -6,6 +6,18 @@ import app from '../index';
 const { expect } = chai;
 const server = supertest(app);
 
+const createUsers = `CREATE TABLE IF NOT EXISTS users(
+  id SERIAL PRIMARY KEY,
+  firstname VARCHAR NOT NULL,
+  lastname VARCHAR NOT NULL,
+  email VARCHAR UNIQUE NOT NULL,
+  password VARCHAR NOT NULL,
+  type VARCHAR NOT NULL,
+  isAdmin BOOLEAN DEFAULT false
+);`;
+
+const dropUsers = 'DROP TABLE IF EXISTS users;';
+
 const createAccounts = `CREATE TABLE IF NOT EXISTS accounts(
     id SERIAL PRIMARY KEY,
     accountNumber INT NOT NULL,
@@ -40,13 +52,15 @@ const signup = {
 };
 
 const login = {
-  email: 'test@test.com',
+  email: 'transact@test.com',
   password: 'awesometest',
 };
 
 
 describe('Accounts', () => {
   before('hooks', async () => {
+    await db.query(dropUsers);
+    await db.query(createUsers);
     await db.query(dropAccounts);
     await db.query(createAccounts);
     await db.query(dropTransactions);
@@ -63,7 +77,6 @@ describe('Accounts', () => {
 
       await server.post('/api/v1/accounts')
         .send({
-          userId: '1',
           type: 'current',
         })
         .set('x-access-token', token);
@@ -72,8 +85,8 @@ describe('Accounts', () => {
       const oldAmount = rows[0].balance;
       const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/credit`)
         .send({
-          cashier: 1,
-          amount: 1000,
+          cashier: '1',
+          amount: '1000',
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(200);
@@ -114,7 +127,6 @@ describe('Accounts', () => {
 
       await server.post('/api/v1/accounts')
         .send({
-          userId: '1',
           type: 'current',
         })
         .set('x-access-token', token);
@@ -123,8 +135,8 @@ describe('Accounts', () => {
       const oldAmount = rows[0].balance;
       const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/debit`)
         .send({
-          cashier: 1,
-          amount: 1000,
+          cashier: '1',
+          amount: '1000',
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(200);
@@ -154,6 +166,32 @@ describe('Accounts', () => {
         expect(errorMessages[i]).to.equal('cashier id should only comprise of numbers');
         expect(errorMessages[i]).to.equal('amount can only be in figures');
       }
+    });
+  });
+
+  describe('get transaction history', () => {
+    it('should return the transaction history of a particular account', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM transactions WHERE id = $1;', [1]);
+      const response = await server.get(`/api/v1/accounts/${rows[0].accountnumber}/transactions`)
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body.data).to.be.an('array');
+    });
+  });
+
+  describe('get transaction history', () => {
+    it('should give the appropriate error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/accounts/00001111/transactions')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('account not found');
     });
   });
 });
