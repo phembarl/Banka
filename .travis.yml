@@ -9,7 +9,7 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - babel server -d lib && node lib/migrations/tables
 
-after_success:
+after_script:
   - npm run coverage
 
 notifications:

@@ -1,10 +1,5 @@
 import faker from 'faker';
-import accountsList from '../models/accounts';
-import usersList from '../models/users';
-
-const { accounts } = accountsList;
-const { users } = usersList;
-
+import db from '../models/db';
 /**
  * Displays, creates, updates or deletes an account
  * @class Accounts
@@ -18,11 +13,20 @@ class Accounts {
    * @returns response
    * @memberof Accounts
    */
-  static getAccounts(request, response) {
-    return response.status(200).json({
-      status: 200,
-      data: accounts,
-    });
+  static async getAccounts(request, response) {
+    try {
+      const { rows } = await db.query('SELECT * FROM accounts;');
+
+      return response.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
   }
 
   /**
@@ -33,35 +37,38 @@ class Accounts {
  * @returns response
  * @memberof Accounts
  */
-  static createAccount(request, response) {
-    const { email, type } = request.body;
-    let { userId } = request.body;
-    userId = Number(userId);
-    const user = users.find(owner => owner.id === userId);
-    const lastAccount = accounts[accounts.length - 1];
-    const id = lastAccount.id + 1;
+  static async createAccount(request, response) {
+    const { type } = request.body;
     const accountNumber = Number(faker.finance.account());
-    const openingBalance = 0.00;
+    const owner = request.user.id;
+    const openingBalance = 0;
+    const balance = openingBalance;
 
-    const newAccount = {
-      id, accountNumber, createdOn: new Date().toString(), owner: userId, type, status: 'draft', balance: openingBalance,
-    };
+    const text = `INSERT INTO accounts(accountnumber, owner, type, balance)
+    VALUES($1, $2, $3, $4) returning *;`;
 
-    const index = id - 1;
-    accounts[index] = newAccount;
+    const values = [accountNumber, owner, type, balance];
 
-
-    return response.status(201).json({
-      status: 201,
-      data: {
-        accountNumber,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email,
-        type,
-        openingBalance,
-      },
-    });
+    try {
+      const { rows } = await db.query(text, values);
+      return response.status(201).json({
+        status: 201,
+        data: [{
+          id: rows[0].id,
+          accountNumber,
+          firstName: request.user.firstname,
+          lastName: request.user.lastname,
+          email: request.user.email,
+          type,
+          operningBalance: balance,
+        }],
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
   }
 
   /**
@@ -72,22 +79,45 @@ class Accounts {
  * @returns response
  * @memberof Accounts
  */
-  static updateAccount(request, response) {
+  static async updateAccount(request, response) {
     let { accountNumber } = request.params;
     accountNumber = Number(accountNumber);
     let { status } = request.body;
     status = status.trim();
-    const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
-    account.status = status;
+    const text = 'UPDATE accounts SET status = $1 WHERE accountnumber = $2 returning *;';
+    const values = [status, accountNumber];
 
-    return response.status(200).json({
-      status: 200,
-      data: {
-        accountNumber: account.accountNumber,
-        status: account.status,
-      },
-    });
+    if (!request.user.isadmin) {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have the authority to perform that operation',
+      });
+    }
+
+    try {
+      const { rows } = await db.query(text, values);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'cannot find that account',
+        });
+      }
+
+      return response.status(200).json({
+        status: 200,
+        data: [{
+          accountNumber: rows[0].accountnumber,
+          status: rows[0].status,
+        }],
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
   }
 
   /**
@@ -100,17 +130,40 @@ class Accounts {
  * @returns response
  * @memberof Accounts
  */
-  static deleteAccount(request, response) {
+  static async deleteAccount(request, response) {
     let { accountNumber } = request.params;
     accountNumber = Number(accountNumber);
-    const account = accounts.find(acc => acc.accountNumber === accountNumber);
 
-    accounts.splice(accounts.indexOf(account), 1);
+    const text = 'DELETE FROM accounts WHERE accountnumber = $1 returning *;';
+    const value = [accountNumber];
 
-    return response.status(200).json({
-      status: 200,
-      message: 'account successfully deleted',
-    });
+    if (!request.user.isadmin) {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have the authority to perform that operation',
+      });
+    }
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'cannot find that account',
+        });
+      }
+
+      return response.status(200).json({
+        status: 200,
+        message: 'account successfully deleted',
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
   }
 }
 

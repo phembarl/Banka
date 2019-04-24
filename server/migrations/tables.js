@@ -16,7 +16,7 @@ const accounts = `CREATE TABLE IF NOT EXISTS accounts(
     createdOn TIMESTAMP DEFAULT NOW(),
     owner INT NOT NULL,
     type VARCHAR NOT NULL,
-    status VARCHAR NOT NULL,
+    status VARCHAR NOT NULL DEFAULT 'draft',
     balance NUMERIC NOT NULL
 );`;
 
