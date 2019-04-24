@@ -17,17 +17,18 @@ const accounts = `CREATE TABLE IF NOT EXISTS accounts(
     owner INT NOT NULL,
     type VARCHAR NOT NULL,
     status VARCHAR NOT NULL DEFAULT 'draft',
-    balance NUMERIC NOT NULL
+    balance FLOAT NOT NULL
 );`;
 
 const transactions = `CREATE TABLE IF NOT EXISTS transactions(
     id SERIAL PRIMARY KEY,
     createdOn TIMESTAMP DEFAULT NOW(),
     type VARCHAR NOT NULL,
+    amount FLOAT NOT NULL,
     accountNumber INT NOT NULL,
     cashier INT NOT NULL,
-    oldBalance NUMERIC NOT NULL,
-    balance NUMERIC NOT NULL
+    oldBalance FLOAT NOT NULL,
+    newBalance FLOAT NOT NULL
 );`;
 
 db.query(users, (error) => {
