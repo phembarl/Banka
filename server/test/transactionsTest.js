@@ -194,4 +194,29 @@ describe('Accounts', () => {
       expect(response.body.error).to.equal('account not found');
     });
   });
+
+  describe('get specific transaction', () => {
+    it('should return a specific transaction record', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/transactions/1')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body.data).to.be.an('array');
+      expect(response.body.data.length).to.equal(1);
+    });
+  });
+
+  describe('get specific transaction', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/transactions/1000')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('transaction record not found');
+    });
+  });
 });

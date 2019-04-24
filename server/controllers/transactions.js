@@ -38,11 +38,9 @@ class Transaction {
  * @memberof Transaction
  */
   static async transact(request, response) {
-    let { accountNumber } = request.params;
-    const { transactionType } = request.params;
+    const { accountNumber, transactionType } = request.params;
     const { cashier } = request.body;
     let { amount } = request.body;
-    accountNumber = Number(accountNumber);
     amount = Number(amount);
 
     const text = 'SELECT * FROM accounts WHERE accountnumber = $1;';
@@ -129,6 +127,39 @@ class Transaction {
       return response.status(200).json({
         status: 200,
         data: rows,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
+
+  static async getSpecificTransaction(request, response) {
+    const { transactionId } = request.params;
+    const text = 'SELECT * FROM transactions WHERE id = $1;';
+    const value = [transactionId];
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'transaction record not found',
+        });
+      }
+      return response.status(200).json({
+        status: 200,
+        data: [{
+          transactionId: rows[0].id,
+          createdOn: rows[0].createdon,
+          type: rows[0].type,
+          accountNumber: rows[0].accountnumber,
+          oldBalance: rows[0].oldbalance,
+          newBalance: rows[0].newbalance,
+        }],
       });
     } catch (error) {
       return response.status(400).json({
