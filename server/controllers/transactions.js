@@ -146,7 +146,7 @@ class Transaction {
 
       if (!rows[0]) {
         return response.status(404).json({
-          status: 400,
+          status: 404,
           error: 'transaction record not found',
         });
       }
