@@ -68,6 +68,27 @@ class AccountValidator {
       error: 'transaction type can only be credit or debit',
     });
   }
+
+  /**
+ *@description This function checks if the queried status is either active or dormant
+ * @static
+ * @param {object} request the request object
+ * @param {object} response the response body
+ * @param {function} next passes the request to another function to be processed
+ * @returns
+ * @memberof AccountValidator
+ */
+  static checkStatus(request, response, next) {
+    const { status } = request.query;
+    if (status) {
+      if (status !== 'active' && status !== 'dormant') {
+        return response.status(400).json({
+          status: 400,
+          error: 'status can either be active or dormant',
+        });
+      }
+    } return next();
+  }
 }
 
 export default AccountValidator;

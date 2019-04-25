@@ -153,6 +153,20 @@ describe('Accounts', () => {
     });
   });
 
+  describe('all accounts', () => {
+    it('should give display all accounts', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body.data).to.be.an('array');
+    });
+  });
+
   describe('delete bank account', () => {
     it('should delete account', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')

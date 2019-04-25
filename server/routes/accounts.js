@@ -6,7 +6,7 @@ import auth from '../helpers/auth';
 
 const accountsRouter = express.Router();
 
-accountsRouter.get('/accounts', auth, accounts.getAccounts);
+accountsRouter.get('/accounts', auth, accountsMidware.checkStatus, accounts.getAccounts);
 accountsRouter.get('/accounts/:accountNumber', auth, accounts.accountDetails);
 accountsRouter.post('/accounts', auth, newAccountValidator, accountsMidware.isValidType, accounts.createAccount);
 accountsRouter.patch('/accounts/:accountNumber', auth, accountsMidware.canUpdate, accounts.updateAccount);
