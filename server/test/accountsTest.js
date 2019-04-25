@@ -93,6 +93,34 @@ describe('Accounts', () => {
     });
   });
 
+  describe('display account details', () => {
+    it('should return specific account details', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server
+        .get(`/api/v1/accounts/${rows[0].accountnumber}`)
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+    });
+  });
+
+  describe('display account details', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts/1234')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('account not found');
+      expect(response.body).to.be.an('object');
+    });
+  });
+
   describe('update account status', () => {
     it('should update account status', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')

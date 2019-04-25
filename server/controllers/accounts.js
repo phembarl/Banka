@@ -29,6 +29,51 @@ class Accounts {
     }
   }
 
+  static async accountDetails(request, response) {
+    const { accountNumber } = request.params;
+    const text = 'SELECT * FROM accounts WHERE accountnumber = $1;';
+    const value = [accountNumber];
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'account not found',
+        });
+      }
+
+      const ownerText = 'SELECT * FROM users WHERE id = $1;';
+      const ownerValue = [rows[0].owner];
+      const ownerRow = await db.query(ownerText, ownerValue);
+
+      if (request.user.id !== ownerRow.rows[0].id) {
+        return response.status(401).json({
+          status: 401,
+          error: 'you do not have permission to view that account',
+        });
+      }
+
+      return response.status(200).json({
+        status: 200,
+        data: [{
+          createdOn: rows[0].createdon,
+          accountNumber: rows[0].accountnumber,
+          ownerEmail: ownerRow.rows[0].email,
+          type: rows[0].type,
+          status: rows[0].status,
+          balance: rows[0].balance,
+        }],
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
+
   /**
  * @static
  * @description this function creates a new bank account
@@ -80,8 +125,7 @@ class Accounts {
  * @memberof Accounts
  */
   static async updateAccount(request, response) {
-    let { accountNumber } = request.params;
-    accountNumber = Number(accountNumber);
+    const { accountNumber } = request.params;
     let { status } = request.body;
     status = status.trim();
 
@@ -131,8 +175,7 @@ class Accounts {
  * @memberof Accounts
  */
   static async deleteAccount(request, response) {
-    let { accountNumber } = request.params;
-    accountNumber = Number(accountNumber);
+    const { accountNumber } = request.params;
 
     const text = 'DELETE FROM accounts WHERE accountnumber = $1 returning *;';
     const value = [accountNumber];
