@@ -17,6 +17,12 @@ class User {
   static async getUsers(request, response) {
     try {
       const { rows } = await db.query('SELECT * FROM users;');
+      if (!request.user.isadmin) {
+        return response.status(401).json({
+          status: 401,
+          error: 'you do not have permission to perform that operation',
+        });
+      }
 
       return response.status(200).json({
         status: 200,
