@@ -14,7 +14,18 @@ class Accounts {
    * @memberof Accounts
    */
   static async getAccounts(request, response) {
+    const { status } = request.query;
     try {
+      if (status) {
+        const text = 'SELECT * FROM accounts WHERE status = $1;';
+        const value = [status];
+
+        const { rows } = await db.query(text, value);
+        return response.status(200).json({
+          status: 400,
+          data: rows,
+        });
+      }
       const { rows } = await db.query('SELECT * FROM accounts;');
 
       return response.status(200).json({
@@ -208,6 +219,24 @@ class Accounts {
       });
     }
   }
+
+  // static async getActiveOrDormantAccounts(request, response) {
+  //   const { status } = request.query;
+  //   const text = 'SELECT * FROM accounts WHERE status = $1;';
+  //   const value = [status];
+  //   try {
+  //     const { rows } = await db.query(text, value);
+  //     return response.status(200).json({
+  //       status: 400,
+  //       data: rows,
+  //     });
+  //   } catch (error) {
+  //     return response.status(400).json({
+  //       status: 400,
+  //       error: error.message,
+  //     });
+  //   }
+  // }
 }
 
 export default Accounts;

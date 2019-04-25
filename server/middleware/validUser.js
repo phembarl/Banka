@@ -45,16 +45,6 @@ class ValidateUser {
       process.env.SECRET, { expiresIn: '30d' });
     return token;
   }
-
-  /**
- * @static
- * @description this functions checks if a user exists
- * @param {object} request the request body
- * @param {object} response the response body
- * @param {function} next passes the request to another function to be processed
- * @returns next
- * @memberof ValidateUser
- */
 }
 
 export default ValidateUser;
