@@ -32,7 +32,7 @@ describe('User', () => {
           firstName: 'Bukky',
           lastName: 'Abayomi',
           password: 'hello1234',
-          type: 'client',
+          type: 'staff',
         });
       expect(response.status).to.equal(201);
     });

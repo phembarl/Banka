@@ -47,7 +47,6 @@ describe('Accounts', () => {
       const { token } = loginResponse.body.data[0];
       const response = await server.post('/api/v1/accounts')
         .send({
-          userId: '1',
           type: 'current',
         })
         .set('x-access-token', token);
@@ -67,6 +66,18 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
       expect(response.body.error).to.equal('type can only be savings or current');
+    });
+  });
+
+  describe('get all acounts of a user', () => {
+    it('should return all accounts that belong to a user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/user/test@test.com/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body.data).to.be.an('array');
     });
   });
 
