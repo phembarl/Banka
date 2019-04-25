@@ -81,6 +81,18 @@ describe('Accounts', () => {
     });
   });
 
+  describe('get all acounts of a user', () => {
+    it('should return the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/user/test@tests.com/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('user not found');
+    });
+  });
+
   describe('update account status', () => {
     it('should update account status', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
