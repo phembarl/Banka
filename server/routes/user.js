@@ -8,6 +8,7 @@ import auth from '../helpers/auth';
 const userRouter = express.Router();
 
 userRouter.get('/users', auth, user.getUsers);
+userRouter.get('/user/:email/accounts', auth, user.userBankAccounts);
 userRouter.post('/auth/signup', signUpValidator, userMidware.isClientOrStaff, user.signUp);
 userRouter.post('/auth/signin', signInValidator, user.signIn);
 

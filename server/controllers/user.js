@@ -38,6 +38,53 @@ class User {
 
   /**
  * @static
+ * @description This function gets a users bank accounts
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
+ * @memberof User
+ */
+  static async userBankAccounts(request, response) {
+    const { email } = request.params;
+
+    const text = 'SELECT * FROM users WHERE email = $1;';
+    const value = [email];
+
+    if (!request.user.isadmin) {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have permission to perform that operation',
+      });
+    }
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'user not found',
+        });
+      }
+
+      const accountText = 'SELECT * FROM accounts WHERE owner = $1;';
+      const accountValue = [rows[0].id];
+      const accountRows = await db.query(accountText, accountValue);
+
+      return response.status(200).json({
+        status: 200,
+        data: accountRows.rows,
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
+
+  /**
+ * @static
  * @description this function creates a new user
  * @param {object} request the request body
  * @param {object} response the response body
