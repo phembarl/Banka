@@ -156,4 +156,17 @@ describe('Accounts', () => {
       expect(response.body.error).to.equal('cannot find that account');
     });
   });
+
+  describe('get all users', () => {
+    it('return all users', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/users')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+    });
+  });
 });
