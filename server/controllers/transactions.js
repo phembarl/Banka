@@ -39,7 +39,6 @@ class Transaction {
  */
   static async transact(request, response) {
     const { accountNumber, transactionType } = request.params;
-    const { cashier } = request.body;
     let { amount } = request.body;
     amount = Number(amount);
 
@@ -50,13 +49,6 @@ class Transaction {
       return response.status(401).json({
         status: 401,
         error: 'you do not have the authority to perform that operation',
-      });
-    }
-
-    if (request.user.id !== Number(cashier)) {
-      return response.status(401).json({
-        status: 401,
-        error: 'incorrect cashier id',
       });
     }
 
@@ -79,7 +71,7 @@ class Transaction {
       const transactText = `INSERT INTO transactions(type, accountnumber, amount, cashier, oldbalance, newbalance)
     VALUES($1, $2, $3, $4, $5, $6) returning *;`;
       const transactValues = [transactionType, accountNumber, amount,
-        cashier, oldBalance, newBalance];
+        request.user.id, oldBalance, newBalance];
       const transactRows = await db.query(transactText, transactValues);
       const updateText = 'UPDATE accounts SET balance = $1 WHERE accountnumber = $2 returning *;';
       const updateValue = [transactRows.rows[0].newbalance, transactRows.rows[0].accountnumber];

@@ -1,18 +1,23 @@
 import express from 'express';
-import userRouter from './routes/user';
-import accountsRouter from './routes/accounts';
-import transactionsRouter from './routes/transactions';
+import cors from 'cors';
+import router from './routes/index';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/v1/', userRouter);
-app.use('/api/v1/', accountsRouter);
-app.use('/api/v1/', transactionsRouter);
+app.use(cors());
+
+app.use('/api/v1/', router);
+
 app.get('/', (req, res) => {
   res.send('Welcome to Banka! Andela Cycle 43 ADC');
+});
+
+app.all('*', (req, res) => {
+  res.send('looks like you hit a non-existent route');
 });
 
 app.listen(port, () => {
