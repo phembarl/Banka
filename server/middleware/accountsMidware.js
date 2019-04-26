@@ -12,7 +12,7 @@ class AccountValidator {
    * @returns next
    * @memberof AccountValidator
    */
-  static isValidType(request, response, next) {
+  static checkAccountType(request, response, next) {
     const { type } = request.body;
 
     if (type === 'savings' || type === 'current') {
@@ -35,7 +35,7 @@ class AccountValidator {
  * @returns next
  * @memberof AccountValidator
  */
-  static canUpdate(request, response, next) {
+  static checkUpdateStatus(request, response, next) {
     let { status } = request.body;
     status = status.trim();
 
@@ -57,7 +57,7 @@ class AccountValidator {
  * @returns
  * @memberof AccountValidator
  */
-  static isTransaction(request, response, next) {
+  static checkTransaction(request, response, next) {
     const { transactionType } = request.params;
 
     if (transactionType === 'debit' || transactionType === 'credit') {
@@ -67,6 +67,17 @@ class AccountValidator {
       status: 400,
       error: 'transaction type can only be credit or debit',
     });
+  }
+
+  static validateAmount(request, response, next) {
+    const { amount } = request.body;
+    if (amount <= 0) {
+      return response.status(400).json({
+        status: 400,
+        error: 'amount must be greater than 0',
+      });
+    }
+    return next();
   }
 
   /**
