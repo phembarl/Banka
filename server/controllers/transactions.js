@@ -101,6 +101,14 @@ class Transaction {
     }
   }
 
+  /**
+ *@description This function gets the transaction history of a bank account
+ * @static
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
+ * @memberof Transaction
+ */
   static async transactionHistory(request, response) {
     const { accountNumber } = request.params;
     const text = 'SELECT * FROM transactions WHERE accountnumber = $1;';
@@ -112,7 +120,7 @@ class Transaction {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'account not found',
+          error: 'no transaction has been made with that account number',
         });
       }
 
@@ -128,6 +136,14 @@ class Transaction {
     }
   }
 
+  /**
+ *
+ * @static This function gets a specific transaction record
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
+ * @memberof Transaction
+ */
   static async getSpecificTransaction(request, response) {
     const { transactionId } = request.params;
     const text = 'SELECT * FROM transactions WHERE id = $1;';

@@ -58,7 +58,7 @@ const login = {
 
 
 describe('Accounts', () => {
-  before('hooks', async () => {
+  before('drop all tables and then re-create them', async () => {
     await db.query(dropUsers);
     await db.query(createUsers);
     await db.query(dropAccounts);
@@ -191,7 +191,7 @@ describe('Accounts', () => {
       const response = await server.get('/api/v1/accounts/00001111/transactions')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('account not found');
+      expect(response.body.error).to.equal('no transaction has been made with that account number');
     });
   });
 
