@@ -33,7 +33,7 @@ const login = {
 
 
 describe('Accounts', () => {
-  before('hooks', async () => {
+  before('drop accounts table and then re-create it', async () => {
     await db.query(dropAccounts);
     await db.query(createAccounts);
     await server.post('/api/v1/auth/signup')
