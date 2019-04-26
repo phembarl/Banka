@@ -13,7 +13,7 @@ class UserValidator {
    * @returns next
    * @memberof UserValidator
    */
-  static isClientOrStaff(request, response, next) {
+  static checkUserType(request, response, next) {
     const { type } = request.body;
 
     if (type !== 'client' && type !== 'staff') {

@@ -15,6 +15,12 @@ class Accounts {
    */
   static async getAccounts(request, response) {
     const { status } = request.query;
+    if (!request.user.isadmin) {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have permission to perform that operation',
+      });
+    }
     try {
       if (status) {
         const text = 'SELECT * FROM accounts WHERE status = $1;';

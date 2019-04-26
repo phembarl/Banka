@@ -1,5 +1,5 @@
 import db from '../models/db';
-import validUser from '../middleware/validUser';
+import userAuth from './authController';
 
 /**
  * @description This class handles user requests
@@ -101,14 +101,14 @@ class User {
     if (type === 'client') { isAdmin = false; }
     if (type === 'staff') { isAdmin = true; }
 
-    const hashedPassword = validUser.hashPassword(password);
+    const hashedPassword = userAuth.hashPassword(password);
     const text = `INSERT INTO users(firstname, lastname, email, password, type, isAdmin)
       VALUES($1, $2, $3, $4, $5, $6) returning *;`;
     const values = [firstName, lastName, email, hashedPassword, type, isAdmin];
 
     try {
       const { rows } = await db.query(text, values);
-      const token = validUser.generateToken(rows[0].id);
+      const token = userAuth.generateToken(rows[0].id);
 
       return response.status(201).json({
         status: 201,
@@ -148,7 +148,7 @@ class User {
 
     try {
       const { rows } = await db.query(text, [email]);
-      const token = validUser.generateToken(rows[0]);
+      const token = userAuth.generateToken(rows[0]);
 
       if (!rows[0]) {
         return response.status(404).json({
@@ -157,7 +157,7 @@ class User {
         });
       }
 
-      if (!validUser.comparePassword(password, rows[0].password)) {
+      if (!userAuth.comparePassword(password, rows[0].password)) {
         return response.status(401).json({
           status: 401,
           error: 'incorrect password',
