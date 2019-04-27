@@ -19,7 +19,7 @@ const createUsers = `CREATE TABLE IF NOT EXISTS users(
 const dropUsers = 'DROP TABLE IF EXISTS users;';
 
 describe('User', () => {
-  before('hooks', async () => {
+  before('drop users table and re-create it', async () => {
     await db.query(dropUsers);
     await db.query(createUsers);
   });

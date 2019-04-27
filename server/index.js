@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json';
 import router from './routes/index';
 
 
@@ -11,6 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/api/v1/', router);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
   res.send('Welcome to Banka! Andela Cycle 43 ADC');

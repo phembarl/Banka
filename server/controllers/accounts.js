@@ -46,6 +46,14 @@ class Accounts {
     }
   }
 
+  /**
+ *@description This function gets the details of an account
+ * @static
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
+ * @memberof Accounts
+ */
   static async accountDetails(request, response) {
     const { accountNumber } = request.params;
     const text = 'SELECT * FROM accounts WHERE accountnumber = $1;';
@@ -182,8 +190,6 @@ class Accounts {
   }
 
   /**
- *
- *
  * @static
  * @description this function deletes a bank account
  * @param {object} request the request body
@@ -225,24 +231,6 @@ class Accounts {
       });
     }
   }
-
-  // static async getActiveOrDormantAccounts(request, response) {
-  //   const { status } = request.query;
-  //   const text = 'SELECT * FROM accounts WHERE status = $1;';
-  //   const value = [status];
-  //   try {
-  //     const { rows } = await db.query(text, value);
-  //     return response.status(200).json({
-  //       status: 400,
-  //       data: rows,
-  //     });
-  //   } catch (error) {
-  //     return response.status(400).json({
-  //       status: 400,
-  //       error: error.message,
-  //     });
-  //   }
-  // }
 }
 
 export default Accounts;
