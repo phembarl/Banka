@@ -119,6 +119,30 @@ describe('Accounts', () => {
     });
   });
 
+  describe('credit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.post('/api/v1/transactions/hello/credit')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
+    });
+  });
+
+  describe('credit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.post('/api/v1/transactions/123/credit')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid account number');
+    });
+  });
+
   describe('debit account', () => {
     it('should create a successful transaction record', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
@@ -169,6 +193,30 @@ describe('Accounts', () => {
     });
   });
 
+  describe('debit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.post('/api/v1/transactions/hello/debit')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
+    });
+  });
+
+  describe('debit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.post('/api/v1/transactions/123/debit')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid account number');
+    });
+  });
+
   describe('get transaction history', () => {
     it('should return the transaction history of a particular account', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
@@ -195,6 +243,30 @@ describe('Accounts', () => {
     });
   });
 
+  describe('get transaction history', () => {
+    it('should give the appropriate error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/accounts/hello/transactions')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
+    });
+  });
+
+  describe('get transaction history', () => {
+    it('should give the appropriate error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/accounts/123/transactions')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid account number');
+    });
+  });
+
   describe('get specific transaction', () => {
     it('should return a specific transaction record', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
@@ -217,6 +289,18 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
       expect(response.body.error).to.equal('transaction record not found');
+    });
+  });
+
+  describe('get specific transaction', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/transactions/hello')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid transaction ID');
     });
   });
 });

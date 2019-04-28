@@ -15,4 +15,5 @@ const pool = new Pool({
   connectionString,
 });
 
+
 export default pool;

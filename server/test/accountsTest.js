@@ -93,6 +93,18 @@ describe('Accounts', () => {
     });
   });
 
+  describe('get all acounts of a user', () => {
+    it('should return the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/user/test@ tests.com/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid email address');
+    });
+  });
+
   describe('display account details', () => {
     it('should return specific account details', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
@@ -113,10 +125,38 @@ describe('Accounts', () => {
         .send(login);
       const { token } = loginResponse.body.data[0];
       const response = await server
-        .get('/api/v1/accounts/1234')
+        .get('/api/v1/accounts/12345678')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
       expect(response.body.error).to.equal('account not found');
+      expect(response.body).to.be.an('object');
+    });
+  });
+
+  describe('display account details', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts/hello')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
+      expect(response.body).to.be.an('object');
+    });
+  });
+
+  describe('display account details', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts/123')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid account number');
       expect(response.body).to.be.an('object');
     });
   });
@@ -150,6 +190,21 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
       expect(response.body.error).to.equal('status can only be active or dormant');
+    });
+  });
+
+  describe('update account status', () => {
+    it('should update account status', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.patch('/api/v1/accounts/hello')
+        .send({
+          status: 'active',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
     });
   });
 
@@ -187,10 +242,36 @@ describe('Accounts', () => {
         .send(login);
       const { token } = loginResponse.body.data[0];
       const response = await server
-        .delete('/api/v1/accounts/0001112223')
+        .delete('/api/v1/accounts/00011122')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
       expect(response.body.error).to.equal('cannot find that account');
+    });
+  });
+
+  describe('delete bank account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .delete('/api/v1/accounts/hello')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('account number can only comprise of numbers');
+    });
+  });
+
+  describe('delete bank account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .delete('/api/v1/accounts/123')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('invalid account number');
     });
   });
 

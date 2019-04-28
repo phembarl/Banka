@@ -129,7 +129,7 @@ class User {
       }
       return response.status(400).json({
         status: 400,
-        error: 'something is wrong with your query',
+        error: error.message,
       });
     }
   }
