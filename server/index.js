@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import expressValidator from 'express-validator';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
 import router from './routes/index';
@@ -10,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(expressValidator());
 app.use(cors());
 
 app.use('/api/v1/', router);
