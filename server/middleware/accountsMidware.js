@@ -37,6 +37,12 @@ class AccountValidator {
  */
   static checkUpdateStatus(request, response, next) {
     let { status } = request.body;
+    if (!status) {
+      return response.status(400).json({
+        status: 400,
+        error: 'status cannot be empty',
+      });
+    }
     status = status.trim();
 
     if (status === 'active' || status === 'dormant') {
