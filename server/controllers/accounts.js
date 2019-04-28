@@ -73,7 +73,7 @@ class Accounts {
       const ownerValue = [rows[0].owner];
       const ownerRow = await db.query(ownerText, ownerValue);
 
-      if (request.user.id !== ownerRow.rows[0].id) {
+      if (request.user.id !== ownerRow.rows[0].id && !request.user.isadmin) {
         return response.status(401).json({
           status: 401,
           error: 'you do not have permission to view that account',

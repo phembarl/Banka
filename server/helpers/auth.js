@@ -20,7 +20,7 @@ const verifyToken = async (request, response, next) => {
   } catch (error) {
     return response.send({
       status: 401,
-      error: error.message,
+      error: 'invalid token provided',
     });
   }
 };
