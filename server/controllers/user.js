@@ -143,7 +143,9 @@ class User {
  * @memberof User
  */
   static async signIn(request, response) {
-    const { email, password } = request.body;
+    const { password } = request.body;
+    let { email } = request.body;
+    email = email.toLowerCase();
     const text = 'SELECT * FROM users WHERE email = $1;';
 
     try {
