@@ -51,8 +51,21 @@ const signup = {
   type: 'staff',
 };
 
+const signup2 = {
+  firstName: 'tester',
+  lastName: 'testerAgain',
+  email: 'transact2@test.com',
+  password: 'awesometest',
+  type: 'client',
+};
+
 const login = {
   email: 'transact@test.com',
+  password: 'awesometest',
+};
+
+const login2 = {
+  email: 'transact2@test.com',
   password: 'awesometest',
 };
 
@@ -67,6 +80,8 @@ describe('Transactions', () => {
     await db.query(createTransactions);
     await server.post('/api/v1/auth/signup')
       .send(signup);
+    await server.post('/api/v1/auth/signup')
+      .send(signup2);
   });
 
   describe('credit account', () => {
@@ -92,6 +107,23 @@ describe('Transactions', () => {
       expect(response.body.data[0].transactionId).to.equal(rows.length);
       expect(Number(response.body.data[0].accountBalance))
         .to.equal(Number(oldAmount) + Number(response.body.data[0].amount));
+    });
+  });
+
+  describe('credit account', () => {
+    it('should not perform transaction', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/credit`)
+        .send({
+          amount: '1000',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
     });
   });
 
@@ -159,6 +191,23 @@ describe('Transactions', () => {
       expect(response.body.data[0].transactionId).to.equal(rows.length + 1);
       expect(Number(response.body.data[0].accountBalance))
         .to.equal(Number(oldAmount) - Number(response.body.data[0].amount));
+    });
+  });
+
+  describe('debit account', () => {
+    it('should not perform transaction', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/debit`)
+        .send({
+          amount: '1000',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
     });
   });
 
