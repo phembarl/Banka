@@ -1,4 +1,3 @@
-import faker from 'faker';
 import db from '../models/db';
 /**
  * Displays, creates, updates or deletes an account
@@ -15,7 +14,7 @@ class Accounts {
    */
   static async getAccounts(request, response) {
     const { status } = request.query;
-    if (!request.user.isadmin) {
+    if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
         error: 'you do not have permission to perform that operation',
@@ -73,7 +72,7 @@ class Accounts {
       const ownerValue = [rows[0].owner];
       const ownerRow = await db.query(ownerText, ownerValue);
 
-      if (request.user.id !== ownerRow.rows[0].id && !request.user.isadmin) {
+      if (request.user.id !== ownerRow.rows[0].id && !request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
           error: 'you do not have permission to view that account',
@@ -109,7 +108,7 @@ class Accounts {
  */
   static async createAccount(request, response) {
     const { type } = request.body;
-    const accountNumber = Number(faker.finance.account());
+    const accountNumber = Math.floor(10000000 + Math.random() * 90000000);
     const owner = request.user.id;
     const openingBalance = 0;
     const balance = openingBalance;
@@ -130,7 +129,7 @@ class Accounts {
           lastName: request.user.lastname,
           email: request.user.email,
           type,
-          operningBalance: balance,
+          openingBalance: rows[0].balance,
         }],
       });
     } catch (error) {
@@ -157,7 +156,7 @@ class Accounts {
     const text = 'UPDATE accounts SET status = $1 WHERE accountnumber = $2 returning *;';
     const values = [status, accountNumber];
 
-    if (!request.user.isadmin) {
+    if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
         error: 'you do not have the authority to perform that operation',
@@ -203,7 +202,7 @@ class Accounts {
     const text = 'DELETE FROM accounts WHERE accountnumber = $1 returning *;';
     const value = [accountNumber];
 
-    if (!request.user.isadmin) {
+    if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
         error: 'you do not have the authority to perform that operation',

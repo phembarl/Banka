@@ -23,7 +23,10 @@ app.get('/', (req, res) => {
 });
 
 app.all('*', (req, res) => {
-  res.send('looks like you hit a non-existent route');
+  res.status(404).json({
+    status: 404,
+    error: 'that route does not exist',
+  });
 });
 
 app.listen(port, () => {
