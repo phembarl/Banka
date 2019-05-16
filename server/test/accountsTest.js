@@ -26,8 +26,21 @@ const signup = {
   type: 'staff',
 };
 
+const signup2 = {
+  firstName: 'tester',
+  lastName: 'testerAgain',
+  email: 'transact2@test.com',
+  password: 'awesometest',
+  type: 'client',
+};
+
 const login = {
   email: 'test@test.com',
+  password: 'awesometest',
+};
+
+const login2 = {
+  email: 'transact2@test.com',
   password: 'awesometest',
 };
 
@@ -38,6 +51,8 @@ describe('Accounts', () => {
     await db.query(createAccounts);
     await server.post('/api/v1/auth/signup')
       .send(signup);
+    await server.post('/api/v1/auth/signup')
+      .send(signup2);
   });
 
   describe('create new account', () => {
@@ -78,6 +93,18 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(200);
       expect(response.body.data).to.be.an('array');
+    });
+  });
+
+  describe('get all acounts of a user', () => {
+    it('should not perform operation for unauthorized user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.get('/api/v1/user/test@test.com/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
     });
   });
 
@@ -178,6 +205,22 @@ describe('Accounts', () => {
   });
 
   describe('update account status', () => {
+    it('should not perform operation for unauthorized user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.patch(`/api/v1/accounts/${rows[0].accountnumber}`)
+        .send({
+          status: 'active',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+    });
+  });
+
+  describe('update account status', () => {
     it('should give the right error message', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
         .send(login);
@@ -219,6 +262,33 @@ describe('Accounts', () => {
       expect(response.status).to.equal(200);
       expect(response.body).to.be.an('object');
       expect(response.body.data).to.be.an('array');
+    });
+  });
+
+  describe('all accounts', () => {
+    it('should not perform operation for unauthorized user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+    });
+  });
+
+  describe('delete bank account', () => {
+    it('should not perform operation for unauthorized user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server
+        .delete(`/api/v1/accounts/${rows[0].accountnumber}`)
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
     });
   });
 
@@ -285,6 +355,19 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(200);
       expect(response.body).to.be.an('object');
+    });
+  });
+
+  describe('get all users', () => {
+    it('should not perform operation for unauthorized user', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login2);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/users')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
     });
   });
 });

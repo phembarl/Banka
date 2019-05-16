@@ -17,7 +17,7 @@ class Accounts {
     if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have permission to perform that operation',
+        error: 'you do not have the authority to perform that operation',
       });
     }
     try {
@@ -75,7 +75,7 @@ class Accounts {
       if (request.user.id !== ownerRow.rows[0].id && !request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
-          error: 'you do not have permission to view that account',
+          error: 'you do not have the authority to perform that operation',
         });
       }
 

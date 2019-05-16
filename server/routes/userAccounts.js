@@ -6,6 +6,6 @@ import paramsValidator from '../helpers/paramsValidator';
 
 const userAccountsRouter = express.Router();
 
-userAccountsRouter.get('/:email/accounts', auth, [paramsValidator.checkEmail], user.userBankAccounts);
+userAccountsRouter.get('/:email/accounts', auth, paramsValidator.checkEmail, user.userBankAccounts);
 
 export default userAccountsRouter;

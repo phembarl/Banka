@@ -6,6 +6,56 @@ import userAuth from './authController';
  * @class User
  */
 class User {
+/**
+ * @static
+ * @description This function changes the admin status of a user
+ * @param {object} request
+ * @param {object} response the response body
+ * @returns response
+ * @memberof User
+ */
+  static async createAdmin(request, response) {
+    const { email } = request.params;
+
+    const text = 'UPDATE users SET isadmin = $1 WHERE email = $2 returning *;';
+    const values = ['true', email];
+
+    if (!request.user.isadmin) {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have the authority to perform that operation',
+      });
+    }
+
+    try {
+      const { rows } = await db.query(text, values);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'user not found',
+        });
+      }
+
+      return response.status(200).json({
+        status: 200,
+        data: [{
+          id: rows[0].id,
+          firstName: rows[0].firstname,
+          lastName: rows[0].lastname,
+          email: rows[0].email,
+          type: rows[0].type,
+          isAdmin: rows[0].isadmin,
+        }],
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
+
   /**
    * @static
    * @description this function displays all users
@@ -20,60 +70,13 @@ class User {
       if (!request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
-          error: 'you do not have permission to perform that operation',
+          error: 'you do not have the authority to perform that operation',
         });
       }
 
       return response.status(200).json({
         status: 200,
         data: rows,
-      });
-    } catch (error) {
-      return response.status(400).json({
-        status: 400,
-        error: error.message,
-      });
-    }
-  }
-
-  /**
- * @static
- * @description This function gets a users bank accounts
- * @param {object} request the request parameters
- * @param {object} response the response body
- * @returns response
- * @memberof User
- */
-  static async userBankAccounts(request, response) {
-    const { email } = request.params;
-
-    const text = 'SELECT * FROM users WHERE email = $1;';
-    const value = [email];
-
-    if (!request.user.isadmin && request.user.type !== 'staff') {
-      return response.status(401).json({
-        status: 401,
-        error: 'you do not have permission to perform that operation',
-      });
-    }
-
-    try {
-      const { rows } = await db.query(text, value);
-
-      if (!rows[0]) {
-        return response.status(404).json({
-          status: 404,
-          error: 'user not found',
-        });
-      }
-
-      const accountText = 'SELECT * FROM accounts WHERE owner = $1;';
-      const accountValue = [rows[0].id];
-      const accountRows = await db.query(accountText, accountValue);
-
-      return response.status(200).json({
-        status: 200,
-        data: accountRows.rows,
       });
     } catch (error) {
       return response.status(400).json({
@@ -175,6 +178,53 @@ class User {
           lastName: rows[0].lastname,
           email: rows[0].email,
         }],
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      });
+    }
+  }
+
+  /**
+ * @static
+ * @description This function gets a users bank accounts
+ * @param {object} request the request parameters
+ * @param {object} response the response body
+ * @returns response
+ * @memberof User
+ */
+  static async userBankAccounts(request, response) {
+    const { email } = request.params;
+
+    const text = 'SELECT * FROM users WHERE email = $1;';
+    const value = [email];
+
+    if (!request.user.isadmin && request.user.type !== 'staff') {
+      return response.status(401).json({
+        status: 401,
+        error: 'you do not have the authority to perform that operation',
+      });
+    }
+
+    try {
+      const { rows } = await db.query(text, value);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'user not found',
+        });
+      }
+
+      const accountText = 'SELECT * FROM accounts WHERE owner = $1;';
+      const accountValue = [rows[0].id];
+      const accountRows = await db.query(accountText, accountValue);
+
+      return response.status(200).json({
+        status: 200,
+        data: accountRows.rows,
       });
     } catch (error) {
       return response.status(400).json({
