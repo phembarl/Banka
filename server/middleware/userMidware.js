@@ -16,7 +16,7 @@ class UserValidator {
   static checkUserType(request, response, next) {
     const { type } = request.body;
 
-    if (type !== 'client' && type !== 'staff') {
+    if (type.toLowerCase() !== 'client' && type.toLowerCase() !== 'staff') {
       return response.status(400).json({
         status: 400,
         error: 'you can either be a client or staff',

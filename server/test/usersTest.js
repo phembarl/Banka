@@ -39,6 +39,20 @@ describe('User', () => {
   });
 
   describe('user sign up', () => {
+    it('should create another user', async () => {
+      const response = await server.post('/api/v1/auth/signup')
+        .send({
+          email: 'HELLO_1@POSTGRESQL.COM',
+          firstName: 'test',
+          lastName: 'testAgain',
+          password: 'hello1234',
+          type: 'client',
+        });
+      expect(response.status).to.equal(201);
+    });
+  });
+
+  describe('user sign up', () => {
     it('should give the corresponding error messages', async () => {
       const response = await server.post('/api/v1/auth/signup')
         .send({
@@ -61,10 +75,24 @@ describe('User', () => {
   });
 
   describe('user sign in', () => {
-    it('should display the right user details', async () => {
+    it('should successfully sign in a user', async () => {
       const response = await server.post('/api/v1/auth/signin')
         .send({
           email: 'hello@postgresql.com',
+          password: 'hello1234',
+        });
+      expect(response.status).to.equal(200);
+      expect(response.body).to.have.property('data');
+      expect(response.body).to.be.an('object');
+      expect(response.body.data).to.be.an('array');
+    });
+  });
+
+  describe('user sign in', () => {
+    it('should successfully sign in a user', async () => {
+      const response = await server.post('/api/v1/auth/signin')
+        .send({
+          email: 'HELLO_1@POSTGRESQL.COM',
           password: 'hello1234',
         });
       expect(response.status).to.equal(200);
@@ -86,7 +114,7 @@ describe('User', () => {
     });
   });
 
-  describe(' user sign in', () => {
+  describe('user sign in', () => {
     it('should give the right error message', async () => {
       const response = await server.post('/api/v1/auth/signin')
         .send({
@@ -95,6 +123,38 @@ describe('User', () => {
         });
       expect(response.status).to.equal(401);
       expect(response.body.error).to.equal('incorrect password');
+    });
+  });
+
+  describe('non-existent routes', () => {
+    it('should give the right error message', async () => {
+      const response = await server.get('/api/v1/hello/hi');
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('that route does not exist');
+    });
+  });
+
+  describe('non-existent routes', () => {
+    it('should give the right error message', async () => {
+      const response = await server.post('/api/v1/hello/hi');
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('that route does not exist');
+    });
+  });
+
+  describe('non-existent routes', () => {
+    it('should give the right error message', async () => {
+      const response = await server.patch('/api/v1/hello/hi');
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('that route does not exist');
+    });
+  });
+
+  describe('non-existent routes', () => {
+    it('should give the right error message', async () => {
+      const response = await server.delete('/api/v1/hello/hi');
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('that route does not exist');
     });
   });
 });

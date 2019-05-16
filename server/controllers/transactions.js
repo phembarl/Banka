@@ -16,10 +16,24 @@ class Transaction {
   static async getTransactions(request, response) {
     try {
       const { rows } = await db.query('SELECT * FROM transactions;');
+      const transactions = [];
+
+      for (let i = 0; i < rows.length; i += 1) {
+        transactions.push({
+          id: rows[i].id,
+          createdOn: rows[i].createdon,
+          type: rows[i].type,
+          amount: rows[i].amount,
+          accountNumber: rows[i].accountnumber,
+          cashier: rows[i].cashier,
+          oldBalance: rows[i].oldbalance,
+          newBalance: rows[i].newbalance,
+        });
+      }
 
       return response.status(200).json({
         status: 200,
-        data: rows,
+        data: transactions,
       });
     } catch (error) {
       return response.status(400).json({
@@ -45,7 +59,7 @@ class Transaction {
     const text = 'SELECT * FROM accounts WHERE accountnumber = $1;';
     const value = [accountNumber];
 
-    if (!request.user.isadmin) {
+    if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
         error: 'you do not have the authority to perform that operation',
@@ -62,11 +76,17 @@ class Transaction {
         });
       }
 
-      const oldBalance = rows[0].balance;
+      const oldBalance = Number(rows[0].balance);
       let newBalance;
 
       if (transactionType === 'debit') { newBalance = oldBalance - amount; }
       if (transactionType === 'credit') { newBalance = oldBalance + amount; }
+      if (newBalance < 500) {
+        return response.status(400).json({
+          status: 400,
+          error: 'insufficient funds',
+        });
+      }
 
       const transactText = `INSERT INTO transactions(type, accountnumber, amount, cashier, oldbalance, newbalance)
     VALUES($1, $2, $3, $4, $5, $6) returning *;`;

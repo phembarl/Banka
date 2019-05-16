@@ -13,7 +13,7 @@ const createAccounts = `CREATE TABLE IF NOT EXISTS accounts(
     owner INT NOT NULL,
     type VARCHAR NOT NULL,
     status VARCHAR NOT NULL DEFAULT 'draft',
-    balance FLOAT NOT NULL
+    balance NUMERIC(15, 2) NOT NULL
 );`;
 
 const dropAccounts = 'DROP TABLE IF EXISTS accounts;';
@@ -125,7 +125,7 @@ describe('Accounts', () => {
         .send(login);
       const { token } = loginResponse.body.data[0];
       const response = await server
-        .get('/api/v1/accounts/12345678')
+        .get('/api/v1/accounts/00123456')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
       expect(response.body.error).to.equal('account not found');

@@ -16,8 +16,8 @@ class User {
    */
   static async getUsers(request, response) {
     try {
-      const { rows } = await db.query('SELECT * FROM users;');
-      if (!request.user.isadmin) {
+      const { rows } = await db.query('SELECT id, firstname, lastname, email, type, isadmin FROM users;');
+      if (!request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
           error: 'you do not have permission to perform that operation',
@@ -31,7 +31,7 @@ class User {
     } catch (error) {
       return response.status(400).json({
         status: 400,
-        error,
+        error: error.message,
       });
     }
   }
@@ -50,7 +50,7 @@ class User {
     const text = 'SELECT * FROM users WHERE email = $1;';
     const value = [email];
 
-    if (!request.user.isadmin) {
+    if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
         error: 'you do not have permission to perform that operation',
@@ -93,18 +93,16 @@ class User {
  */
   static async signUp(request, response) {
     const {
-      firstName, lastName, email, password, type,
+      firstName, lastName, password, type,
     } = request.body;
 
-    let isAdmin;
-
-    if (type === 'client') { isAdmin = false; }
-    if (type === 'staff') { isAdmin = true; }
+    let { email } = request.body;
+    email = email.toLowerCase();
 
     const hashedPassword = userAuth.hashPassword(password);
-    const text = `INSERT INTO users(firstname, lastname, email, password, type, isAdmin)
-      VALUES($1, $2, $3, $4, $5, $6) returning *;`;
-    const values = [firstName, lastName, email, hashedPassword, type, isAdmin];
+    const text = `INSERT INTO users(firstname, lastname, email, password, type)
+      VALUES($1, $2, $3, $4, $5) returning *;`;
+    const values = [firstName, lastName, email, hashedPassword, type.toLowerCase()];
 
     try {
       const { rows } = await db.query(text, values);
@@ -144,12 +142,15 @@ class User {
  */
   static async signIn(request, response) {
     const { password } = request.body;
+    const text = 'SELECT id, firstname, lastname, email, type, isadmin FROM users WHERE email = $1;';
+    const passwordText = 'SELECT password FROM users WHERE email = $1;';
+
     let { email } = request.body;
     email = email.toLowerCase();
-    const text = 'SELECT * FROM users WHERE email = $1;';
 
     try {
       const { rows } = await db.query(text, [email]);
+      const hashedPasswordRow = await db.query(passwordText, [email]);
       const token = userAuth.generateToken(rows[0]);
 
       if (!rows[0]) {
@@ -159,7 +160,7 @@ class User {
         });
       }
 
-      if (!userAuth.comparePassword(password, rows[0].password)) {
+      if (!userAuth.comparePassword(password, hashedPasswordRow.rows[0].password)) {
         return response.status(401).json({
           status: 401,
           error: 'incorrect password',
