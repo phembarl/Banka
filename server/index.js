@@ -9,10 +9,10 @@ import router from './routes/index';
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressValidator());
-app.use(cors());
 
 app.use('/api/v1/', router);
 

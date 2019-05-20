@@ -9,9 +9,9 @@
 </head>
 <body>
     <div id="welcome">
-        <nav class="navbar">
+        <nav class="navbar form-nav visible">
             <div>
-                <a href="index.html" class="visible nav nav-link brand">Banka</a>
+                <a href="index.html" class="visible nav nav-link brand form-brand">Banka</a>
             </div>            
 
             <div class="toggle-btn visible nav-link">
@@ -21,19 +21,19 @@
             </div>
 
             <div class="nav-items nav-right">	
-                    <a href="staffLogin.html" class="user visible nav-link">Staff Login</a>
-                    <a href="adminLogin.html" class="user visible nav-link">Admin</a>
+                    <a href="staffLogin.html" class="user form-users visible nav-link">Staff Login</a>
+                    <a href="adminLogin.html" class="user form-users visible nav-link">Admin</a>
                 </div>
         </nav>
         
         <div>
             <form class="visible" id="signup-form">
                 <h3 id="form-text">Create Your Account</h3>
-                <input type="text" name="" placeholder="First name">
-                <input type="text" name="" placeholder="Last name">
-                <input type="email" name="" placeholder="Email address">
-                <input type="password" name="" placeholder="Create password">
-                <input type="password" name="" placeholder="Confirm password">
+                <input type="text" name="" placeholder="First name" required>
+                <input type="text" name="" placeholder="Last name" required>
+                <input type="email" name="" placeholder="Email address" required>
+                <input type="password" name="" placeholder="Create password" required>
+                <input type="password" name="" placeholder="Confirm password" required>
                 <input type="Submit" name="" id="submit">
 
                 <a href="login.html" class="other"> Already have an account? Sign in</a>
@@ -44,6 +44,5 @@
     </div>
     
     <script src="assets/js/nav.js"></script>
-    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

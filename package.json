@@ -13,7 +13,8 @@
   },
   "nyc": {
     "exclude": [
-      "server/test/**"
+      "server/test/**",
+      "server/models/**"
     ]
   },
   "repository": {

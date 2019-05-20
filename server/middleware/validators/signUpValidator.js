@@ -3,9 +3,9 @@ import displayErrors from './errorMessages';
 
 const userInput = [
   check('firstName').not().isEmpty().withMessage('firstName cannot be empty'),
-  check('firstName').isAlpha().trim().withMessage('firstName can ony contain letters'),
+  check('firstName').isAlpha().trim().withMessage('firstName can only contain letters'),
   check('lastName').not().isEmpty().withMessage('lastName cannot be empty'),
-  check('lastName').isAlpha().trim().withMessage('lastName can ony contain letters'),
+  check('lastName').isAlpha().trim().withMessage('lastName can only contain letters'),
   check('email').not().isEmpty().withMessage('email cannot be empty'),
   check('email').isEmail().trim().withMessage('input a valid email address'),
   check('type').not().isEmpty().withMessage('type is missing. are you a client or staff?'),

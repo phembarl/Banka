@@ -27,7 +27,7 @@ class Accounts {
 
         const { rows } = await db.query(text, value);
         return response.status(200).json({
-          status: 400,
+          status: 200,
           data: rows,
         });
       }
