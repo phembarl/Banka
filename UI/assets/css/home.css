@@ -20,7 +20,7 @@
 
 #hello{
     padding-top: 30px;
-    padding-left: 70px;
+    margin-left: 270px;
     font-size: 1.2rem;
     color: #00ffff;
 }
@@ -61,5 +61,9 @@
 
     .homeNavbar{
         flex-direction: column;
+    }
+
+    #hello{
+        margin-left: 30px;
     }
 }

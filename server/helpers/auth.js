@@ -18,7 +18,7 @@ const verifyToken = async (request, response, next) => {
     request.user = decoded.user;
     if (decoded) return next();
   } catch (error) {
-    return response.send({
+    return response.status(401).json({
       status: 401,
       error: 'invalid token provided',
     });

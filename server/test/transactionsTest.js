@@ -168,6 +168,38 @@ describe('Transactions', () => {
     });
   });
 
+  describe('credit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/hi`)
+        .send({
+          amount: '1000',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('transaction type can only be credit or debit');
+    });
+  });
+
+  describe('credit account', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.post(`/api/v1/transactions/${rows[0].accountnumber}/credit`)
+        .send({
+          amount: '0',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('amount must be greater than 0');
+    });
+  });
+
   describe('debit account', () => {
     it('should create a successful transaction record', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')

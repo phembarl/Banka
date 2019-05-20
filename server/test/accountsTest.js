@@ -56,6 +56,29 @@ describe('Accounts', () => {
   });
 
   describe('create new account', () => {
+    it('should indicate that token is needed', async () => {
+      const response = await server.post('/api/v1/accounts')
+        .send({
+          type: 'current',
+        });
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('token is not provided!');
+    });
+  });
+
+  describe('create new account', () => {
+    it('should indicate that an invalid token has been provided', async () => {
+      const response = await server.post('/api/v1/accounts')
+        .send({
+          type: 'current',
+        })
+        .set('x-access-token', 'fjhghhjklkjhdjgjlkgrdth');
+      expect(response.status).to.equal(401);
+      expect(response.body.error).to.equal('invalid token provided');
+    });
+  });
+
+  describe('create new account', () => {
     it('should create a new account', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
         .send(login);
@@ -205,6 +228,21 @@ describe('Accounts', () => {
   });
 
   describe('update account status', () => {
+    it('should update account status', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.patch('/api/v1/accounts/00112233')
+        .send({
+          status: 'active',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(404);
+      expect(response.body.error).to.equal('cannot find that account');
+    });
+  });
+
+  describe('update account status', () => {
     it('should not perform operation for unauthorized user', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
         .send(login2);
@@ -237,6 +275,22 @@ describe('Accounts', () => {
   });
 
   describe('update account status', () => {
+    it('should give the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const { rows } = await db.query('SELECT * FROM accounts WHERE id = $1;', [1]);
+      const response = await server.patch(`/api/v1/accounts/${rows[0].accountnumber}`)
+        .send({
+          status: '',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('status cannot be empty');
+    });
+  });
+
+  describe('update account status', () => {
     it('should update account status', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
         .send(login);
@@ -262,6 +316,56 @@ describe('Accounts', () => {
       expect(response.status).to.equal(200);
       expect(response.body).to.be.an('object');
       expect(response.body.data).to.be.an('array');
+    });
+  });
+
+  describe('all accounts', () => {
+    it('should give display all active accounts', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts?status=active')
+        .set('x-access-token', token);
+      const activeAccounts = response.body.data;
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body.data).to.be.an('array');
+      activeAccounts.forEach((account) => {
+        expect(account.status).to.equal('active');
+      });
+    });
+  });
+
+  describe('all accounts', () => {
+    it('should give display all active accounts', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts?status=dormant')
+        .set('x-access-token', token);
+      const activeAccounts = response.body.data;
+      expect(response.status).to.equal(200);
+      expect(response.body).to.be.an('object');
+      expect(response.body.data).to.be.an('array');
+      activeAccounts.forEach((account) => {
+        expect(account.status).to.equal('dormant');
+      });
+    });
+  });
+
+  describe('all accounts', () => {
+    it('should return the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server
+        .get('/api/v1/accounts?status=hello')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body).to.be.an('object');
+      expect(response.body.error).to.be.equal('status can either be active or dormant');
     });
   });
 
