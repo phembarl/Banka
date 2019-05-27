@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/user.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
 <body>
@@ -21,9 +23,9 @@
             </div>
 
             <div class="nav-items nav-right">	
-                    <a href="staffLogin.html" class="user form-users visible nav-link">Staff Login</a>
-                    <a href="adminLogin.html" class="user form-users visible nav-link">Admin</a>
-                </div>
+                <a href="staffLogin.html" class="user form-users visible nav-link">Staff Login</a>
+                <a href="adminLogin.html" class="user form-users visible nav-link">Admin</a>
+            </div>
         </nav>
         
         <div>
@@ -42,6 +44,15 @@
         </div>
         
         <div class="image-overlay"></div>
+    </div>
+
+    <div class="message-modal">
+        <div class="modal-content2">
+            <ul id="error-list"></ul>
+            <p id="errorMessage"></p>
+            <p id="successMessage"></p>
+            <i class="fas fa-spinner fa-spin loader"></i>
+        </div>
     </div>
     
     <script src="assets/js/nav.js"></script>

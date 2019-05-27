@@ -1,5 +1,4 @@
 const del = document.querySelector('.delete');
-const account = document.querySelector('.info');
 const activate = document.querySelector('.activate');
 const deactivate = document.querySelector('.deactivate');
 const status = document.querySelector('#status');
@@ -15,46 +14,44 @@ const creditModal = document.querySelector('.credit-modal');
 const debitModal = document.querySelector('.debit-modal');
 
 del.addEventListener('click', () => {
-    deleteModal.style.display = 'block';
+  deleteModal.style.display = 'block';
 });
 
 ok.addEventListener('click', () => {
-    deleteModal.style.display = 'none';
-    deleteMessage.style.display = 'block';
+  deleteModal.style.display = 'none';
+  deleteMessage.style.display = 'block';
 });
 
 cancel.addEventListener('click', () => {
-    deleteModal.style.display = 'none';
+  deleteModal.style.display = 'none';
 });
 
 activate.addEventListener('click', () => {
-    activateModal.style.display = 'block';
-    status.textContent = 'active';
+  activateModal.style.display = 'block';
+  status.textContent = 'active';
 });
 
 deactivate.addEventListener('click', () => {
-    deactivateModal.style.display = 'block';
-    status.textContent = 'dormant';
+  deactivateModal.style.display = 'block';
+  status.textContent = 'dormant';
 });
 
 credit.addEventListener('click', () => {
-    creditModal.style.display = 'block';
+  creditModal.style.display = 'block';
 });
 
 debit.addEventListener('click', () => {
-    debitModal.style.display = 'block';
+  debitModal.style.display = 'block';
 });
 
 window.onclick = (event) => {
-    if (event.target == deleteModal || event.target == activateModal 
-        || event.target == deactivateModal || event.target == creditModal
-        || event.target == debitModal) {
-      activateModal.style.display = "none";
-      deleteModal.style.display = "none";
-      deactivateModal.style.display = "none";
-      creditModal.style.display = "none";
-      debitModal.style.display = "none";
-    }
+  if (event.target === deleteModal || event.target === activateModal
+        || event.target === deactivateModal || event.target === creditModal
+        || event.target === debitModal) {
+    activateModal.style.display = 'none';
+    deleteModal.style.display = 'none';
+    deactivateModal.style.display = 'none';
+    creditModal.style.display = 'none';
+    debitModal.style.display = 'none';
   }
-
-
+}

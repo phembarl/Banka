@@ -20,7 +20,8 @@
     display: none;
 }
 
-.delete-modal, .activate-modal, .deactivate-modal, .credit-modal, .debit-modal{
+.delete-modal, .activate-modal,
+.deactivate-modal, .credit-modal, .debit-modal, .message-modal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -49,7 +50,6 @@
     padding: 20px;
     border: 1px solid #888;
     width: 40%;
-    height: 50px;
     border-radius: 10px;
     text-align: center;
   }
@@ -63,6 +63,29 @@
     height: 150px;
     border-radius: 10px;
     text-align: center;
+  }
+
+  .message-modal .modal-content2{
+      color: red;
+      width: 30%;
+  }
+
+  .message-modal .modal-content2 ul{
+      text-align: justify;
+  }
+
+  .message-modal .modal-content2 i{
+      border: none;
+      text-align: center;
+  }
+
+  #successMessage{
+      color: green;
+  }
+
+  .loader{
+      color: #00ffff;
+      font-size: 70px;
   }
 
 .ok{
@@ -126,5 +149,9 @@ form input{
 
     .submit{
         width: 95%;
+    }
+
+    .message-modal .modal-content2{
+        width: 85%;
     }
 }
