@@ -1,28 +1,16 @@
 const url = 'https://banka-andela-43.herokuapp.com';
-const signupForm = document.querySelector('#signup-form');
+const loginForm = document.querySelector('#login-form');
 
-const registerUser = (event) => {
+const login = (event) => {
   event.preventDefault();
-  const firstName = document.querySelector('#firstname').value.trim();
-  const lastName = document.querySelector('#lastname').value.trim();
   const email = document.querySelector('#email').value.trim();
-  const type = document.querySelector('#type').value.trim();
   const password = document.querySelector('#password').value;
-  const confirmPassword = document.querySelector('#confirmPassword').value;
 
-  const firstNameInput = document.querySelector('#firstname');
-  const lastNameInput = document.querySelector('#lastname');
   const emailInput = document.querySelector('#email');
-  const typeInput = document.querySelector('#type');
   const passwordInput = document.querySelector('#password');
-  const confirmPasswordInput = document.querySelector('#confirmPassword');
   const userDetails = {
-    firstName,
-    lastName,
     email,
-    type,
     password,
-    confirmPassword,
   };
 
   const modal = document.querySelector('.message-modal');
@@ -31,23 +19,8 @@ const registerUser = (event) => {
   const errorMessage = document.querySelector('#errorMessage');
   const successMessage = document.querySelector('#successMessage');
 
-  const validUser = () => {
+  const validLogin = () => {
     let errorCount = 0;
-
-    if (userDetails.firstName === '') {
-      firstNameInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      errorCount += 1;
-    } else {
-      firstNameInput.style.border = '1px solid rgba(0, 255, 255, .5)';
-    }
-
-    if (userDetails.lastName === '') {
-      lastNameInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      errorCount += 1;
-    } else {
-      lastNameInput.style.border = '1px solid rgba(0, 255, 255, .5)';
-    }
-
 
     if (userDetails.email === '') {
       emailInput.style.border = '1px solid rgba(255, 0, 0, .6)';
@@ -56,56 +29,35 @@ const registerUser = (event) => {
       emailInput.style.border = '1px solid rgba(0, 255, 255, .5)';
     }
 
-    if (userDetails.type === '') {
-      typeInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      errorCount += 1;
-    } else {
-      typeInput.style.border = '1px solid rgba(0, 255, 255, .5)';
-    }
-
     if (userDetails.password === '') {
       passwordInput.style.border = '1px solid rgba(255, 0, 0, .6)';
       errorCount += 1;
-    }
-
-
-    if (userDetails.confirmPassword === '') {
-      confirmPasswordInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      errorCount += 1;
-    }
-
-
-    if (userDetails.password !== userDetails.confirmPassword) {
-      passwordInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      confirmPasswordInput.style.border = '1px solid rgba(255, 0, 0, .6)';
-      errorCount += 1;
-    }
-
-
-    if (userDetails.password === userDetails.confirmPassword
-      && userDetails.password.length > 1) {
+    } else {
       passwordInput.style.border = '1px solid rgba(0, 255, 255, .5)';
-      confirmPasswordInput.style.border = '1px solid rgba(0, 255, 255, .5)';
     }
+
     if (errorCount === 0) {
       return true;
     } return false;
   };
 
-  if (validUser()) {
+  if (validLogin()) {
     modal.style.display = 'block';
     loader.style.display = 'block';
+
     const init = {
       method: 'POST',
-      body: JSON.stringify(userDetails),
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(userDetails),
     };
-    fetch(`${url}/api/v1/auth/signup`, init)
+
+    fetch(`${url}/api/v1/auth/signin`, init)
       .then(response => response.json())
       .then((data) => {
-        if (data.status !== 201) {
+        console.log(data);
+        if (data.status !== 200) {
           if (data.error) {
             loader.style.display = 'none';
             errorMessage.textContent = data.error;
@@ -121,19 +73,25 @@ const registerUser = (event) => {
               errors.style.display = 'block';
             }
           }
-        } if (data.status === 201) {
+        } else {
+          const user = data.data[0];
+          sessionStorage.setItem('token', user.token);
+          sessionStorage.setItem('id', user.id);
+          sessionStorage.setItem('firstName', user.firstName);
+          sessionStorage.setItem('lastName', user.lastName);
+          sessionStorage.setItem('email', user.email);
+
           loader.style.display = 'none';
-          successMessage.innerHTML = 'Your account has been successfully created <i class="fas fa-check-circle"></i> <p><i class="fas fa-spinner fa-spin success-loader"></i></p>';
+          successMessage.innerHTML = `Welcome ${data.data[0].firstName} <i class="fas fa-door-open"></i> <p><i class="fas fa-spinner fa-spin success-loader"></i></p>`;
           successMessage.style.display = 'block';
 
           setTimeout(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'dashboard.html';
           }, 1500);
         }
       })
       .catch(error => console.log(error));
   }
-
   window.onclick = (e) => {
     if (e.target === modal) {
       modal.style.display = 'none';
@@ -144,4 +102,4 @@ const registerUser = (event) => {
   };
 };
 
-signupForm.addEventListener('submit', registerUser);
+loginForm.addEventListener('submit', login);
