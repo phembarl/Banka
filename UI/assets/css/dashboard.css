@@ -62,6 +62,11 @@
     background: #000;
 }
 
+.accountType, #table{
+    text-transform: capitalize;
+}
+
+
 @media (max-width: 1024px){
     .info{
         max-width: 80%;

@@ -28,6 +28,7 @@ const registerUser = (event) => {
   const modal = document.querySelector('.message-modal');
   const errors = document.querySelector('#error-list');
   const loader = document.querySelector('.loader');
+  const wait = document.querySelector('.wait');
   const errorMessage = document.querySelector('#errorMessage');
   const successMessage = document.querySelector('#successMessage');
 
@@ -95,6 +96,7 @@ const registerUser = (event) => {
   if (validUser()) {
     modal.style.display = 'block';
     loader.style.display = 'block';
+    wait.style.display = 'block';
     const init = {
       method: 'POST',
       body: JSON.stringify(userDetails),
@@ -108,6 +110,7 @@ const registerUser = (event) => {
         if (data.status !== 201) {
           if (data.error) {
             loader.style.display = 'none';
+            wait.style.display = 'none';
             errorMessage.textContent = data.error;
             errorMessage.style.display = 'block';
           }
@@ -117,12 +120,14 @@ const registerUser = (event) => {
               const err = document.createElement('li');
               err.appendChild(document.createTextNode(data.errors[i]));
               loader.style.display = 'none';
+              wait.style.display = 'none';
               errors.appendChild(err);
               errors.style.display = 'block';
             }
           }
         } if (data.status === 201) {
           loader.style.display = 'none';
+          wait.style.display = 'none';
           successMessage.innerHTML = 'Your account has been successfully created <i class="fas fa-check-circle"></i> <p><i class="fas fa-spinner fa-spin success-loader"></i></p>';
           successMessage.style.display = 'block';
 
@@ -131,7 +136,7 @@ const registerUser = (event) => {
           }, 1500);
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => error);
   }
 
   window.onclick = (e) => {

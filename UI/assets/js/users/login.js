@@ -16,6 +16,7 @@ const login = (event) => {
   const modal = document.querySelector('.message-modal');
   const errors = document.querySelector('#error-list');
   const loader = document.querySelector('.loader');
+  const wait = document.querySelector('.wait');
   const errorMessage = document.querySelector('#errorMessage');
   const successMessage = document.querySelector('#successMessage');
 
@@ -44,6 +45,7 @@ const login = (event) => {
   if (validLogin()) {
     modal.style.display = 'block';
     loader.style.display = 'block';
+    wait.style.display = 'block';
 
     const init = {
       method: 'POST',
@@ -56,10 +58,10 @@ const login = (event) => {
     fetch(`${url}/api/v1/auth/signin`, init)
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
         if (data.status !== 200) {
           if (data.error) {
             loader.style.display = 'none';
+            wait.style.display = 'none';
             errorMessage.textContent = data.error;
             errorMessage.style.display = 'block';
           }
@@ -69,6 +71,7 @@ const login = (event) => {
               const err = document.createElement('li');
               err.appendChild(document.createTextNode(data.errors[i]));
               loader.style.display = 'none';
+              wait.style.display = 'none';
               errors.appendChild(err);
               errors.style.display = 'block';
             }
@@ -81,16 +84,42 @@ const login = (event) => {
           sessionStorage.setItem('lastName', user.lastName);
           sessionStorage.setItem('email', user.email);
 
+          const userEmail = sessionStorage.getItem('email');
+          const userToken = sessionStorage.getItem('token');
+          const accountsInit = {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-access-token': userToken,
+            },
+          };
+
           loader.style.display = 'none';
+          wait.style.display = 'none';
           successMessage.innerHTML = `Welcome ${data.data[0].firstName} <i class="fas fa-door-open"></i> <p><i class="fas fa-spinner fa-spin success-loader"></i></p>`;
           successMessage.style.display = 'block';
+
+          fetch(`${url}/api/v1/user/${userEmail}/accounts`, accountsInit)
+            .then(response => response.json())
+            .then((accountsData) => {
+              sessionStorage.setItem('accountNumber', accountsData.data[0].accountnumber);
+              sessionStorage.setItem('accountType', accountsData.data[0].type);
+              sessionStorage.setItem('balance', accountsData.data[0].balance);
+
+              if (accountsData.data[0].length === 0) {
+                setTimeout(() => {
+                  window.location.href = 'create.html';
+                }, 1500);
+              }
+            })
+            .catch(error => error);
 
           setTimeout(() => {
             window.location.href = 'dashboard.html';
           }, 1500);
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => error);
   }
   window.onclick = (e) => {
     if (e.target === modal) {

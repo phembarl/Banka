@@ -88,6 +88,11 @@
       display: none;
   }
 
+  .wait{
+      color: #000;
+      display: none;
+  }
+
   .loader{
       color: #00ffff;
       font-size: 70px;
