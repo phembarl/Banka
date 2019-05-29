@@ -1,23 +1,12 @@
 const url = 'https://banka-andela-43.herokuapp.com';
 
-const firstName = document.querySelectorAll('.firstName');
-const lastName = document.querySelectorAll('.lastName');
-const account = document.querySelector('.account');
-const accountType = document.querySelector('.accountType');
-const balance = document.querySelector('.balance');
-
+const table = document.querySelector('#table');
 const modal = document.querySelector('.message-modal');
 const loader = document.querySelector('.loader');
 const wait = document.querySelector('.wait');
 
-const table = document.querySelector('#table');
-
 const token = sessionStorage.getItem('token');
-const firstNameValue = sessionStorage.getItem('firstName');
-const lastNameValue = sessionStorage.getItem('lastName');
 const accountNumber = sessionStorage.getItem('accountNumber');
-const accountTypeValue = sessionStorage.getItem('accountType');
-const balanceValue = sessionStorage.getItem('balance');
 
 if (!token) {
   window.location.href = 'login.html';
@@ -26,18 +15,6 @@ if (!token) {
 modal.style.display = 'block';
 loader.style.display = 'block';
 wait.style.display = 'block';
-
-for (let i = 0; i < firstName.length; i += 1) {
-  firstName[i].textContent = firstNameValue;
-}
-
-for (let i = 0; i < lastName.length; i += 1) {
-  lastName[i].textContent = lastNameValue;
-}
-
-account.textContent = accountNumber;
-accountType.textContent = accountTypeValue;
-balance.textContent = balanceValue;
 
 const init = {
   method: 'GET',
@@ -52,7 +29,7 @@ fetch(`${url}/api/v1/accounts/${accountNumber}/transactions`, init)
   .then((data) => {
     const transactions = data.data;
 
-    for (let i = transactions.length - 1; i >= (transactions.length - 5); i -= 1) {
+    for (let i = 0; i < transactions.length; i += 1) {
       sessionStorage.setItem('date', transactions[i].createdon);
       sessionStorage.setItem('transactionType', transactions[i].type);
       sessionStorage.setItem('currency', transactions[i].transactioncurrency);
@@ -81,4 +58,4 @@ fetch(`${url}/api/v1/accounts/${accountNumber}/transactions`, init)
     loader.style.display = 'none';
     wait.style.display = 'none';
   })
-  .catch(error => console.log(error));
+  .catch(error => error);

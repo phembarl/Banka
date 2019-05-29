@@ -37,6 +37,10 @@
     margin: auto;
 }
 
+.records{
+    margin-left: initial;
+}
+
 #historyDiv{
     padding-bottom: 30px;
 }
@@ -53,6 +57,7 @@ table{
     border-spacing: 0;
     border-radius: 10px;
     padding-bottom: 10px;
+    text-transform: capitalize;
 }
 
 thead{
