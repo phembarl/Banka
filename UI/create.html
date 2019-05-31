@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Create Bank Account</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/user.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/create.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -63,9 +65,22 @@
 
         <div class="image-overlay"></div>
     </div>
+
+    <div class="message-modal">
+        <div class="modal-content2">
+            <ul id="error-list"></ul>
+            <p id="errorMessage"></p>
+            <p id="successMessage"></p>
+            <p class="num"><strong>Account Number:</strong> <span class="accountNumber"></span></p>
+            <p class="type"><strong>Account Type:</strong> <span class="accountType"></span></p>
+            <i class="fas fa-spinner fa-spin loader"></i>
+            <p class="wait">Creating account</p>
+        </div>
+    </div>
     
 
     <script src="assets/js/nav.js"></script>
     <script src="assets/js/dropdown.js"></script>
+    <script src="assets/js/users/newAcount.js"></script>
 </body>
 </html>

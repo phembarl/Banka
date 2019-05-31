@@ -47,6 +47,12 @@
     background: #000;
 }
 
+.num, .type{
+    display: none;
+    color: green;
+    text-transform: capitalize;
+}
+
 @media (max-width: 1024px){
     #account-form{
         max-width: 80%;

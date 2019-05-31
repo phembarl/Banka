@@ -136,7 +136,14 @@ const registerUser = (event) => {
           }, 1500);
         }
       })
-      .catch(error => error);
+      .catch((error) => {
+        if (error) {
+          loader.style.display = 'none';
+          wait.style.display = 'none';
+          errorMessage.textContent = 'Oops! something went wrong. Check your Internet connection and try again';
+          errorMessage.style.display = 'block';
+        }
+      });
   }
 
   window.onclick = (e) => {
@@ -145,6 +152,8 @@ const registerUser = (event) => {
       errors.textContent = '';
       errorMessage.textContent = '';
       successMessage.textContent = '';
+      errors.style.display = 'none';
+      errorMessage.style.display = 'none';
     }
   };
 };

@@ -84,42 +84,24 @@ const login = (event) => {
           sessionStorage.setItem('lastName', user.lastName);
           sessionStorage.setItem('email', user.email);
 
-          const userEmail = sessionStorage.getItem('email');
-          const userToken = sessionStorage.getItem('token');
-          const accountsInit = {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-access-token': userToken,
-            },
-          };
-
           loader.style.display = 'none';
           wait.style.display = 'none';
           successMessage.innerHTML = `Welcome ${data.data[0].firstName} <i class="fas fa-door-open"></i> <p><i class="fas fa-spinner fa-spin success-loader"></i></p>`;
           successMessage.style.display = 'block';
-
-          fetch(`${url}/api/v1/user/${userEmail}/accounts`, accountsInit)
-            .then(response => response.json())
-            .then((accountsData) => {
-              sessionStorage.setItem('accountNumber', accountsData.data[0].accountnumber);
-              sessionStorage.setItem('accountType', accountsData.data[0].type);
-              sessionStorage.setItem('balance', accountsData.data[0].balance);
-
-              if (accountsData.data[0].length === 0) {
-                setTimeout(() => {
-                  window.location.href = 'create.html';
-                }, 1500);
-              }
-            })
-            .catch(error => error);
 
           setTimeout(() => {
             window.location.href = 'dashboard.html';
           }, 1500);
         }
       })
-      .catch(error => error);
+      .catch((error) => {
+        if (error) {
+          loader.style.display = 'none';
+          wait.style.display = 'none';
+          errorMessage.textContent = 'Oops! something went wrong. Check your Internet connection and try again';
+          errorMessage.style.display = 'block';
+        }
+      });
   }
   window.onclick = (e) => {
     if (e.target === modal) {
@@ -127,6 +109,8 @@ const login = (event) => {
       errors.textContent = '';
       errorMessage.textContent = '';
       successMessage.textContent = '';
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
     }
   };
 };

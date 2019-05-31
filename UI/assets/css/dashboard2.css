@@ -30,10 +30,50 @@
     text-align: justify;
     margin: auto;
     float: right;
+    margin-left: initial;
 }
 
 .entry{
     font-weight: bold;
+}
+
+.upload-wrapper{
+    position: absolute;
+    top: 80%;
+    left: 60%;
+    cursor: pointer;
+}
+
+.upload{
+    /* position: absolute;
+    top: 80%;
+    left: 60%; */
+    background: rgba(0, 0, 0);
+    opacity: .5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    outline: inherit;
+}
+
+.upload-wrapper input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    display: none;
+}
+
+.upload:hover{
+    /* background: rgba(0, 0, 0, 1); */
+    opacity: .8;
+
+}
+
+.upload:focus, .upload.focus{
+	box-shadow: 0 0 0 1.5px rgba(85, 85, 85, .5);
 }
 
 
