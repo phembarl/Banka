@@ -77,12 +77,14 @@ const login = (event) => {
             }
           }
         } else {
+          console.log(data);
           const user = data.data[0];
           sessionStorage.setItem('token', user.token);
           sessionStorage.setItem('id', user.id);
           sessionStorage.setItem('firstName', user.firstName);
           sessionStorage.setItem('lastName', user.lastName);
           sessionStorage.setItem('email', user.email);
+          sessionStorage.setItem('profilePic', user.avatar);
 
           loader.style.display = 'none';
           wait.style.display = 'none';

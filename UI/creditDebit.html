@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transact</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/user.css">
+    <link rel="stylesheet" href="assets/css/transact.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 </head>
 <body>
@@ -54,17 +57,31 @@
                     <option value="debit">Debit</option>
                 </select>
                 
-                <input type="text" name="" placeholder="Account Name">
-                <input type="number" name="" placeholder="Account Number">
-                <input type="number" name="" placeholder="Amount">
-                <input type="Submit" name="" id="submit" value="Confirm Transaction">
+                <input type="number" id="accountNumber" placeholder="Account Number">
+                <input type="number" step ="any" id="amount" placeholder="Amount">
+                <input type="Submit" id="submit" value="Confirm Transaction">
             </form>
         </div>
         
         <div class="image-overlay"></div>
     </div>
+
+    <div class="message-modal">
+        <div class="modal-content2">
+            <ul id="error-list"></ul>
+            <p id="errorMessage"></p>
+            <p id="successMessage"></p>
+            <p class="num"><strong>Account Number:</strong> <span class="accountNum"></span></p>
+            <p class="transactionType"><strong>Transaction Type:</strong> <span class="transactionTypeValue"></span></p>
+            <p class="amountDiv"><strong>Amount:</strong> <span class="amountValue"></span></p>
+            <p class="balance"><strong>Acount Balance:</strong> <span class="balanceValue"></span></p>
+            <i class="fas fa-spinner fa-spin loader"></i>
+            <p class="wait">Processing transaction</p>
+        </div>
+    </div>
     
     <script src="assets/js/nav.js"></script>
     <script src="assets/js/dropdown.js"></script>
+    <script src="assets/js/cashier/transact.js"></script>
 </body>
 </html>

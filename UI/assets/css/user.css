@@ -84,6 +84,12 @@
       font-size: 20px;
   }
 
+  .num, .transactionType, .amountDiv{
+    display: none;
+    color: green;
+    text-transform: capitalize;
+}
+
   #successMessage, #error-list, #errorMessage{
       display: none;
   }
@@ -120,6 +126,10 @@
 
 form input{
     margin-bottom: 20px;
+}
+
+.sel{
+    margin-bottom: 25px;
 }
 
 .amount{
