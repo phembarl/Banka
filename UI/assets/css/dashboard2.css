@@ -45,9 +45,6 @@
 }
 
 .upload{
-    /* position: absolute;
-    top: 80%;
-    left: 60%; */
     background: rgba(0, 0, 0);
     opacity: .5;
     color: #fff;
@@ -67,7 +64,6 @@
 }
 
 .upload:hover{
-    /* background: rgba(0, 0, 0, 1); */
     opacity: .8;
 
 }

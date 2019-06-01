@@ -29,11 +29,6 @@
     border-radius: 10px;
 }
 
-#me, .avatar{
-    height: auto;
-    width: 100%;
-}
-
 .records{
     float: right;
     text-align: justify;

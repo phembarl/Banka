@@ -37,7 +37,7 @@
 
                 <div class="options">
                     <div class="avi">
-                        <img class="pishicon" src="https://avatars.dicebear.com/v2/bottts/random.svg">
+                        <img class="pishicon" src="">
                     </div>
                     <p class="arrow"><i class="caret"></i></p>
                 </div>
@@ -57,10 +57,10 @@
             <div class="visible info leftDiv">
                 <div>
                     <div class="image-cropper">
-                        <img src="https://avatars.dicebear.com/v2/bottts/random.svg" alt="" id="me">
+                        <img src="" alt="" id="me" class="avatar">
                         <div class="upload-wrapper">
                             <button class="upload">Update</button>
-                            <input type="file" class="uploadInput"></input>
+                            <input type="file" class="uploadInput" onchange="updateAvatar()"></input>
                         </div>
                     </div>
         
@@ -128,5 +128,6 @@
     <script src="assets/js/nav.js"></script>
     <script src="assets/js/dropdown.js"></script>
     <script src="assets/js/users/dashboard.js"></script>
+    <script src="assets/js/imageUpload.js"></script>
 </body>
 </html>

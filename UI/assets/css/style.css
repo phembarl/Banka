@@ -214,13 +214,15 @@ h3 a{
 	border-radius: 50px;
 }
 
-.options{
-	cursor: pointer;
+.avatar, .pishicon{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 0 0;
 }
 
-.pishicon{
-	height: auto;
-	width: 100%;
+.options{
+	cursor: pointer;
 }
 
 .who{

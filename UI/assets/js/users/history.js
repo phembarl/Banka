@@ -5,6 +5,10 @@ const modal = document.querySelector('.message-modal');
 const loader = document.querySelector('.loader');
 const wait = document.querySelector('.wait');
 const errorMessage = document.querySelector('#errorMessage');
+const pishicon = document.querySelector('.pishicon');
+
+const firstNameValue = sessionStorage.getItem('firstName');
+const lastNameValue = sessionStorage.getItem('lastName');
 
 const token = sessionStorage.getItem('token');
 const accountNumber = sessionStorage.getItem('accountNumber');
@@ -24,6 +28,9 @@ const init = {
     'x-access-token': token,
   },
 };
+
+pishicon.setAttribute('src',
+  `https://ui-avatars.com/api/?name=${firstNameValue}+${lastNameValue}&size=200&background=99e6e6&color=000`);
 
 fetch(`${url}/api/v1/accounts/${accountNumber}/transactions`, init)
   .then(response => response.json())

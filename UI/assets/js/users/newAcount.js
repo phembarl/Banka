@@ -10,12 +10,19 @@ const accountNumberInfo = document.querySelector('.num');
 const accountTypeInfo = document.querySelector('.type');
 const accountNumber = document.querySelector('.accountNumber');
 const accountType = document.querySelector('.accountType');
+const pishicon = document.querySelector('.pishicon');
+
+const firstNameValue = sessionStorage.getItem('firstName');
+const lastNameValue = sessionStorage.getItem('lastName');
 
 const token = sessionStorage.getItem('token');
 
 if (!token) {
   window.location.href = 'login.html';
 }
+
+pishicon.setAttribute('src',
+  `https://ui-avatars.com/api/?name=${firstNameValue}+${lastNameValue}&size=200&background=99e6e6&color=000`);
 
 const createAccount = (event) => {
   modal.style.display = 'block';
