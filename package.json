@@ -49,6 +49,7 @@
     "@babel/polyfill": "^7.4.0",
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
+    "cloudinary": "^1.14.0",
     "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",

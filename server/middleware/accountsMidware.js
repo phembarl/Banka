@@ -20,7 +20,7 @@ class AccountValidator {
     }
     return response.status(400).json({
       status: 400,
-      error: 'type can only be savings or current',
+      error: 'Type can only be savings or current',
     });
   }
 
@@ -40,7 +40,7 @@ class AccountValidator {
     if (!status) {
       return response.status(400).json({
         status: 400,
-        error: 'status cannot be empty',
+        error: 'Status cannot be empty',
       });
     }
     status = status.trim();
@@ -50,7 +50,7 @@ class AccountValidator {
     }
     return response.status(400).json({
       status: 400,
-      error: 'status can only be active or dormant',
+      error: 'Status can only be active or dormant',
     });
   }
 
@@ -71,7 +71,7 @@ class AccountValidator {
     }
     return response.status(400).json({
       status: 400,
-      error: 'transaction type can only be credit or debit',
+      error: 'Transaction type can only be credit or debit',
     });
   }
 
@@ -80,7 +80,7 @@ class AccountValidator {
     if (amount <= 0) {
       return response.status(400).json({
         status: 400,
-        error: 'amount must be greater than 0',
+        error: 'Amount must be greater than 0',
       });
     }
     return next();
@@ -101,7 +101,7 @@ class AccountValidator {
       if (status !== 'active' && status !== 'dormant') {
         return response.status(400).json({
           status: 400,
-          error: 'status can either be active or dormant',
+          error: 'Status can either be active or dormant',
         });
       }
     } return next();

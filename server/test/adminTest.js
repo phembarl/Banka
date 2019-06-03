@@ -47,7 +47,7 @@ describe('Create Admin', () => {
       const response = await server.patch('/api/v1/auth/transact@test.com/isadmin')
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 });

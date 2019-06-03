@@ -19,7 +19,7 @@ class UserValidator {
     if (type.toLowerCase() !== 'client' && type.toLowerCase() !== 'staff') {
       return response.status(400).json({
         status: 400,
-        error: 'you can either be a client or staff',
+        error: 'You can either be a client or staff',
       });
     }
     return next();

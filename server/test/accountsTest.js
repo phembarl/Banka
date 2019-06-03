@@ -99,11 +99,29 @@ describe('Accounts', () => {
       const { token } = loginResponse.body.data[0];
       const response = await server.post('/api/v1/accounts')
         .send({
+          type: '',
+        })
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      const errorMessages = response.body.errors;
+      for (let i = 0; i < errorMessages.length; i += 1) {
+        expect(errorMessages[0]).to.equal('Input type');
+      }
+    });
+  });
+
+  describe('create new account', () => {
+    it('should give the right error messages', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.post('/api/v1/accounts')
+        .send({
           type: 'javascript',
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('type can only be savings or current');
+      expect(response.body.error).to.equal('Type can only be savings or current');
     });
   });
 
@@ -120,18 +138,6 @@ describe('Accounts', () => {
   });
 
   describe('get all acounts of a user', () => {
-    it('should not perform operation for unauthorized user', async () => {
-      const loginResponse = await server.post('/api/v1/auth/signin')
-        .send(login2);
-      const { token } = loginResponse.body.data[0];
-      const response = await server.get('/api/v1/user/test@test.com/accounts')
-        .set('x-access-token', token);
-      expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
-    });
-  });
-
-  describe('get all acounts of a user', () => {
     it('should return the right error message', async () => {
       const loginResponse = await server.post('/api/v1/auth/signin')
         .send(login);
@@ -139,7 +145,7 @@ describe('Accounts', () => {
       const response = await server.get('/api/v1/user/test@tests.com/accounts')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('user not found');
+      expect(response.body.error).to.equal('User not found');
     });
   });
 
@@ -178,7 +184,7 @@ describe('Accounts', () => {
         .get('/api/v1/accounts/00123456')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('account not found');
+      expect(response.body.error).to.equal('Account not found');
       expect(response.body).to.be.an('object');
     });
   });
@@ -238,7 +244,7 @@ describe('Accounts', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('cannot find that account');
+      expect(response.body.error).to.equal('Cannot find that account');
     });
   });
 
@@ -254,7 +260,7 @@ describe('Accounts', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 
@@ -270,7 +276,7 @@ describe('Accounts', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('status can only be active or dormant');
+      expect(response.body.error).to.equal('Status can only be active or dormant');
     });
   });
 
@@ -286,7 +292,7 @@ describe('Accounts', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('status cannot be empty');
+      expect(response.body.error).to.equal('Status cannot be empty');
     });
   });
 
@@ -365,7 +371,7 @@ describe('Accounts', () => {
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
       expect(response.body).to.be.an('object');
-      expect(response.body.error).to.be.equal('status can either be active or dormant');
+      expect(response.body.error).to.be.equal('Status can either be active or dormant');
     });
   });
 
@@ -378,7 +384,7 @@ describe('Accounts', () => {
         .get('/api/v1/accounts')
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 
@@ -392,7 +398,7 @@ describe('Accounts', () => {
         .delete(`/api/v1/accounts/${rows[0].accountnumber}`)
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 
@@ -406,7 +412,7 @@ describe('Accounts', () => {
         .delete(`/api/v1/accounts/${rows[0].accountnumber}`)
         .set('x-access-token', token);
       expect(response.status).to.equal(200);
-      expect(response.body.message).to.equal('account successfully deleted');
+      expect(response.body.message).to.equal('Account successfully deleted');
     });
   });
 
@@ -419,7 +425,7 @@ describe('Accounts', () => {
         .delete('/api/v1/accounts/00011122')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('cannot find that account');
+      expect(response.body.error).to.equal('Cannot find that account');
     });
   });
 
@@ -471,7 +477,7 @@ describe('Accounts', () => {
         .get('/api/v1/users')
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 });
