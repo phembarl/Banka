@@ -123,7 +123,7 @@ describe('Transactions', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 
@@ -140,7 +140,7 @@ describe('Transactions', () => {
         .set('x-access-token', token);
       const errorMessages = response.body.errors;
       expect(response.status).to.equal(400);
-      expect(errorMessages[0]).to.equal('amount can only be in figures');
+      expect(errorMessages[0]).to.equal('Amount can only be in figures');
     });
   });
 
@@ -180,7 +180,7 @@ describe('Transactions', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('transaction type can only be credit or debit');
+      expect(response.body.error).to.equal('Transaction type can only be credit or debit');
     });
   });
 
@@ -196,7 +196,7 @@ describe('Transactions', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('amount must be greater than 0');
+      expect(response.body.error).to.equal('Amount must be greater than 0');
     });
   });
 
@@ -239,7 +239,7 @@ describe('Transactions', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(401);
-      expect(response.body.error).to.equal('you do not have the authority to perform that operation');
+      expect(response.body.error).to.equal('You do not have the authority to perform that operation');
     });
   });
 
@@ -262,7 +262,7 @@ describe('Transactions', () => {
         })
         .set('x-access-token', token);
       expect(response.status).to.equal(400);
-      expect(response.body.error).to.equal('insufficient funds');
+      expect(response.body.error).to.equal('Insufficient funds');
     });
   });
 
@@ -279,7 +279,7 @@ describe('Transactions', () => {
         .set('x-access-token', token);
       const errorMessages = response.body.errors;
       expect(response.status).to.equal(400);
-      expect(errorMessages[0]).to.equal('amount can only be in figures');
+      expect(errorMessages[0]).to.equal('Amount can only be in figures');
     });
   });
 
@@ -318,18 +318,6 @@ describe('Transactions', () => {
       expect(response.status).to.equal(200);
       expect(response.body).to.be.an('object');
       expect(response.body.data).to.be.an('array');
-    });
-  });
-
-  describe('get transaction history', () => {
-    it('should give the appropriate error message', async () => {
-      const loginResponse = await server.post('/api/v1/auth/signin')
-        .send(login);
-      const { token } = loginResponse.body.data[0];
-      const response = await server.get('/api/v1/accounts/00001111/transactions')
-        .set('x-access-token', token);
-      expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('no transaction has been made with that account number');
     });
   });
 
@@ -378,7 +366,7 @@ describe('Transactions', () => {
       const response = await server.get('/api/v1/transactions/1000')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
-      expect(response.body.error).to.equal('transaction record not found');
+      expect(response.body.error).to.equal('Transaction record not found');
     });
   });
 

@@ -62,7 +62,7 @@ class Transaction {
     if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have the authority to perform that operation',
+        error: 'You do not have the authority to perform that operation',
       });
     }
 
@@ -72,7 +72,7 @@ class Transaction {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'account not found',
+          error: 'Account not found',
         });
       }
 
@@ -84,7 +84,7 @@ class Transaction {
       if (newBalance < 500) {
         return response.status(400).json({
           status: 400,
-          error: 'insufficient funds',
+          error: 'Insufficient funds',
         });
       }
 
@@ -137,13 +137,6 @@ class Transaction {
     try {
       const { rows } = await db.query(text, value);
 
-      if (!rows[0]) {
-        return response.status(404).json({
-          status: 404,
-          error: 'no transaction has been made with that account number',
-        });
-      }
-
       return response.status(200).json({
         status: 200,
         data: rows,
@@ -175,7 +168,7 @@ class Transaction {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'transaction record not found',
+          error: 'Transaction record not found',
         });
       }
       return response.status(200).json({
@@ -192,7 +185,7 @@ class Transaction {
     } catch (error) {
       return response.status(400).json({
         status: 400,
-        error: 'invalid input',
+        error: error.message,
       });
     }
   }

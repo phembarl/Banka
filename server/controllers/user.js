@@ -23,7 +23,7 @@ class User {
     if (!request.user.isadmin) {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have the authority to perform that operation',
+        error: 'You do not have the authority to perform that operation',
       });
     }
 
@@ -33,7 +33,7 @@ class User {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'user not found',
+          error: 'User not found',
         });
       }
 
@@ -70,7 +70,7 @@ class User {
       if (!request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
-          error: 'you do not have the authority to perform that operation',
+          error: 'You do not have the authority to perform that operation',
         });
       }
 
@@ -125,7 +125,7 @@ class User {
       if (error.routine === '_bt_check_unique') {
         return response.status(400).json({
           status: 400,
-          error: 'user with that email already exists',
+          error: 'User with that email already exists',
         });
       }
       return response.status(400).json({
@@ -159,14 +159,14 @@ class User {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'user with that email does not exist',
+          error: 'User with that email does not exist',
         });
       }
 
       if (!userAuth.comparePassword(password, hashedPasswordRow.rows[0].password)) {
         return response.status(401).json({
           status: 401,
-          error: 'incorrect password',
+          error: 'Incorrect password',
         });
       }
       return response.status(200).json({
@@ -201,20 +201,13 @@ class User {
     const text = 'SELECT * FROM users WHERE email = $1;';
     const value = [email];
 
-    if (!request.user.isadmin && request.user.type !== 'staff') {
-      return response.status(401).json({
-        status: 401,
-        error: 'you do not have the authority to perform that operation',
-      });
-    }
-
     try {
       const { rows } = await db.query(text, value);
 
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'user not found',
+          error: 'User not found',
         });
       }
 

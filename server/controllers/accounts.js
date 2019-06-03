@@ -17,7 +17,7 @@ class Accounts {
     if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have the authority to perform that operation',
+        error: 'You do not have the authority to perform that operation',
       });
     }
     try {
@@ -64,7 +64,7 @@ class Accounts {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'account not found',
+          error: 'Account not found',
         });
       }
 
@@ -75,7 +75,7 @@ class Accounts {
       if (request.user.id !== ownerRow.rows[0].id && !request.user.isadmin && request.user.type !== 'staff') {
         return response.status(401).json({
           status: 401,
-          error: 'you do not have the authority to perform that operation',
+          error: 'You do not have the authority to perform that operation',
         });
       }
 
@@ -159,7 +159,7 @@ class Accounts {
     if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have the authority to perform that operation',
+        error: 'You do not have the authority to perform that operation',
       });
     }
 
@@ -169,7 +169,7 @@ class Accounts {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'cannot find that account',
+          error: 'Cannot find that account',
         });
       }
 
@@ -205,7 +205,7 @@ class Accounts {
     if (!request.user.isadmin && request.user.type !== 'staff') {
       return response.status(401).json({
         status: 401,
-        error: 'you do not have the authority to perform that operation',
+        error: 'You do not have the authority to perform that operation',
       });
     }
 
@@ -215,13 +215,13 @@ class Accounts {
       if (!rows[0]) {
         return response.status(404).json({
           status: 404,
-          error: 'cannot find that account',
+          error: 'Cannot find that account',
         });
       }
 
       return response.status(200).json({
         status: 200,
-        message: 'account successfully deleted',
+        message: 'Account successfully deleted',
       });
     } catch (error) {
       return response.status(400).json({
