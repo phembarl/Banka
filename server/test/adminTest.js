@@ -9,14 +9,15 @@ const server = supertest(app);
 const dropUsers = 'DROP TABLE IF EXISTS users;';
 
 const createUsers = `CREATE TABLE IF NOT EXISTS users(
-    id SERIAL PRIMARY KEY,
-    firstname VARCHAR NOT NULL,
-    lastname VARCHAR NOT NULL,
-    email VARCHAR UNIQUE NOT NULL,
-    password VARCHAR NOT NULL,
-    type VARCHAR NOT NULL,
-    isAdmin BOOLEAN DEFAULT false
-  );`;
+  id SERIAL PRIMARY KEY,
+  firstname VARCHAR NOT NULL,
+  lastname VARCHAR NOT NULL,
+  email VARCHAR UNIQUE NOT NULL,
+  avatar VARCHAR NOT NULL DEFAULT 'https://ui-avatars.com/api/?name=John+Doe&size=200&background=99e6e6&color=000',
+  password VARCHAR NOT NULL,
+  type VARCHAR NOT NULL,
+  isAdmin BOOLEAN DEFAULT false
+);`;
 
 const signup = {
   firstName: 'test',

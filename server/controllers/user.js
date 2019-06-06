@@ -145,7 +145,7 @@ class User {
  */
   static async signIn(request, response) {
     const { password } = request.body;
-    const text = 'SELECT id, firstname, lastname, email, type, isadmin FROM users WHERE email = $1;';
+    const text = 'SELECT id, firstname, lastname, email, avatar, type, isadmin FROM users WHERE email = $1;';
     const passwordText = 'SELECT password FROM users WHERE email = $1;';
 
     let { email } = request.body;
@@ -177,6 +177,7 @@ class User {
           firstName: rows[0].firstname,
           lastName: rows[0].lastname,
           email: rows[0].email,
+          avatar: rows[0].avatar,
         }],
       });
     } catch (error) {
@@ -223,6 +224,42 @@ class User {
       return response.status(400).json({
         status: 400,
         error: error.message,
+      });
+    }
+  }
+
+  static async uploadImage(request, response) {
+    const avatarUrl = request.file;
+    const { email } = request.params;
+
+    if (typeof avatarUrl === 'undefined') {
+      return response.status(400).json({
+        status: 400,
+        error: 'Please upload a valid image',
+      });
+    }
+
+    const text = 'UPDATE users SET avatar = $1 WHERE email = $2 returning *;';
+    const values = [avatarUrl.path, email];
+
+    try {
+      const { rows } = await db.query(text, values);
+
+      if (!rows[0]) {
+        return response.status(404).json({
+          status: 404,
+          error: 'User not found',
+        });
+      }
+      return response.status(200).json({
+        status: 200,
+        avatar: rows[0].avatar,
+        message: 'Profile picture successfully updated',
+      });
+    } catch (error) {
+      return response.status(400).json({
+        status: 400,
+        error,
       });
     }
   }

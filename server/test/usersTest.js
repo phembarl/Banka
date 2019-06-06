@@ -1,5 +1,6 @@
 import chai from 'chai';
 import supertest from 'supertest';
+import path from 'path';
 import db from '../models/db';
 import app from '../index';
 
@@ -11,12 +12,18 @@ const createUsers = `CREATE TABLE IF NOT EXISTS users(
   firstname VARCHAR NOT NULL,
   lastname VARCHAR NOT NULL,
   email VARCHAR UNIQUE NOT NULL,
+  avatar VARCHAR NOT NULL DEFAULT 'https://ui-avatars.com/api/?name=John+Doe&size=200&background=99e6e6&color=000',
   password VARCHAR NOT NULL,
   type VARCHAR NOT NULL,
   isAdmin BOOLEAN DEFAULT false
 );`;
 
 const dropUsers = 'DROP TABLE IF EXISTS users;';
+
+const login = {
+  email: 'hello@postgresql.com',
+  password: 'hello1234',
+};
 
 describe('User', () => {
   before('drop users table and re-create it', async () => {
@@ -195,6 +202,32 @@ describe('User', () => {
         });
       expect(response.status).to.equal(401);
       expect(response.body.error).to.equal('Incorrect password');
+    });
+  });
+
+  describe('update profile picture', () => {
+    it('should update user avatar', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.patch('/api/v1/user/hello@postgresql.com/avatar')
+        .attach('avatarUrl', path.join(__dirname, 'img/test.png'), 'test.png')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(200);
+      expect(response.body.message).to.equal('Profile picture successfully updated');
+    });
+  });
+
+  describe('update profile picture', () => {
+    it('should return the right error message', async () => {
+      const loginResponse = await server.post('/api/v1/auth/signin')
+        .send(login);
+      const { token } = loginResponse.body.data[0];
+      const response = await server.patch('/api/v1/user/hello@postgresql.com/avatar')
+        .attach('avatarUrl', ('./server/test/testImages/test.srt'), 'test.srt')
+        .set('x-access-token', token);
+      expect(response.status).to.equal(400);
+      expect(response.body.error).to.equal('Please upload a valid image');
     });
   });
 

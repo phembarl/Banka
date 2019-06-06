@@ -133,6 +133,12 @@ class Accounts {
         }],
       });
     } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return response.status(400).json({
+          status: 400,
+          error: 'Visit any of our branches to create another account',
+        });
+      }
       return response.status(400).json({
         status: 400,
         error: error.message,
