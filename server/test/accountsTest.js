@@ -10,7 +10,7 @@ const createAccounts = `CREATE TABLE IF NOT EXISTS accounts(
     id SERIAL PRIMARY KEY,
     accountNumber INT NOT NULL,
     createdOn TIMESTAMP DEFAULT NOW(),
-    owner INT NOT NULL,
+    owner INT UNIQUE NOT NULL,
     type VARCHAR NOT NULL,
     status VARCHAR NOT NULL DEFAULT 'draft',
     balance NUMERIC(15, 2) NOT NULL

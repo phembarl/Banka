@@ -24,6 +24,7 @@ class Transaction {
           createdOn: rows[i].createdon,
           type: rows[i].type,
           amount: rows[i].amount,
+          transactionCurrency: rows[i].transactioncurrency,
           accountNumber: rows[i].accountnumber,
           cashier: rows[i].cashier,
           oldBalance: rows[i].oldbalance,

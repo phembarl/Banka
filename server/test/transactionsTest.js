@@ -11,6 +11,7 @@ const createUsers = `CREATE TABLE IF NOT EXISTS users(
   firstname VARCHAR NOT NULL,
   lastname VARCHAR NOT NULL,
   email VARCHAR UNIQUE NOT NULL,
+  avatar VARCHAR NOT NULL DEFAULT 'https://ui-avatars.com/api/?name=John+Doe&size=200&background=99e6e6&color=000',
   password VARCHAR NOT NULL,
   type VARCHAR NOT NULL,
   isAdmin BOOLEAN DEFAULT false
@@ -19,26 +20,27 @@ const createUsers = `CREATE TABLE IF NOT EXISTS users(
 const dropUsers = 'DROP TABLE IF EXISTS users;';
 
 const createAccounts = `CREATE TABLE IF NOT EXISTS accounts(
-    id SERIAL PRIMARY KEY,
-    accountNumber INT NOT NULL,
-    createdOn TIMESTAMP DEFAULT NOW(),
-    owner INT NOT NULL,
-    type VARCHAR NOT NULL,
-    status VARCHAR NOT NULL DEFAULT 'draft',
-    balance NUMERIC(15, 2) NOT NULL
+  id SERIAL PRIMARY KEY,
+  accountNumber INT NOT NULL,
+  createdOn TIMESTAMP DEFAULT NOW(),
+  owner INT UNIQUE NOT NULL,
+  type VARCHAR NOT NULL,
+  status VARCHAR NOT NULL DEFAULT 'draft',
+  balance NUMERIC(15, 2) NOT NULL
 );`;
 
 const dropAccounts = 'DROP TABLE IF EXISTS accounts;';
 
 const createTransactions = `CREATE TABLE IF NOT EXISTS transactions(
-    id SERIAL PRIMARY KEY,
-    createdOn TIMESTAMP DEFAULT NOW(),
-    type VARCHAR NOT NULL,
-    amount NUMERIC(15, 2) NOT NULL,
-    accountNumber INT NOT NULL,
-    cashier INT NOT NULL,
-    oldBalance NUMERIC(15, 2) NOT NULL,
-    newBalance NUMERIC(15, 2) NOT NULL
+  id SERIAL PRIMARY KEY,
+  createdOn TIMESTAMP DEFAULT NOW(),
+  type VARCHAR NOT NULL,
+  amount NUMERIC(15, 2) NOT NULL,
+  transactioncurrency VARCHAR NOT NULL DEFAULT 'NGN',
+  accountNumber INT NOT NULL,
+  cashier INT NOT NULL,
+  oldBalance NUMERIC(15, 2) NOT NULL,
+  newBalance NUMERIC(15, 2) NOT NULL
 );`;
 
 const dropTransactions = 'DROP TABLE IF EXISTS transactions;';
