@@ -33,7 +33,8 @@ const transactions = `CREATE TABLE IF NOT EXISTS transactions(
 
 db.query(users, (error) => {
   if (error) {
-    return console.error('error creating users table');
+    // return console.error('error creating users table');
+    return console.error(error);
   }
   console.log('users table created successfully');
 });
