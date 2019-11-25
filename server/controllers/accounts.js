@@ -1,4 +1,8 @@
+// import redis from 'redis';
 import db from '../models/db';
+import cache from '../services/cache';
+
+
 /**
  * Displays, creates, updates or deletes an account
  * @class Accounts
@@ -25,13 +29,37 @@ class Accounts {
         const text = 'SELECT * FROM accounts WHERE status = $1;';
         const value = [status];
 
+        const cachedAccounts = await cache.get(status);
+        if (cachedAccounts) {
+          return response.status(200).json({
+            status: 200,
+            data: cachedAccounts,
+          });
+        }
+
         const { rows } = await db.query(text, value);
+
+        await cache.set(status, rows);
+
         return response.status(200).json({
           status: 200,
           data: rows,
         });
       }
+      const key = 'allAcounts';
+
+      const cachedAccounts = await cache.get(key);
+
+      if (cachedAccounts) {
+        return response.status(200).json({
+          status: 200,
+          data: cachedAccounts,
+        });
+      }
+
       const { rows } = await db.query('SELECT * FROM accounts;');
+
+      await cache.set(key, rows);
 
       return response.status(200).json({
         status: 200,
@@ -59,7 +87,25 @@ class Accounts {
     const value = [accountNumber];
 
     try {
+      const cachedDetails = await cache.get(accountNumber);
+
+      if (cachedDetails) {
+        return response.status(200).json({
+          status: 200,
+          data: [{
+            createdOn: cachedDetails[0].createdon,
+            accountNumber: cachedDetails[0].accountnumber,
+            ownerEmail: cachedDetails[0].email,
+            type: cachedDetails[0].type,
+            status: cachedDetails[0].status,
+            balance: cachedDetails[0].balance,
+          }],
+        });
+      }
+
       const { rows } = await db.query(text, value);
+
+      await cache.set(accountNumber, rows);
 
       if (!rows[0]) {
         return response.status(404).json({
@@ -172,6 +218,8 @@ class Accounts {
           error: 'Cannot find that account',
         });
       }
+
+      await cache.remove(accountNumber);
 
       return response.status(200).json({
         status: 200,

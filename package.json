@@ -58,7 +58,9 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.2",
     "pg": "^7.14.0",
+    "redis": "^2.8.0",
     "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.1.2"
+    "swagger-ui-express": "^4.1.2",
+    "util.promisify": "^1.0.0"
   }
 }

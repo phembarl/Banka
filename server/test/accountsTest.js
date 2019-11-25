@@ -181,7 +181,7 @@ describe('Accounts', () => {
         .send(login);
       const { token } = loginResponse.body.data[0];
       const response = await server
-        .get('/api/v1/accounts/00123456')
+        .get('/api/v1/accounts/11123456')
         .set('x-access-token', token);
       expect(response.status).to.equal(404);
       expect(response.body.error).to.equal('Account not found');
